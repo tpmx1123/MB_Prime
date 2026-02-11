@@ -1,0 +1,124 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #0a0a0a;
+  --color-bg-light: #faf9f6;
+  --color-secondary: #c9a227;
+  --color-secondary-light: #e4bc4a;
+  --color-text-muted: #94a3b8;
+
+  --font-serif: "Cormorant Garamond", serif;
+  --font-sans: "Inter", sans-serif;
+
+  /* Luxury 3D depth */
+  --shadow-luxury: 0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.03);
+  --shadow-luxury-hover: 0 40px 80px -20px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(201, 162, 39, 0.08);
+  --shadow-gold: 0 20px 40px -10px rgba(201, 162, 39, 0.2);
+  --perspective: 1200px;
+
+  --background-image-hero-pattern: linear-gradient(to right,
+      rgba(0, 0, 0, 0.92) 0%,
+      rgba(0, 0, 0, 0.5) 50%,
+      transparent 100%),
+    url("https://images.unsplash.com/photo-1613490493576-7fde63acd811?q=80&w=2071&auto=format&fit=crop");
+  --background-image-grain: url("https://www.transparenttextures.com/patterns/asfalt-dark.png");
+}
+
+@layer base {
+  .container {
+    @apply mx-auto px-4 md:px-8 lg:px-12 max-w-[1600px];
+  }
+
+  /* Sans-serif site: standard text light/regular, emphasis bold/extrabold */
+  body {
+    @apply bg-primary text-white font-sans font-light overflow-x-hidden;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-sans font-bold tracking-tight;
+  }
+
+  /* Emphasis text: bold or extra bold */
+  strong,
+  .font-emphasis {
+    @apply font-bold;
+  }
+
+  .font-emphasis-heavy {
+    @apply font-extrabold;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-secondary text-primary px-8 py-3 rounded-sm font-semibold uppercase tracking-widest transition-all duration-300 hover:bg-secondary-light hover:-translate-y-0.5;
+    box-shadow: var(--shadow-gold);
+  }
+
+  .glass-card {
+    @apply bg-white/5 backdrop-blur-md border border-white/10 rounded-xl p-8;
+  }
+
+  .section-padding {
+    @apply py-32;
+  }
+
+  /* 3D card – perspective + hover lift */
+  .card-3d {
+    transform-style: preserve-3d;
+    perspective: var(--perspective);
+    transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.5s ease;
+    box-shadow: var(--shadow-luxury);
+  }
+  .card-3d:hover {
+    transform: translateY(-8px) rotateX(2deg);
+    box-shadow: var(--shadow-luxury-hover);
+  }
+
+  /* Parallax wrapper */
+  .parallax-wrap {
+    perspective: 1px;
+    transform-style: preserve-3d;
+  }
+  .parallax-layer {
+    transform: translateZ(-1px) scale(2);
+  }
+
+  /* Luxury section heading */
+  .section-heading {
+    @apply font-sans font-bold tracking-tight;
+    letter-spacing: -0.02em;
+  }
+}
+
+/* Slick Carousel Customization */
+.slick-dots li button:before {
+  font-size: 12px !important;
+  color: #D4AF37 !important;
+  /* Secondary Gold */
+  opacity: 0.5 !important;
+}
+
+.slick-dots li.slick-active button:before {
+  color: #D4AF37 !important;
+  opacity: 1 !important;
+}
+
+.slick-prev:before,
+.slick-next:before {
+  color: #D4AF37 !important;
+  font-size: 24px !important;
+}
+
+.slick-prev {
+  left: -25px !important;
+}
+
+.slick-next {
+  right: -25px !important;
+}
