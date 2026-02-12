@@ -9,9 +9,10 @@ const Header = () => {
   const navItems = [
     { label: 'Home', link: '/' },
     {
-      label: 'Projects',
+      label: 'Our Projects',
       link: '/projects',
       children: [
+        { label: 'Projects', link: '/projects' },
         { label: 'MB Prime Villas | Srikakulam', link: '/projects/villas' },
         { label: 'MB Prime Enclave | Vizianagaram', link: '/projects/enclave' },
         { label: 'Vijayawada Project | Vijayawada', link: '/projects/vijayawada' },
@@ -33,14 +34,7 @@ const Header = () => {
           <Link to="/" className="cursor-pointer flex items-center">
             <img src={logo} alt="MB Prime Logo" className="md:h-18 h-12 w-auto object-contain" />
           </Link>
-          <div className="h-8 md:h-12 w-[1px] bg-white/20" />
-          <Link to="/projects" className="cursor-pointer flex items-center">
-            <img
-              src="https://res.cloudinary.com/durbtkhbz/image/upload/v1770526685/sklmlogo_c2trtg.png"
-              alt="Srikakulam Project Logo"
-              className="md:h-18 h-10 w-auto object-contain"
-            />
-          </Link>
+          
         </div>
 
         {/* Right: menu icon only (animated stagger menu) */}

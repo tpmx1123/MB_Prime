@@ -1,166 +1,118 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Menu } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { X, Menu, ChevronDown } from 'lucide-react';
+import logo from '../assets/mb.png';
 
-const StaggeredMenu = ({
-  isOpen,
-  setIsOpen,
-  position = 'right',
-  items = [],
-  displaySocials = false,
-  displayItemNumbering = true,
-  menuButtonColor = '#ffffff',
-  openMenuButtonColor = '#ffffff',
-  changeMenuColorOnOpen = true,
-  colors = ['#000000', '#000000'],
-  logoUrl,
-  accentColor = '#FFD700',
-}) => {
-  const handleToggle = () => setIsOpen(!isOpen);
+const StaggeredMenu = ({ isOpen, setIsOpen, items, displayItemNumbering }) => {
+  const [showProjects, setShowProjects] = useState(false);
 
   const menuVariants = {
-    closed: {
-      x: position === 'right' ? '100%' : '-100%',
-    },
-    open: {
-      x: 0,
-      transition: { staggerChildren: 0.08 },
-    },
-  };
-
-  const itemVariants = {
-    closed: { opacity: 0, x: 30 },
-    open: { opacity: 1, x: 0 },
+    closed: { x: '100%', transition: { duration: 0.5, ease: [0.43, 0.13, 0.23, 0.96] } },
+    opened: { x: 0, transition: { duration: 0.5, ease: [0.43, 0.13, 0.23, 0.96] } }
   };
 
   return (
     <>
-      {/* MENU BUTTON */}
       <button
-        onClick={handleToggle}
-        className="relative z-[1001]"
+        type="button"
+        onClick={() => setIsOpen(!isOpen)}
+        className="relative z-[1001] p-2.5 rounded-full bg-black/30 hover:bg-black/50 border border-white/20 transition-colors flex items-center justify-center shadow-lg"
+        aria-label={isOpen ? 'Close menu' : 'Open menu'}
       >
-        {isOpen ? (
-          <X size={26} color="#fff" />
-        ) : (
-          <Menu size={26} color="#fff" />
-        )}
+        {isOpen ? <X size={24} className="text-white shrink-0" /> : <Menu size={24} className="text-white shrink-0" />}
       </button>
 
-      {/* OVERLAY */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            className="fixed inset-0 bg-black/80 z-[999]"
-            onClick={() => setIsOpen(false)}
+            className="fixed inset-0 bg-black/60 z-[1999]"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            onClick={() => setIsOpen(false)}
           />
         )}
       </AnimatePresence>
 
-      {/* MENU PANEL */}
       <AnimatePresence>
         {isOpen && (
-          <motion.aside
-            className="fixed top-0 right-0 h-full w-80 z-[1000] p-8"
-            style={{
-              background: `linear-gradient(135deg, ${colors[0]}, ${colors[1]})`,
-            }}
-            variants={menuVariants}
+          <motion.div
             initial="closed"
-            animate="open"
+            animate="opened"
             exit="closed"
+            variants={menuVariants}
+            className="fixed inset-y-0 right-0 z-[2000] w-full md:w-[35vw] bg-[#0A0A0A] text-white p-6 md:p-10 flex flex-col shadow-2xl no-scrollbar"
           >
-            {/* LOGO */}
-            {logoUrl && (
-              <img src={logoUrl} alt="Logo" className="h-14 mb-10" />
-            )}
+            <div className="flex justify-between items-center mb-5">
+              <img src={logo} alt="MB Prime" className="h-10 md:h-12 w-auto" />
+              <button onClick={() => setIsOpen(false)} className="p-2 hover:bg-white/10 rounded-full transition-colors">
+                <X size={24} className="text-secondary" />
+              </button>
+            </div>
 
-            {/* MENU ITEMS */}
-            <ul className="space-y-4">
-              {items.map((item, index) => (
-                <motion.li key={item.label + index} variants={itemVariants} className="space-y-1">
-                  {item.children ? (
-                    <>
-                      <Link
-                        to={item.link || '#'}
-                        onClick={() => setIsOpen(false)}
-                        className="flex items-center gap-4 text-white/90 text-sm font-bold uppercase tracking-wider hover:text-white"
-                      >
-                        {displayItemNumbering && (
-                          <span className="text-lg font-bold" style={{ color: accentColor }}>
-                            {String(index + 1).padStart(2, '0')}
-                          </span>
-                        )}
-                        {item.label}
-                      </Link>
-                      <ul className="pl-8 space-y-2 border-l-2 border-white/20 ml-2">
-                        {item.children.map((sub) => (
-                          <motion.li key={sub.label} variants={itemVariants}>
-                            {sub.link?.startsWith('/') && !sub.link.includes('#') ? (
-                              <Link
-                                to={sub.link}
-                                onClick={() => setIsOpen(false)}
-                                className="flex items-center gap-3 text-white/80 text-base hover:text-white hover:pl-1 transition-all"
+            <nav className="flex-1 overflow-y-auto no-scrollbar">
+              <ul className="space-y-6">
+                {items.map((item, index) => (
+                  <li key={item.label} className="group">
+                    <div className="flex items-center gap-4">
+                      {/* Removed the numbering span here */}
+                      
+                      {item.children ? (
+                        <div className="flex flex-col w-full">
+                          <button 
+                            onClick={() => setShowProjects(!showProjects)}
+                            className="flex items-center justify-between w-full text-2xl md:text-3xl font-serif text-left group-hover:text-secondary transition-colors"
+                          >
+                            {item.label}
+                            <motion.div animate={{ rotate: showProjects ? 180 : 0 }}>
+                              <ChevronDown size={20} className="text-secondary/50" />
+                            </motion.div>
+                          </button>
+
+                          <AnimatePresence>
+                            {showProjects && (
+                              <motion.ul
+                                initial={{ height: 0, opacity: 0 }}
+                                animate={{ height: 'auto', opacity: 1 }}
+                                exit={{ height: 0, opacity: 0 }}
+                                className="mt-4 ml-2 space-y-3 border-l border-secondary/20 pl-4"
                               >
-                                <span className="text-secondary/80">–</span>
-                                {sub.label}
-                              </Link>
-                            ) : (
-                              <a
-                                href={sub.link}
-                                download={Boolean(sub.download)}
-                                onClick={() => setIsOpen(false)}
-                                className="flex items-center gap-3 text-white/80 text-base hover:text-white hover:pl-1 transition-all"
-                              >
-                                <span className="text-secondary/80">–</span>
-                                {sub.label}
-                              </a>
+                                {item.children.map((child) => (
+                                  <motion.li key={child.label}>
+                                    <Link 
+                                      to={child.link} 
+                                      onClick={() => setIsOpen(false)}
+                                      className="text-base md:text-lg font-light text-white/60 hover:text-secondary transition-colors"
+                                    >
+                                      {child.label}
+                                    </Link>
+                                  </motion.li>
+                                ))}
+                              </motion.ul>
                             )}
-                          </motion.li>
-                        ))}
-                      </ul>
-                    </>
-                  ) : (
-                    <>
-                      {item.link?.startsWith('/') && !item.link.includes('#') ? (
-                        <Link
+                          </AnimatePresence>
+                        </div>
+                      ) : (
+                        <Link 
                           to={item.link}
                           onClick={() => setIsOpen(false)}
-                          className="flex items-center gap-4 text-white text-lg hover:text-white/90"
+                          className="text-2xl md:text-3xl font-serif group-hover:text-secondary transition-colors"
                         >
-                          {displayItemNumbering && (
-                            <span className="text-xl font-bold" style={{ color: accentColor }}>
-                              {String(index + 1).padStart(2, '0')}
-                            </span>
-                          )}
                           {item.label}
                         </Link>
-                      ) : (
-                        <a
-                          href={item.link}
-                          download={Boolean(item.download)}
-                          onClick={() => setIsOpen(false)}
-                          className="flex items-center gap-4 text-white text-lg hover:text-white/90"
-                        >
-                          {displayItemNumbering && (
-                            <span className="text-xl font-bold" style={{ color: accentColor }}
-                            >
-                              {String(index + 1).padStart(2, '0')}
-                            </span>
-                          )}
-                          {item.label}
-                        </a>
                       )}
-                    </>
-                  )}
-                </motion.li>
-              ))}
-            </ul>
-          </motion.aside>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+
+            <div className="border-t border-white/10 pt-4">
+              <p className="text-secondary font-bold text-[10px] uppercase tracking-[0.3em] mb-1">Inquiries</p>
+              <p className="text-white/40 text-xs">connect@mbprime.in</p>
+            </div>
+          </motion.div>
         )}
       </AnimatePresence>
     </>

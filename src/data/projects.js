@@ -6,7 +6,7 @@ export const PROJECT_IMAGE_B = 'https://res.cloudinary.com/durbtkhbz/image/uploa
 export const projects = [
   {
     slug: 'vijayawada',
-    name: 'Vijayawada Project',
+    name: 'jewel city',
     location: 'Vijayawada',
     type: 'Residential Development',
     status: 'Under Planning',

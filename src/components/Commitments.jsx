@@ -1,16 +1,16 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion as Motion } from 'framer-motion';
 import { Award, MapPin, FileCheck, UserCheck } from 'lucide-react';
 
 const commitments = [
   {
     icon: Award,
-    title: 'Uncompromising Quality',
+    title: 'Unmatched Excellence',
     desc: 'Standards that go beyond industry norms.',
   },
   {
     icon: MapPin,
-    title: 'Strategic Vision',
+    title: 'Growth-Driven Vision',
     desc: 'Locations chosen for where Andhra Pradesh is headed.',
   },
   {
@@ -27,83 +27,86 @@ const commitments = [
 
 const Commitments = () => {
   return (
-    <section id="commitments" className="py-16 md:py-24 bg-white overflow-hidden">
-      <div className="container mx-auto px-4 md:px-6">
-        <div className="flex flex-col lg:flex-row gap-10 md:gap-16 xl:gap-24 items-center">
+    <section id="commitments" className="py-6 md:py-8 lg:py-10 bg-white overflow-hidden">
+      <div className="container mx-auto px-3 sm:px-4 md:px-6">
+        {/* Same layout on all screens: image left, content right – scaled down on mobile */}
+        <div className="flex flex-row gap-3 sm:gap-6 md:gap-8 xl:gap-8 items-stretch">
           
-          {/* LEFT SIDE: Immersive Image - Hidden on small mobile or scaled down */}
-          <motion.div 
-            className="w-full lg:w-1/2 relative lg:-ml-4 order-2 lg:order-1"
-            initial={{ opacity: 0, x: -50 }}
+          {/* LEFT: Image – same proportion on mobile */}
+          <Motion.div 
+            className="w-[45%] min-w-[45%] relative shrink-0 "
+            initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <div className="relative rounded-[1.5rem] md:rounded-[2rem] overflow-hidden ">
+            <div className="relative rounded-xl md:rounded-2xl overflow-hidden h-full min-h-[200px] sm:min-h-[280px] md:min-h-[350px] lg:min-h-[500px]">
               <img 
                 src="https://res.cloudinary.com/durbtkhbz/image/upload/v1770810715/wechoose_oofro5_n3ctx0.png" 
                 alt="MB Prime Luxury Development" 
-                className="w-full h-auto object-cover min-h-[350px] md:min-h-[500px] lg:min-h-[650px] hover:scale-105 transition-transform duration-1000"
+                className="w-full h-full min-h-[200px] object-cover hover:scale-105 transition-transform duration-1000"
               />    
             </div>
-          </motion.div>
+          </Motion.div>
 
-          {/* RIGHT SIDE: Content & Cards */}
-          <div className="w-full lg:w-1/2 order-1 lg:order-2">
-            <header className="mb-10 md:mb-16 text-center lg:text-left">
-              <motion.span
-                className="inline-block text-secondary font-sans font-bold text-[10px] md:text-xs uppercase tracking-[0.3em] md:tracking-[0.4em] mb-3 md:mb-4"
+          {/* RIGHT: Content – compact on mobile, same structure */}
+          <div className="w-[55%] min-w-0 flex flex-col">
+            <header className="mb-4 sm:mb-8 md:mb-16 text-left shrink-0">
+              <Motion.span
+                className="inline-block text-secondary font-sans font-bold text-[9px] sm:text-[10px] md:text-xs uppercase tracking-[0.2em] sm:tracking-[0.3em] md:tracking-[0.4em] mb-1 sm:mb-3 md:mb-4"
                 initial={{ opacity: 0, y: 10 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
               >
                 Our Commitments
-              </motion.span>
-              <motion.h2
-                className="text-3xl md:text-5xl lg:text-6xl font-serif text-primary leading-tight mb-4 md:mb-6"
+              </Motion.span>
+              <Motion.h2
+                className="text-base sm:text-2xl md:text-5xl lg:text-6xl font-serif text-primary leading-tight mb-2 sm:mb-4 md:mb-1"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
               >
-                What Sets <br className="hidden md:block" /> 
+                What Sets <br className="hidden sm:block" /> 
                 <span className="italic font-light">MB Prime Apart</span>
-              </motion.h2>
-              <div className="w-16 md:w-20 h-1 bg-secondary rounded-full mx-auto lg:mx-0" />
+              </Motion.h2>
+              <div className="w-10 sm:w-16 md:w-20 h-0.5 sm:h-1 bg-secondary rounded-full" />
             </header>
 
-            {/* Commitments Grid - Stacked on mobile, 2 columns on tablet+ */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 md:gap-x-8 gap-y-8 md:gap-y-10">
+            {/* Grid: 2 columns on all screens – same as desktop */}
+            <div className="grid grid-cols-2 gap-x-2 gap-y-2 sm:gap-x-4 sm:gap-y-3 md:gap-x-6 md:gap-y-4 lg:gap-y-1 min-w-0">
               {commitments.map((item, i) => (
-                <motion.div
+                <Motion.div
                   key={item.title}
-                  className="group flex flex-col items-center lg:items-start text-center lg:text-left"
-                  initial={{ opacity: 0, y: 20 }}
+                  className="group flex flex-col items-start text-left"
+                  initial={{ opacity: 0, y: 16 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: i * 0.1 }}
+                  transition={{ delay: i * 0.08 }}
                 >
-                  <div className="mb-3 md:mb-4 text-secondary/40 group-hover:text-secondary transition-colors duration-300">
-                    <item.icon size={28} md:size={32} strokeWidth={1.5} />
+                  <div className="flex items-center gap-2 sm:gap-3 md:gap-4 mb-1 sm:mb-2 md:mb-3">
+                    <span className="text-secondary/80 group-hover:text-secondary transition-colors duration-300 shrink-0">
+                      <item.icon size={16} className="sm:w-5 sm:h-5 md:w-7 md:h-7" strokeWidth={1.5} />
+                    </span>
+                    <h3 className="font-bold text-primary text-[11px] sm:text-base md:text-xl group-hover:translate-x-1 transition-transform duration-300 leading-tight">
+                      {item.title}
+                    </h3>
                   </div>
-                  <h3 className="font-bold text-primary text-lg md:text-xl mb-1 md:mb-2 group-hover:translate-x-1 transition-transform duration-300">
-                    {item.title}
-                  </h3>
-                  <p className="text-slate-500 text-xs md:text-sm leading-relaxed mb-3 md:mb-4 max-w-[280px] lg:max-w-none">
+                  <p className="text-slate-500 text-[10px] sm:text-xs md:text-sm leading-snug sm:leading-relaxed mb-2 sm:mb-3 md:mb-4 min-w-0">
                     {item.desc}
                   </p>
                   <div className="h-px w-0 group-hover:w-full bg-secondary/30 transition-all duration-500 hidden lg:block" />
-                </motion.div>
+                </Motion.div>
               ))}
             </div>
 
-            <motion.div 
-              className="mt-12 md:mt-16"
+            <Motion.div 
+              className="mt-6 sm:mt-12 md:mt-16"
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               transition={{ delay: 0.6 }}
             >
               {/* Optional CTA placeholder */}
-            </motion.div>
+            </Motion.div>
           </div>
 
         </div>

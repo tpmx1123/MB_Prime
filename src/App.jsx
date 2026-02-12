@@ -4,7 +4,6 @@ import Hero from './components/Hero'
 import IntroPhilosophy from './components/IntroPhilosophy'
 import FeaturedProjectsHome from './components/FeaturedProjectsHome'
 import Commitments from './components/Commitments'
-import FinalCTA from './components/FinalCTA'
 import InvestmentPerspective from './components/InvestmentPerspective'
 import Projects from './components/Projects'
 import Location from './components/Location'
@@ -14,7 +13,7 @@ import EnquiryPopup from './components/EnquiryPopup'
 import Founder from './components/Founder'
 import AboutMBPrime from './components/AboutMBPrime'
 import ProjectDetail from './components/ProjectDetail'
-
+import FounderSection from './components/FounderSection'
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom'
 import { useEffect } from 'react'
 
@@ -49,11 +48,13 @@ const Home = () => (
   <>
     <Hero />
     <IntroPhilosophy />
+    
     <FeaturedProjectsHome />
     <Commitments />
-    <FinalCTA />
-    <Location />
+    <FounderSection />
     <InvestmentPerspective />
+    <Location />
+
   </>
 )
 
