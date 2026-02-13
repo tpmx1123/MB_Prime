@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { Link, Navigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect, useRef } from 'react';
+import { Link, useParams, Navigate } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
   Check, MapPin, Layout, ClipboardList, ChevronLeft, ChevronRight, Download, Plane,
   Footprints, Trophy, Target, Zap, Smile, Trees, Music, Home, Waves, Users, Sunrise, Droplets, Leaf, Compass,
-  Info
+  Info, X, ZoomIn, ZoomOut, ArrowRight
 } from 'lucide-react';
 import { projects, getProjectBySlug } from '../data/projects';
 import ProjectHeader from './ProjectHeader';
@@ -14,20 +14,13 @@ const iconMap = {
 };
 
 const MBPrimeVillas = () => {
-  // Hardcode for Villas project
   const project = getProjectBySlug('villas');
-  
-  // Redirect if project not found
-  if (!project) {
-    return <Navigate to="/projects" replace />;
-  }
 
   const [startIndex, setStartIndex] = useState(0);
 
   useEffect(() => {
     setStartIndex(0);
-  }, []);
-  
+  }, ['villas']);
   const allOtherProjects = projects.filter(p => p.slug !== 'villas');
   const visibleProjects = allOtherProjects.slice(startIndex, startIndex + 4);
 
@@ -44,6 +37,48 @@ const MBPrimeVillas = () => {
   };
 
   const [activePlotTab, setActivePlotTab] = useState(0);
+  const tabsRef = useRef([]);
+  const tabsContainerRef = useRef(null);
+
+  useEffect(() => {
+    if (tabsRef.current[activePlotTab] && tabsContainerRef.current) {
+      const tab = tabsRef.current[activePlotTab];
+      const container = tabsContainerRef.current;
+
+      const tabLeft = tab.offsetLeft;
+      const tabWidth = tab.offsetWidth;
+      const containerWidth = container.offsetWidth;
+
+      const scrollPosition = tabLeft - (containerWidth / 2) + (tabWidth / 2);
+
+      container.scrollTo({
+        left: scrollPosition,
+        behavior: 'smooth'
+      });
+    }
+  }, [activePlotTab]);
+  const [isLayoutZoomed, setIsLayoutZoomed] = useState(false);
+  const [zoomLevel, setZoomLevel] = useState(1);
+
+  // Reset zoom when modal opens/closes
+  useEffect(() => {
+    if (!isLayoutZoomed) setZoomLevel(1);
+  }, [isLayoutZoomed]);
+
+  const handleZoomIn = (e) => {
+    e.stopPropagation();
+    setZoomLevel(prev => Math.min(prev + 0.5, 3));
+  };
+
+  const handleZoomOut = (e) => {
+    e.stopPropagation();
+    setZoomLevel(prev => Math.max(prev - 0.5, 1));
+  };
+
+  const handleDoubleClick = (e) => {
+    e.stopPropagation();
+    setZoomLevel(prev => (prev === 1 ? 2 : 1));
+  };
 
   if (!project) return <Navigate to="/projects" replace />;
 
@@ -146,7 +181,7 @@ const MBPrimeVillas = () => {
                     transition={{ duration: 0.6 }}
                     className="relative mb-12"
                   >
-                    <h2 className="text-3xl md:text-4xl font-sans font-bold text-primary tracking-tight">
+                    <h2 className="text-2xl md:text-4xl font-sans font-bold text-primary tracking-tight">
                       Villa Configurations
                     </h2>
                     <motion.div
@@ -161,14 +196,16 @@ const MBPrimeVillas = () => {
                     initial={{ opacity: 0, y: 10 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.3, duration: 0.6 }}
-                    className="flex p-1 bg-slate-100 rounded-xl w-full md:w-fit overflow-x-auto border border-slate-200/50 shadow-sm no-scrollbar"
+                    ref={tabsContainerRef}
+                    className="flex p-1 bg-slate-100 rounded-xl w-full md:w-fit overflow-x-auto border border-slate-200/50 shadow-sm no-scrollbar scroll-smooth md:-mt-0 -mt-5"
                   >
                     <div className="flex min-w-max md:min-w-0">
                       {project.villaTypes.map((type, index) => (
                         <button
                           key={type.id}
+                          ref={el => tabsRef.current[index] = el}
                           onClick={() => setActivePlotTab(index)}
-                          className={`relative px-4 md:px-6 py-2.5 rounded-lg font-sans font-bold text-[10px] md:text-xs uppercase tracking-wide transition-colors duration-300 whitespace-nowrap ${activePlotTab === index
+                          className={`relative px-3 md:px-8 py-2.5 rounded-lg font-sans font-bold text-[10px] md:text-xs uppercase tracking-wide transition-colors duration-300 whitespace-nowrap ${activePlotTab === index
                             ? 'text-secondary'
                             : 'text-slate-400 hover:text-slate-600'
                             }`}
@@ -181,7 +218,7 @@ const MBPrimeVillas = () => {
                             />
                           )}
                           <span className="relative z-10">
-                            {type.type} <span className="ml-1 opacity-60">({type.size})</span>
+                            {type.type} {type.direction && <span className="ml-1 opacity-60 text-[10px]">({type.direction})</span>}
                           </span>
                         </button>
                       ))}
@@ -208,7 +245,7 @@ const MBPrimeVillas = () => {
                   initial="hidden"
                   whileInView="visible"
                   viewport={{ once: true }}
-                  className="flex items-center justify-center gap-2 md:gap-8 "
+                  className="flex items-center justify-center gap-2 md:gap-8 md:-mt-0 -mt-7  "
                 >
                   <button
                     onClick={() => setActivePlotTab(prev => (prev === 0 ? project.villaTypes.length - 1 : prev - 1))}
@@ -229,9 +266,9 @@ const MBPrimeVillas = () => {
                       <img
                         src={project.villaTypes[activePlotTab].image}
                         alt={project.villaTypes[activePlotTab].type}
-                        className="w-auto h-[250px] md:h-[350px] object-cover transition-transform duration-700 group-hover:scale-105"
+                        className="w-auto h-[200px] md:h-[350px] object-cover transition-transform duration-700 group-hover:scale-105"
                       />
-                      <div className={`absolute top-4 left-4 ${project.villaTypes[activePlotTab].color} text-white px-2 py-0.5 rounded-full text-[8px] font-bold uppercase tracking-wider shadow-sm`}>
+                      <div className={`absolute md:top-4 md:left-4 top-2 left-2 ${project.villaTypes[activePlotTab].color} text-white md:px-2 md:py-0.5 px-1 py-0 rounded-full md:text-[8px] text-[5px] font-bold uppercase tracking-wider shadow-sm`}>
                         {project.villaTypes[activePlotTab].type}
                       </div>
                     </motion.div>
@@ -241,33 +278,38 @@ const MBPrimeVillas = () => {
                       initial={{ opacity: 0, x: 20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ duration: 0.5 }}
-                      className="md:justify-self-start max-w-md"
+                      className="md:justify-self-start max-w-md text-center md:text-left"
                     >
-                      <h3 className="text-2xl font-sans font-bold text-primary mb-4">
+                      <h3 className="md:text-2xl text-[17px] font-sans font-bold text-primary md:mb-4 mb-2">
                         {project.villaTypes[activePlotTab].type}
                       </h3>
-                      <div className="flex flex-wrap gap-4 mb-6 text-sm font-sans text-slate-500">
-                        <span className="bg-slate-50 px-3 py-1 rounded border border-slate-100">
+                      <div className="flex flex-nowrap gap-4 mb-6 text-sm font-sans text-slate-500 justify-center md:justify-start items-center">
+                        <span className="bg-slate-50 px-3 py-1 rounded border border-slate-100 whitespace-nowrap">
                           Size: <strong className="text-slate-700">{project.villaTypes[activePlotTab].size}</strong>
                         </span>
+                        {project.villaTypes[activePlotTab].direction && (
+                          <span className="bg-slate-50 px-3 py-1 rounded border border-slate-100 whitespace-nowrap">
+                            Direction: <strong className="text-slate-700">{project.villaTypes[activePlotTab].direction}</strong>
+                          </span>
+                        )}
 
                       </div>
 
-                      <p className="text-slate-600 font-sans leading-relaxed mb-6">
+                      <p className="text-slate-600 font-sans leading-relaxed mb-6 md:text-[16px] text-[12px]">
                         {project.villaTypes[activePlotTab].description}
                       </p>
 
                       {/* Area Details Grid */}
-                      <div className="grid grid-cols-2 gap-x-8 mt-10">
+                      <div className="grid grid-cols-2 gap-x-8 md:mt-10 ">
                         <div>
-                          <p className="text-sm font-sans font-medium text-slate-700 mb-1">Plot Area</p>
-                          <div className="h-0.5 w-10 bg-indigo-400 rounded-full mb-3"></div>
-                          <p className="text-2xl font-sans font-bold text-primary">{project.villaTypes[activePlotTab].area}</p>
+                          <p className="md:text-sm text-[12px] font-sans font-medium text-slate-700 mb-1">Plot Area</p>
+                          <div className="h-0.5 w-10 bg-indigo-400 rounded-full mb-3 mx-auto md:mx-0"></div>
+                          <p className="md:text-2xl text-[14px] font-sans font-bold text-primary">{project.villaTypes[activePlotTab].area}</p>
                         </div>
                         <div>
-                          <p className="text-sm font-sans font-medium text-slate-700 mb-1">Built Up Area</p>
-                          <div className="h-0.5 w-10 bg-indigo-400 rounded-full mb-3"></div>
-                          <p className="text-2xl font-sans font-bold text-primary">{project.villaTypes[activePlotTab].builtUp}</p>
+                          <p className="md:text-sm text-[12px] font-sans font-medium text-slate-700 mb-1">Built Up Area</p>
+                          <div className="h-0.5 w-10 bg-indigo-400 rounded-full mb-3 mx-auto md:mx-0"></div>
+                          <p className="md:text-2xl text-[14px] font-sans font-bold text-primary">{project.villaTypes[activePlotTab].builtUp}</p>
                         </div>
                       </div>
                     </motion.div>
@@ -286,7 +328,7 @@ const MBPrimeVillas = () => {
           </div>
 
           {/* Layout Section */}
-          <div id="layout" className="scroll-mt-24 mb-20">
+          <div id="layout" className="scroll-mt-24 mb-20 bg-secondary/10 rounded-3xl">
             <motion.section
               initial="hidden"
               whileInView="visible"
@@ -304,26 +346,7 @@ const MBPrimeVillas = () => {
                 }
               }}
             >
-              <motion.div
-                variants={{
-                  hidden: { opacity: 0, scale: 0.95 },
-                  visible: { opacity: 1, scale: 1, transition: { duration: 0.6 } }
-                }}
-                className="flex flex-col items-center justify-center mb-10 mt-32"
-              >
-                <div className="relative">
-                  <h2 className="text-3xl md:text-4xl font-sans font-bold text-primary tracking-tight">
-                    Master Layout
-                  </h2>
-                  <motion.div
-                    variants={{
-                      hidden: { width: 0 },
-                      visible: { width: '100%', transition: { delay: 0.3, duration: 0.8 } }
-                    }}
-                    className="absolute -bottom-2 left-0 h-1 bg-gradient-to-r from-secondary/60 to-transparent rounded-full"
-                  />
-                </div>
-              </motion.div>
+
 
               <motion.div
                 variants={{
@@ -334,45 +357,39 @@ const MBPrimeVillas = () => {
                     transition: { staggerChildren: 0.1, delayChildren: 0.2 }
                   }
                 }}
-                className="max-w-4xl mx-auto grid md:grid-cols-2 gap-12 items-center py-8"
+                className="max-w-6xl mx-auto grid md:grid-cols-2 items-center py-20 px-6 md:px-12 "
               >
                 {/* Left Side: Highlights */}
-                <div className="flex flex-col gap-6 md:pl-16">
-                  {project.layoutHighlights?.[0]?.map((item, idx) => (
+                <div className="flex flex-col gap-4 md:pl-16 md:-mt-0 -mt-8 md:mb-0 mb-4">
+                  <div className="relative inline-block px-6 py-2 md:px-10 md:py-3 bg-secondary rounded-r-full backdrop-blur-sm mb-6 -ml-1 self-start ">
+                    <h2 className="text-xl md:text-3xl font-sans font-bold text-primary tracking-tight">
+                      Master Layout
+                    </h2>
                     <motion.div
-                      key={idx}
                       variants={{
-                        hidden: { opacity: 0, x: -30 },
-                        visible: { opacity: 1, x: 0, transition: { duration: 0.6 } }
+                        hidden: { width: 0 },
+                        visible: { width: '100%', transition: { delay: 0.3, duration: 0.8 } }
                       }}
-                      className="flex items-center gap-4 group cursor-default"
-                    >
-                      <span className="flex-shrink-0 w-2.5 h-2.5 bg-secondary rotate-45 transform group-hover:rotate-90 group-hover:scale-125 transition-all duration-500 shadow-sm" />
-                      <span className="text-primary/70 group-hover:text-primary font-sans text-lg font-medium tracking-tight transition-colors duration-300">
-                        {item}
-                      </span>
-                    </motion.div>
-                  ))}
-
-                  {project.layoutHighlights?.[1] && (
-                    <div className="space-y-6 pt-2">
-                      {project.layoutHighlights[1].map((item, idx) => (
-                        <motion.div
-                          key={`col2-${idx}`}
-                          variants={{
-                            hidden: { opacity: 0, x: -30 },
-                            visible: { opacity: 1, x: 0, transition: { duration: 0.6 } }
-                          }}
-                          className="flex items-center gap-4 group cursor-default"
-                        >
-                          <span className="flex-shrink-0 w-2.5 h-2.5 bg-secondary rotate-45 transform group-hover:rotate-90 group-hover:scale-125 transition-all duration-500 shadow-sm" />
-                          <span className="text-primary/70 group-hover:text-primary font-sans text-lg font-medium tracking-tight transition-colors duration-300">
-                            {item}
-                          </span>
-                        </motion.div>
-                      ))}
-                    </div>
-                  )}
+                      className="absolute bottom-0 left-0 h-[2px] bg-gradient-to-r from-secondary to-transparent"
+                    />
+                  </div>
+                  <div className="grid grid-cols-2 gap-x-3 md:gap-x-8 gap-y-3 md:gap-y-4 w-full">
+                    {project.layoutHighlights?.flat().map((item, idx) => (
+                      <motion.div
+                        key={idx}
+                        variants={{
+                          hidden: { opacity: 0, x: -20 },
+                          visible: { opacity: 1, x: 0, transition: { duration: 0.5, delay: idx * 0.1 } }
+                        }}
+                        className="flex items-start gap-2 md:gap-3 group cursor-default"
+                      >
+                        <div className="mt-1.5 md:mt-2 w-1 md:w-1.5 h-1 md:h-1.5 rounded-full bg-secondary shrink-0 group-hover:scale-125 transition-transform duration-300" />
+                        <span className="text-primary/80 group-hover:text-primary font-sans text-[11px] md:text-base font-medium tracking-tight transition-colors duration-300 leading-relaxed">
+                          {item}
+                        </span>
+                      </motion.div>
+                    ))}
+                  </div>
                 </div>
 
                 {/* Right Side: Image */}
@@ -383,12 +400,24 @@ const MBPrimeVillas = () => {
                   }}
                   className="relative flex justify-center items-center perspective-1000"
                 >
-                  <div className="absolute -inset-10 bg-secondary/5 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
-                  <img
-                    src={project.masterPlan}
-                    alt={`${project.name} Master Plan`}
-                    className="w-full h-auto max-w-[500px] object-contain transition-transform duration-700 hover:scale-[1.05] drop-shadow-2xl"
-                  />
+                  <div
+                    className="cursor-pointer group/image"
+                    onClick={() => setIsLayoutZoomed(true)}
+                  >
+                    <div className="absolute -inset-10 bg-secondary/5 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
+                    <div className="relative">
+                      <img
+                        src={project.masterPlan}
+                        alt={`${project.name} Master Plan`}
+                        className="w-full h-auto max-w-[430px] object-contain transition-transform duration-700 hover:scale-[1.02] drop-shadow-2xl rounded-lg"
+                      />
+                      <div className="absolute inset-0 bg-black/0 group-hover/image:bg-black/10 transition-colors duration-300 rounded-lg flex items-center justify-center opacity-0 group-hover/image:opacity-100">
+                        <span className="bg-white/90 text-primary px-4 py-2 rounded-full text-sm font-semibold shadow-lg transform translate-y-4 group-hover/image:translate-y-0 transition-all duration-300">
+                          Click to Zoom
+                        </span>
+                      </div>
+                    </div>
+                  </div>
                 </motion.div>
               </motion.div>
             </motion.section>
@@ -409,7 +438,7 @@ const MBPrimeVillas = () => {
                 }
               }}
             >
-              <div className="flex flex-col items-center justify-center mb-6 mt-40">
+              <div className="flex flex-col items-center justify-center mb-6 mt-20 md:mt-40">
                 <motion.div
                   variants={{
                     hidden: { opacity: 0, scale: 0.95 },
@@ -448,10 +477,10 @@ const MBPrimeVillas = () => {
                     initial={{ height: 0 }}
                     whileInView={{ height: '80%' }}
                     transition={{ duration: 1.5, ease: "easeInOut" }}
-                    className="absolute left-1/2 top-40 w-[2px] border-l-2 border-dashed border-slate-400/40 md:hidden -translate-x-1/2"
+                    className="absolute left-1/2 top-20 md:top-40 w-[2px] border-l-2 border-dashed border-slate-400/40 md:hidden -translate-x-1/2"
                   />
 
-                  <div className="flex flex-col md:flex-row justify-between items-center md:items-start relative z-10 w-full gap-20 md:gap-0">
+                  <div className="flex flex-col md:flex-row justify-between items-center md:items-start relative z-10 w-full gap-10 md:gap-0">
                     {project.locationDistances?.map((loc, idx) => (
                       <motion.div
                         key={idx}
@@ -708,20 +737,23 @@ const MBPrimeVillas = () => {
 
 
           <motion.div
-            className="mt-14 pt-10 border-t border-secondary/10"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
+            className="mt-14 ml-19 max-w-5xl bg-[#6366f1] rounded-lg p-8 md:p-10 flex flex-col md:flex-row items-center justify-center gap-16 shadow-2xl  overflow-hidden group"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <motion.a
-              href="/#contact"
-              className="inline-block px-8 py-4 bg-secondary text-primary font-sans font-bold rounded-sm transition-all duration-300"
-              style={{ boxShadow: 'var(--shadow-gold)' }}
-              whileHover={{ scale: 1.03, y: -2 }}
-              whileTap={{ scale: 0.98 }}
+            <div className="absolute top-0 right-0 bg-white/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 gap-10" />
+
+            <h3 className="text-2xl md:text-2xl font-sans font-bold text-white tracking-tight z-10 text-center md:text-left ">
+              Are you interested in this Property?
+            </h3>
+
+            <button
+              onClick={() => window.dispatchEvent(new CustomEvent('open-enquiry-popup'))}
+              className="inline-flex items-center gap-2 px-4 py-3 bg-white text-[#6366f1] font-sans font-bold rounded-full transition-all duration-300 hover:bg-slate-50 hover:scale-105 shadow-lg z-10"
             >
-              Register interest
-            </motion.a>
+              Connect with Us <ArrowRight size={20} />
+            </button>
           </motion.div>
         </div >
       </section >
@@ -783,7 +815,79 @@ const MBPrimeVillas = () => {
             ))}
           </div>
         </div>
-      </section >
+      </section>
+
+      {/* Master Layout Zoom Modal */}
+      <AnimatePresence>
+        {isLayoutZoomed && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setIsLayoutZoomed(false)}
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 p-4 backdrop-blur-sm"
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              transition={{ type: "spring", damping: 25, stiffness: 300 }}
+              onClick={(e) => e.stopPropagation()}
+              className="relative w-full h-full flex items-center justify-center overflow-auto p-4"
+            >
+              <img
+                src={project.masterPlan}
+                alt={`${project.name} Master Plan Zoomed`}
+                className="max-w-none transition-transform duration-300 ease-out origin-center"
+                style={{
+                  transform: `scale(${zoomLevel})`,
+                  cursor: zoomLevel > 1 ? 'grab' : 'zoom-in',
+                  maxHeight: '85vh',
+                  maxWidth: '90vw'
+                }}
+                onDoubleClick={handleDoubleClick}
+              />
+            </motion.div>
+
+            {/* Controls */}
+            <motion.button
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.8 }}
+              onClick={(e) => {
+                e.stopPropagation();
+                setIsLayoutZoomed(false);
+              }}
+              className="absolute top-4 right-4 md:top-8 md:right-8 p-3 text-white/70 hover:text-white bg-black/50 hover:bg-black/70 rounded-full transition-colors z-[120]"
+            >
+              <X size={24} />
+            </motion.button>
+
+            <div className="absolute top-4 left-4 md:top-8 md:left-8 flex flex-col gap-2 z-[120]">
+              <motion.button
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                onClick={handleZoomIn}
+                className="p-3 text-white/70 hover:text-white bg-black/50 hover:bg-black/70 rounded-full transition-colors backdrop-blur-md"
+                title="Zoom In"
+              >
+                <ZoomIn size={24} />
+              </motion.button>
+              <motion.button
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                onClick={handleZoomOut}
+                className="p-3 text-white/70 hover:text-white bg-black/50 hover:bg-black/70 rounded-full transition-colors backdrop-blur-md"
+                title="Zoom Out"
+                disabled={zoomLevel <= 1}
+                style={{ opacity: zoomLevel <= 1 ? 0.3 : 1, cursor: zoomLevel <= 1 ? 'not-allowed' : 'pointer' }}
+              >
+                <ZoomOut size={24} />
+              </motion.button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 };

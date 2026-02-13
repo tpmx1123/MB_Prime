@@ -86,60 +86,74 @@ const ProjectHeader = ({ project }) => {
                     className="md:hidden text-white"
                     onClick={() => setIsOpen(!isOpen)}
                 >
-                    <div className="space-y-2">
-                        <span className={`block w-8 h-0.5 bg-white transition-transform ${isOpen ? 'rotate-45 translate-y-2.5' : ''}`}></span>
-                        <span className={`block w-8 h-0.5 bg-white transition-opacity ${isOpen ? 'opacity-0' : ''}`}></span>
-                        <span className={`block w-8 h-0.5 bg-white transition-transform ${isOpen ? '-rotate-45 -translate-y-2.5' : ''}`}></span>
+                    <div className="space-y-1">
+                        <span className={`block w-4 h-0.5 bg-white transition-transform ${isOpen ? 'rotate-45 translate-y-2.5' : ''}`}></span>
+                        <span className={`block w-4 h-0.5 bg-white transition-opacity ${isOpen ? 'opacity-0' : ''}`}></span>
+                        <span className={`block w-4 h-0.5 bg-white transition-transform ${isOpen ? '-rotate-45 -translate-y-2.5' : ''}`}></span>
                     </div>
                 </button>
 
                 {/* Mobile Menu Overlay */}
                 <AnimatePresence>
                     {isOpen && (
-                        <motion.div
-                            initial={{ opacity: 0, backdropFilter: 'blur(0px)' }}
-                            animate={{ opacity: 1, backdropFilter: 'blur(12px)' }}
-                            exit={{ opacity: 0, backdropFilter: 'blur(0px)' }}
-                            transition={{ duration: 0.4 }}
-                            className="fixed inset-0 bg-primary/95 z-[1001] flex flex-col items-center justify-center p-8"
-                        >
-                            <motion.button
-                                initial={{ opacity: 0, rotate: -90 }}
-                                animate={{ opacity: 1, rotate: 0 }}
-                                exit={{ opacity: 0, rotate: 90 }}
-                                transition={{ delay: 0.1 }}
-                                className="absolute top-6 right-6 text-white/70 hover:text-white p-2"
+                        <>
+                            {/* Backdrop */}
+                            <motion.div
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                                transition={{ duration: 0.3 }}
+                                className="fixed inset-0 bg-black/60 z-[1001] backdrop-blur-sm"
                                 onClick={() => setIsOpen(false)}
-                            >
-                                <X size={32} strokeWidth={1.5} />
-                            </motion.button>
+                            />
 
-                            <div className="w-full max-w-xs space-y-8">
+                            {/* Drawer Menu */}
+                            <motion.div
+                                initial={{ x: '100%' }}
+                                animate={{ x: 0 }}
+                                exit={{ x: '100%' }}
+                                transition={{ type: "spring", damping: 25, stiffness: 200 }}
+                                className="fixed top-0 right-0 h-full w-[80%] max-w-sm bg-primary z-[1002] flex flex-col p-8 shadow-2xl border-l border-white/10"
+                            >
                                 <motion.div
-                                    initial={{ opacity: 0, y: -20 }}
-                                    animate={{ opacity: 1, y: 0 }}
+                                    initial={{ opacity: 0, x: -20 }}
+                                    animate={{ opacity: 1, x: 0 }}
                                     transition={{ delay: 0.2 }}
-                                    className="mb-12 border-b border-white/10 pb-6 text-center"
+                                    className="absolute top-6 left-6"
                                 >
-                                    <p className="text-secondary text-[10px] uppercase tracking-[0.3em] font-bold mb-2">Explore Project</p>
-                                    <h3 className="text-white text-2xl font-serif font-bold italic">{project.name}</h3>
+                                    {project.logo ? (
+                                        <img
+                                            src={project.logo}
+                                            alt={`${project.name} Logo`}
+                                            className="h-12 w-auto object-contain"
+                                        />
+                                    ) : (
+                                        <span className="text-white font-bold text-lg">{project.name}</span>
+                                    )}
                                 </motion.div>
 
-                                <div className="flex flex-col gap-6">
+                                <motion.button
+                                    initial={{ opacity: 0, rotate: -90 }}
+                                    animate={{ opacity: 1, rotate: 0 }}
+                                    exit={{ opacity: 0, rotate: 90 }}
+                                    transition={{ delay: 0.2 }}
+                                    className="absolute top-6 right-6 text-white/70 hover:text-white p-2"
+                                    onClick={() => setIsOpen(false)}
+                                >
+                                    <X size={24} strokeWidth={1.5} />
+                                </motion.button>
+
+                                <div className="mt-24 w-full flex flex-col gap-6">
                                     {navLinks.map((link, idx) => (
                                         <motion.button
                                             key={link.id}
-                                            initial={{ opacity: 0, x: -30 }}
+                                            initial={{ opacity: 0, x: 20 }}
                                             animate={{ opacity: 1, x: 0 }}
-                                            exit={{ opacity: 0, x: 20 }}
-                                            transition={{ delay: 0.3 + idx * 0.1, duration: 0.5 }}
+                                            transition={{ delay: 0.3 + idx * 0.1 }}
                                             onClick={() => scrollToSection(link.id)}
-                                            className="group flex items-center gap-6 w-full text-left"
+                                            className="group flex items-center gap-4 w-full text-left py-2 border-b border-white/5"
                                         >
-                                            <span className="text-secondary/40 font-serif italic text-lg group-hover:text-secondary transition-colors duration-300">
-                                                0{idx + 1}
-                                            </span>
-                                            <span className="text-white text-2xl md:text-3xl font-sans font-bold uppercase tracking-widest group-hover:text-secondary group-hover:translate-x-2 transition-all duration-300">
+                                            <span className="text-white text-base md:text-lg font-sans font-bold uppercase tracking-widest group-hover:text-secondary group-hover:translate-x-2 transition-all duration-300">
                                                 {link.label}
                                             </span>
                                         </motion.button>
@@ -147,13 +161,17 @@ const ProjectHeader = ({ project }) => {
                                 </div>
 
                                 <motion.div
-                                    initial={{ opacity: 0, scaleX: 0 }}
-                                    animate={{ opacity: 1, scaleX: 1 }}
-                                    transition={{ delay: 0.8, duration: 1 }}
-                                    className="mt-16 h-px w-full bg-gradient-to-r from-transparent via-white/20 to-transparent"
-                                />
-                            </div>
-                        </motion.div>
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    transition={{ delay: 0.6 }}
+                                    className="mt-auto pt-8 border-t border-white/10"
+                                >
+                                    <p className="text-white/40 text-xs text-center font-sans tracking-widest uppercase">
+                                        MB Prime Properties
+                                    </p>
+                                </motion.div>
+                            </motion.div>
+                        </>
                     )}
                 </AnimatePresence>
             </div>

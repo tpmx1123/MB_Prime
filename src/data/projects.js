@@ -19,8 +19,8 @@ export const projects = [
     image: PROJECT_IMAGE_A,
     imageHover: PROJECT_IMAGE_B,
     logo: null,
-    masterPlan: null, // Placeholder for master plan image URL
-    locationMap: null, // Placeholder for location map image URL
+    masterPlan: null,
+    locationMap: null,
     locationText: 'Strategically located in Vijayawada, offering excellent connectivity to key educational institutions, healthcare centers, and entertainment hubs.',
     overview: 'Projects under planning in Vijayawada. Early registrations open.',
     highlights: [
@@ -31,6 +31,15 @@ export const projects = [
       'Electrical: Copper wiring with modular switches',
       'Sanitary: Premium CP fittings',
     ],
+    // Added locationDistances
+    locationDistances: [
+      { time: '05', unit: 'Mins', label: 'Narayana School' },
+      { time: '05', unit: 'Mins', label: 'Chaitanya School' },
+      { time: '10', unit: 'Mins', label: 'RTC Bus Stand' },
+      { time: '10', unit: 'Mins', label: 'DMart' },
+      { time: '20', unit: 'Mins', label: 'Bhogapuram International Airport', type: 'airport' },
+      { time: '0', unit: 'Mins', label: 'Metro Convention Centre', isMetro: true },
+    ],
   },
   {
     slug: 'enclave',
@@ -38,7 +47,7 @@ export const projects = [
     tagline: 'THE PRIDE OF VIZIANAGARAM',
     subtitle: 'Live amidst nature and openness.',
     configurations: '5 Blocks | G+5 Floors | Modern Amenities',
-    acres: '3.5 acres',
+    acres: '6.6699 acres',
     handover: 'March 2026',
     brochureLink: '#',
     location: 'Vizianagaram',
@@ -47,8 +56,8 @@ export const projects = [
     image: PROJECT_IMAGE_B,
     imageHover: PROJECT_IMAGE_A,
     logo: null,
-    masterPlan: null, // Placeholder for master plan image URL
-    locationMap: null, // Placeholder for location map image URL
+    masterPlan: null,
+    locationMap: null,
     locationText: 'Located in the rapidly growing Vizianagaram area, MB Prime Enclave combines peaceful living with urban convenience.',
     overview: 'MB Prime Enclave represents a modern residential approach for Vizianagaram—balancing urban convenience with community-focused planning.',
     highlights: [
@@ -58,6 +67,15 @@ export const projects = [
       'Windows: UPVC with mosquito mesh',
       'Electrical: Copper wiring with modular switches',
       'Sanitary: Premium CP fittings',
+    ],
+    // Added locationDistances
+    locationDistances: [
+      { time: '05', unit: 'Mins', label: 'Narayana School' },
+      { time: '05', unit: 'Mins', label: 'Chaitanya School' },
+      { time: '10', unit: 'Mins', label: 'RTC Bus Stand' },
+      { time: '10', unit: 'Mins', label: 'DMart' },
+      { time: '20', unit: 'Mins', label: 'Bhogapuram International Airport', type: 'airport' },
+      { time: '0', unit: 'Mins', label: 'Metro Convention Centre', isMetro: true },
     ],
   },
   {
@@ -75,10 +93,26 @@ export const projects = [
     image: PROJECT_IMAGE_A,
     imageHover: PROJECT_IMAGE_B,
     logo: 'https://res.cloudinary.com/durbtkhbz/image/upload/v1770526685/sklmlogo_c2trtg.png',
-    masterPlan: 'https://res.cloudinary.com/durbtkhbz/image/upload/v1770890531/layoutwithoutbg_ukvdoc.png',
+    masterPlan: 'https://res.cloudinary.com/dcrdkvt2q/image/upload/v1770968591/villas_plots_jpg.jpg_hovhc9.jpg',
     locationMap: 'https://maps.google.com/maps?q=18.3597862,83.9194874+(MB+PRIME+VILLAS+PLOTS)&t=&z=15&ie=UTF8&iwloc=&output=embed',
     layoutHighlights: [
-      ['AP RERA Approved Layout', 'Grand Entrance Arch', 'Electricity Facility', 'Water Facility', 'Drainage Facility', '100% Vaasthu with Clear Title']
+      [
+        ' Outdoor Function Area',
+        ' Water Theme Park',
+        ' Cricket Stadium',
+        ' Convention Hall',
+        ' Children Park',
+        ' Running Track',
+        ' Evening Park',
+      ],
+      [
+        ' Jogging Park',
+        ' Sports Area',
+        ' Oxygen Park',
+        ' Club House',
+        ' Temple',
+        ' Lawn',
+      ]
     ],
     highlights: [
       'Gated community',
@@ -92,7 +126,7 @@ export const projects = [
         title: 'Oxygen Park',
         desc: 'A Synthetic Running & Walking Tracks',
         icon: 'Footprints',
-        image: 'https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?q=80&w=1000&auto=format&fit=crop'
+        image: 'https://res.cloudinary.com/durbtkhbz/image/upload/v1770960985/seating_area_2_gdbexp.jpg'
       },
       {
         title: 'Cricket Ground',
@@ -104,13 +138,13 @@ export const projects = [
         title: 'Three Pickleball Courts',
         desc: 'Built as International Standards',
         icon: 'Target',
-        image: 'https://images.unsplash.com/photo-1626225967045-9410dd996e0c?q=80&w=1000&auto=format&fit=crop'
+        image: 'https://res.cloudinary.com/durbtkhbz/image/upload/v1770960939/Screenshot_2026-02-13_110204_vcri4f.png'
       },
       {
         title: 'Volleyball Courts',
         desc: 'For Competitive & Casual Play',
         icon: 'Target',
-        image: 'https://images.unsplash.com/photo-1592656094267-764a45064526?q=80&w=1000&auto=format&fit=crop'
+        image: 'https://res.cloudinary.com/durbtkhbz/image/upload/v1770960985/playgrounds_htjgx4.jpg'
       },
       {
         title: 'Basketball Court',
@@ -122,43 +156,43 @@ export const projects = [
         title: 'Tennis Courts',
         desc: 'With Professional-Grade Surfaces',
         icon: 'Target',
-        image: 'https://images.unsplash.com/photo-1595435066359-61c0ecbbaf52?q=80&w=1000&auto=format&fit=crop'
+        image: 'https://res.cloudinary.com/durbtkhbz/image/upload/v1770961755/tennis_court_qwjj2f.png'
       },
       {
         title: 'Skating Zone',
         desc: 'For Recreational & Professional Use',
         icon: 'Zap',
-        image: 'https://images.unsplash.com/photo-1520156584187-af2e744ad44f?q=80&w=1000&auto=format&fit=crop'
+        image: 'https://res.cloudinary.com/durbtkhbz/image/upload/v1770962837/skating_zone_dst9lu.jpg'
       },
       {
         title: 'Children\'s Play Areas',
         desc: 'With Safe & Engaging Amenities',
         icon: 'Smile',
-        image: 'https://images.unsplash.com/photo-1566433311776-88d4a4c2443d?q=80&w=1000&auto=format&fit=crop'
+        image: 'https://res.cloudinary.com/durbtkhbz/image/upload/v1770960983/children_park_ynea9a.jpg'
       },
       {
         title: 'Seating Areas',
         desc: 'Set Amidst Scenic Landscapes',
         icon: 'Trees',
-        image: 'https://images.unsplash.com/photo-1511497584788-8767fe770c55?q=80&w=1000&auto=format&fit=crop'
+        image: 'https://res.cloudinary.com/dcrdkvt2q/image/upload/v1770963873/seating_-pin_ueabbr.jpg'
       },
       {
         title: 'Outdoor Function Arena',
         desc: 'With An Integrated Amphitheater',
         icon: 'Music',
-        image: 'https://images.unsplash.com/photo-1514300300431-77b83d1c818b?q=80&w=1000&auto=format&fit=crop'
+        image: 'https://res.cloudinary.com/durbtkhbz/image/upload/v1770960985/convention_hall_g1sucw.jpg'
       },
       {
         title: 'Exclusive Clubhouse',
         desc: 'Swimming Pool, Three Badminton Courts & Leisure Facilities',
         icon: 'Home',
-        image: 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?q=80&w=1000&auto=format&fit=crop'
+        image: 'https://res.cloudinary.com/dcrdkvt2q/image/upload/v1770964115/clubhosuse-pin_ec2spg.jpg'
       },
       {
         title: 'Water Theme Park',
         desc: 'With A Swimming Pools',
         icon: 'Waves',
-        image: 'https://images.unsplash.com/photo-1582650625119-3a31f8fa2699?q=80&w=1000&auto=format&fit=crop'
+        image: 'https://res.cloudinary.com/durbtkhbz/image/upload/v1770960986/swimming_pool_2_fx5pes.jpg'
       },
       {
         title: 'Convention Hall',
@@ -176,26 +210,27 @@ export const projects = [
         title: 'Water Fountains',
         desc: 'Enhancing The Aesthetic Appeal',
         icon: 'Droplets',
-        image: 'https://images.unsplash.com/photo-1540202404-a2f29016bb5d?q=80&w=1000&auto=format&fit=crop'
+        image: 'https://res.cloudinary.com/dcrdkvt2q/image/upload/v1770964608/waterfountain2_ltvyjk.jpg'
       },
-      {
-        title: 'Designed Landscaping',
-        desc: 'With Manicured Lawns',
-        icon: 'Leaf',
-        image: 'https://images.unsplash.com/photo-1558905619-1af6999fa691?q=80&w=1000&auto=format&fit=crop'
-      },
-      {
-        title: '100% Vasthu',
-        desc: 'Designed for Harmony',
-        icon: 'Compass',
-        image: 'https://images.unsplash.com/photo-1518780664697-55e3ad937233?q=80&w=1000&auto=format&fit=crop'
-      }
+      // {
+      //   title: 'Designed Landscaping',
+      //   desc: 'With Manicured Lawns',
+      //   icon: 'Leaf',
+      //   image: 'https://images.unsplash.com/photo-1558905619-1af6999fa691?q=80&w=1000&auto=format&fit=crop'
+      // },
+      // {
+      //   title: '100% Vasthu',
+      //   desc: 'Designed for Harmony',
+      //   icon: 'Compass',
+      //   image: 'https://images.unsplash.com/photo-1518780664697-55e3ad937233?q=80&w=1000&auto=format&fit=crop'
+      // }
     ],
     villaTypes: [
       {
         id: 'triplex',
         type: 'Triplex Villa',
         size: "36' x 50'",
+        direction: '',
         area: '200 Sq. Yards',
         builtUp: '3650 Sq. Ft',
         description: 'A grand triplex villa designed for modern luxury living, offering spacious interiors, premium finishes, and three levels of unmatched comfort.',
@@ -206,6 +241,7 @@ export const projects = [
         id: 'duplex-2100',
         type: 'Duplex Villa',
         size: "36' x 40'",
+        direction: 'South',
         area: '160 Sq. Yards',
         builtUp: '2100 Sq. Ft',
         description: 'A beautifully planned duplex villa that blends comfort, style, and functionality, offering the perfect balance of privacy and modern family living.',
@@ -216,6 +252,7 @@ export const projects = [
         id: 'duplex-2050',
         type: 'Duplex Villa',
         size: "36' x 50'",
+        direction: 'North',
         area: '200 Sq. Yards',
         builtUp: '2050 Sq. Ft',
         description: 'A stylish duplex villa featuring a spacious balcony, perfect for relaxing, entertaining, and enjoying open views with refreshing natural airflow.',
@@ -247,8 +284,8 @@ export const projects = [
     image: PROJECT_IMAGE_A,
     imageHover: PROJECT_IMAGE_B,
     logo: null,
-    masterPlan: null, // Placeholder for master plan image URL
-    locationMap: null, // Placeholder for location map image URL
+    masterPlan: null,
+    locationMap: null,
     locationText: 'Capital West is positioned to be a landmark development in Andhra Pradesh, promising high returns and modern lifestyle amenities.',
     overview: 'Capital West is a planned residential development. Early registrations open.',
     highlights: [
@@ -258,6 +295,15 @@ export const projects = [
       'Windows: UPVC with mosquito mesh',
       'Electrical: Copper wiring with modular switches',
       'Sanitary: Premium CP fittings',
+    ],
+    // Added locationDistances
+    locationDistances: [
+      { time: '05', unit: 'Mins', label: 'Narayana School' },
+      { time: '05', unit: 'Mins', label: 'Chaitanya School' },
+      { time: '10', unit: 'Mins', label: 'RTC Bus Stand' },
+      { time: '10', unit: 'Mins', label: 'DMart' },
+      { time: '20', unit: 'Mins', label: 'Bhogapuram International Airport', type: 'airport' },
+      { time: '0', unit: 'Mins', label: 'Metro Convention Centre', isMetro: true },
     ],
   },
   {
@@ -275,8 +321,8 @@ export const projects = [
     image: PROJECT_IMAGE_B,
     imageHover: PROJECT_IMAGE_A,
     logo: null,
-    masterPlan: null, // Placeholder for master plan image URL
-    locationMap: null, // Placeholder for location map image URL
+    masterPlan: null,
+    locationMap: null,
     locationText: 'AI Gen Villas brings futuristic living concepts to Andhra Pradesh, featuring smart home technologies and sustainable design.',
     overview: 'AI Gen Villas is a planned residential development. Early registrations open.',
     highlights: [
@@ -286,6 +332,15 @@ export const projects = [
       'Windows: UPVC with mosquito mesh',
       'Electrical: Copper wiring with modular switches',
       'Sanitary: Premium CP fittings',
+    ],
+    // Added locationDistances
+    locationDistances: [
+      { time: '05', unit: 'Mins', label: 'Narayana School' },
+      { time: '05', unit: 'Mins', label: 'Chaitanya School' },
+      { time: '10', unit: 'Mins', label: 'RTC Bus Stand' },
+      { time: '10', unit: 'Mins', label: 'DMart' },
+      { time: '20', unit: 'Mins', label: 'Bhogapuram International Airport', type: 'airport' },
+      { time: '0', unit: 'Mins', label: 'Metro Convention Centre', isMetro: true },
     ],
   },
 ];

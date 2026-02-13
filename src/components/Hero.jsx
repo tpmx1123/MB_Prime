@@ -1,22 +1,29 @@
-import React, {  useRef } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import BlurText from './BlurText';
-import { Calendar, ArrowRight } from 'lucide-react';
 
 const MotionDiv = motion.div;
-const MotionP = motion.p;
-const MotionSpan = motion.span;
-const MotionA = motion.a;
 
 const Hero = () => {
   const ref = useRef(null);
+  const [isHighlighted, setIsHighlighted] = useState(false);
+
+  useEffect(() => {
+    // 5-second timer to clear the video and hide the text
+    const timer = setTimeout(() => {
+      setIsHighlighted(true);
+    }, 5000); 
+
+    return () => clearTimeout(timer);
+  }, []);
+
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ['start start', 'end start'],
   });
+
   const y = useTransform(scrollYProgress, [0, 1], ['0%', '35%']);
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0.3]);
+  const scrollOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0.3]);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -25,13 +32,14 @@ const Hero = () => {
       transition: { staggerChildren: 0.15, delayChildren: 0.4 },
     },
   };
+
   return (
     <section
       ref={ref}
-      className="relative min-h-screen w-full flex items-end overflow-hidden pt-16 md:pt-0 pb-6 md:pb-16"
+      className="relative min-h-screen w-full flex items-center md:items-end overflow-hidden pt-16 md:pt-0 pb-12 md:pb-16"
       style={{ perspective: '1200px' }}
     >
-      {/* Background with parallax */}
+      {/* Background Video Layer */}
       <motion.div className="absolute inset-0 z-0 overflow-hidden" style={{ y }}>
         <video
           autoPlay
@@ -45,40 +53,63 @@ const Hero = () => {
             type="video/mp4"
           />
         </video>
-        <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/35 to-transparent z-10" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent z-10" />
+        
+        {/* Responsive Overlay: On mobile, we might want it slightly clearer or darker initially */}
+        <motion.div 
+          className="absolute inset-0 bg-black z-10"
+          initial={{ opacity: 0.8 }}
+          animate={{ opacity: isHighlighted ? 0.15 : 0.8 }} 
+          transition={{ duration: 1.5, ease: "easeInOut" }}
+        />
+        
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent z-10 md:from-black/60" />
       </motion.div>
-      <div className="absolute inset-0 bg-grain opacity-[0.04] pointer-events-none z-[1]" />
+
+      <div className="absolute inset-0 bg-grain opacity-[0.06] md:opacity-[0.04] pointer-events-none z-[1]" />
+
+      {/* Text Container: Specialized Mobile Layout */}
       <motion.div
-        className="container relative z-10 w-full"
-        style={{ opacity }}
+        className="container relative z-20 w-full px-6 md:px-12"
+        initial={{ opacity: 1 }}
+        animate={{ 
+          opacity: isHighlighted ? 0 : 1,
+          y: isHighlighted ? 20 : 0, // Slight slide down effect on hide
+          pointerEvents: isHighlighted ? 'none' : 'auto' 
+        }}
+        transition={{ duration: 1.2, ease: "circOut" }}
       >
         <MotionDiv
-          className="max-w-[820px] mx-auto md:mx-0 text-center md:text-left mt-36 md:mt-40"
+          /* Mobile: Center-aligned, higher up (mt-0) 
+             Laptop: Left-aligned (md:text-left), lower down (md:mt-40) 
+          */
+          className="max-w-[820px] mx-auto md:mx-0 text-center md:text-left"
           variants={containerVariants}
           initial="hidden"
           animate="visible"
         >
-          <h1 className="font-sans font-bold leading-[1.15] tracking-tight mb-6 md:mb-8">
-            <span className="block text-3xl sm:text-4xl md:text-4xl lg:text-5xl xl:text-6xl text-secondary mb-1 md:mb-2 drop-shadow-[0_2px_24px_rgba(201,162,39,0.25)]">
+          <h1 className="font-sans font-bold leading-tight md:leading-[1.15] tracking-tight mb-4 md:mb-8">
+            {/* Mobile: Smaller text (text-3xl), Laptop: Larger text (md:text-4xl+) */}
+            <span className="block text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-secondary mb-2 drop-shadow-lg">
               <BlurText
                 text="Elevating Life,"
-                delay={900}
+                delay={600} // Faster delay for mobile engagement
                 animateBy="words"
                 direction="top"
                 className="inline-block"
               />
             </span>
-            <span className="block text-3xl sm:text-4xl md:text-4xl lg:text-5xl xl:text-6xl text-white drop-shadow-[0_2px_20px_rgba(0,0,0,0.6)]">
+            <span className="block text-2xl sm:text-4xl md:text-5xl lg:text-6xl text-white drop-shadow-2xl">
               <BlurText
                 text="One Home at a Time"
-                delay={1100}
+                delay={800}
                 animateBy="words"
                 direction="top"
                 className="inline-block"
               />
             </span>
           </h1>
+          
+          
         </MotionDiv>
       </motion.div>
     </section>

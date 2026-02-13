@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom'
 
 // Layout & UI Components
@@ -23,7 +23,6 @@ import FounderSection from './components/FounderSection'
 import MBPrimeVillas from './components/MBPrimeVillas'
 import AIGenVillas from './components/AIGenVillas'
 import CapitalWest from './components/CapitalWest'
-// Added from extra file
 
 /**
  * Handles smooth scrolling to hash anchors or top of page on route change
@@ -60,7 +59,7 @@ const Home = () => (
     <IntroPhilosophy />
     <FeaturedProjectsHome />
     <Commitments />
-    <FounderSection />{/* Added from extra file */}
+    <FounderSection />
     <Location />
     <InvestmentPerspective />
   </>
@@ -89,7 +88,7 @@ function App() {
     <Router>
       <ScrollToTop />
       <EnquiryPopup />
-      <div className="app">
+      <div className="app min-h-screen selection:bg-secondary selection:text-primary">
         <SEO />
         {/* Conditional Header Rendering */}
         <AppContent />

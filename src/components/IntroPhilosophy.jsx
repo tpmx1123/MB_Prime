@@ -86,7 +86,7 @@ const IntroPhilosophy = () => {
                 viewport={{ once: true }}
                 transition={{ delay: 0.3 }}
               >
-                From villa plots in Srikakulam to residential communities in Vizianagaram — every project reflects one commitment: quality that lasts, value that compounds, and transparency you can count on.
+                From villa plots in Srikakulam to residential communities in Vizianagaram - every project reflects one commitment: quality that lasts, value that compounds, and transparency you can count on.
               </Motion.p>
 
              
