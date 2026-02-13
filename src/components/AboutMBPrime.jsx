@@ -13,13 +13,11 @@ const AboutMBPrime = ({ asPage = false } = {}) => {
         About MB Prime
       </h2>
       <p className="text-white font-sans font-light leading-relaxed mb-4">
-        MB Prime is a real estate development company focused on creating well-planned
-        residential and plotted communities across Andhra Pradesh.
+      We develop residential and villa plot communities across Andhra Pradesh — and we do it with a discipline most developers skip.
       </p>
       <p className="text-white font-sans font-light leading-relaxed">
-        Each project begins with a careful evaluation of land potential, infrastructure
-        growth, and long-term livability. Rather than rapid expansion, MB Prime
-        prioritizes disciplined development—projects that mature gracefully over time.
+      "Every project starts with the same question: will this be worth it for the family that buys here — ten years from now? That question shapes everything: the land we choose, the infrastructure we build, and the timelines we commit to."
+      "We grow deliberately. Not because we can't move faster — but because the right project, done right, is worth more than three projects done quickly.
       </p>
     </motion.div>
   );

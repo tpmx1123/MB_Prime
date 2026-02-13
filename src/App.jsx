@@ -1,5 +1,13 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom'
+
+// Layout & UI Components
 import Header from './components/Header'
+import Footer from './components/Footer'
+import SEO from './components/SEO'
+import EnquiryPopup from './components/EnquiryPopup'
+
+// Page & Section Components
 import Hero from './components/Hero'
 import IntroPhilosophy from './components/IntroPhilosophy'
 import FeaturedProjectsHome from './components/FeaturedProjectsHome'
@@ -7,16 +15,19 @@ import Commitments from './components/Commitments'
 import InvestmentPerspective from './components/InvestmentPerspective'
 import Projects from './components/Projects'
 import Location from './components/Location'
-import Footer from './components/Footer'
-import SEO from './components/SEO'
-import EnquiryPopup from './components/EnquiryPopup'
 import Founder from './components/Founder'
 import AboutMBPrime from './components/AboutMBPrime'
-import ProjectDetail from './components/ProjectDetail'
+import MBPrimeEnclave from './components/MBPrimeEnclave'
+import Vijayawadaproject from './components/Vijayawadaproject'
 import FounderSection from './components/FounderSection'
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom'
-import { useEffect } from 'react'
+import MBPrimeVillas from './components/MBPrimeVillas'
+import AIGenVillas from './components/AIGenVillas'
+import CapitalWest from './components/CapitalWest'
+// Added from extra file
 
+/**
+ * Handles smooth scrolling to hash anchors or top of page on route change
+ */
 const ScrollToTop = () => {
   const { pathname, hash } = useLocation();
 
@@ -32,32 +43,47 @@ const ScrollToTop = () => {
       }
     };
 
-    // Immediate attempt
     scrollToElement();
-
-    // Delayed attempt for route transitions
     const timer = setTimeout(scrollToElement, 100);
-
     return () => clearTimeout(timer);
   }, [pathname, hash]);
 
   return null;
 }
 
+/**
+ * Home Page Layout
+ */
 const Home = () => (
   <>
     <Hero />
     <IntroPhilosophy />
-    
     <FeaturedProjectsHome />
     <Commitments />
-    <FounderSection />
-    <InvestmentPerspective />
+    <FounderSection />{/* Added from extra file */}
     <Location />
-
+    <InvestmentPerspective />
   </>
 )
 
+/**
+ * Conditional Header Logic: Hides Header on Project Detail pages
+ */
+const AppContent = () => {
+  const location = useLocation();
+  // Checks if the current path is a specific project detail (e.g., /projects/villas)
+  const isProjectDetail = location.pathname.startsWith('/projects/') && location.pathname.split('/').length > 2;
+
+  return (
+    <>
+      {!isProjectDetail && <Header />}
+    </>
+  );
+};
+
+/**
+ * Main App Entry Point
+ */
 function App() {
   return (
     <Router>
@@ -65,16 +91,23 @@ function App() {
       <EnquiryPopup />
       <div className="app">
         <SEO />
-        <Header />
+        {/* Conditional Header Rendering */}
+        <AppContent />
+        
         <main>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/projects" element={<Projects />} />
-            <Route path="/projects/:slug" element={<ProjectDetail />} />
+            <Route path="/projects/villas" element={<MBPrimeVillas />} />
+            <Route path="/projects/vijayawada" element={<Vijayawadaproject />} />
+            <Route path="/projects/enclave" element={<MBPrimeEnclave />} />
+            <Route path="/projects/capital-west" element={<CapitalWest />} />
+            <Route path="/projects/ai-gen-villas" element={<AIGenVillas />} />
             <Route path="/about" element={<AboutMBPrime asPage />} />
             <Route path="/founder" element={<Founder />} />
           </Routes>
         </main>
+
         <Footer />
       </div>
     </Router>

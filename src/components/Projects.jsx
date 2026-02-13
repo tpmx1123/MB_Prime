@@ -4,21 +4,18 @@ import { motion } from 'framer-motion';
 import { MapPin, ArrowUpRight } from 'lucide-react';
 import { projects } from '../data/projects';
 
-const ProjectImage = ({ project, className, isHovered }) => {
-  const defaultSrc = project.image;
-  const hoverSrc = project.imageHover || project.image;
+const ProjectImage = ({ project, isHovered }) => {
   return (
     <div className="absolute inset-0">
       <img
-        src={defaultSrc}
+        src={project.image}
         alt={project.name}
-        className={`${className} ${isHovered ? 'opacity-0' : 'opacity-100'}`}
+        className={`absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-out ${isHovered ? 'opacity-0 scale-110' : 'opacity-100 scale-100'}`}
       />
       <img
-        src={hoverSrc}
+        src={project.imageHover || project.image}
         alt=""
-        className={`${className} ${isHovered ? 'opacity-100' : 'opacity-0'}`}
-        aria-hidden
+        className={`absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-out ${isHovered ? 'opacity-100 scale-105' : 'opacity-0 scale-110'}`}
       />
     </div>
   );
@@ -28,63 +25,52 @@ const Projects = () => {
   const [hoveredSlug, setHoveredSlug] = useState(null);
 
   return (
-    <section id="projects" className="bg-bg-light pb-32 pt-24">
-      <div className="container">
-        <motion.span
-          className="block text-[#6b9eb0] font-sans text-xs uppercase tracking-[0.25em] mb-2"
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-        >
-          Portfolio
-        </motion.span>
-        <motion.h2
-          className="text-3xl md:text-5xl font-serif text-primary mb-12"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-        >
-          <span className="italic font-normal text-primary/70 text-2xl md:text-3xl">Current</span>
-          <br />
-          <span className="font-bold text-primary">Developments</span>
-        </motion.h2>
+    <section id="projects" className="bg-[#0A0A0A] pb-32 pt-24 text-white overflow-hidden">
+      <div className="container mx-auto px-6 md:px-16">
+        <div className="mb-16">
+          <motion.span className="block text-secondary font-sans font-bold text-xs uppercase tracking-[0.4em] mb-4">
+            Portfolio
+          </motion.span>
+          <h2 className="text-4xl md:text-6xl font-serif leading-tight">
+            <span className="italic font-light text-white/50 text-2xl md:text-4xl block mb-2">Our Projects</span>
+            <span className="font-bold text-white">Unmissable Stature, Incomparable Living.</span>
+          </h2>
+        </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 md:gap-12">
           {projects.map((project, index) => (
             <motion.div
               key={project.slug}
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.08 }}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1 }}
             >
               <Link
                 to={`/projects/${project.slug}`}
-                className="group block bg-white rounded-2xl overflow-hidden border border-black/5 shadow-[0_4px_24px_rgba(0,0,0,0.06)] hover:shadow-[0_12px_40px_rgba(0,0,0,0.1)] transition-all duration-300 h-full"
+                className="group block bg-white/[0.03] backdrop-blur-sm rounded-3xl overflow-hidden border border-white/10 hover:border-secondary/40 transition-all duration-500 h-full"
                 onMouseEnter={() => setHoveredSlug(project.slug)}
                 onMouseLeave={() => setHoveredSlug(null)}
               >
-                <div className="relative aspect-[4/3] min-h-[220px] overflow-hidden">
-                  <ProjectImage
-                    project={project}
-                    isHovered={hoveredSlug === project.slug}
-                    className="absolute inset-0 w-full h-full object-cover transition-[opacity_0.5s,transform_0.7s] group-hover:scale-105"
-                  />
+                <div className="relative aspect-[4/3] overflow-hidden">
+                  <ProjectImage project={project} isHovered={hoveredSlug === project.slug} />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-transparent opacity-60 group-hover:opacity-80 transition-opacity" />
                 </div>
-                <div className="p-5 md:p-6 font-sans">
-                  <h3 className="text-lg md:text-xl font-bold text-primary mb-2 group-hover:text-secondary transition-colors">
+
+                <div className="p-6 md:p-8 bg-white">
+                  <h3 className="text-xl md:text-2xl font-serif text-primary mb-3 group-hover:text-secondary transition-colors duration-300">
                     {project.name}
-                    {project.location && project.location !== 'Andhra Pradesh' && `, ${project.location}`}
                   </h3>
-                  <p className="flex items-center gap-2 text-secondary text-sm font-medium mb-2">
-                    <MapPin size={14} />
+                  <div className="flex items-center gap-2 text-primary/40 text-xs font-semibold uppercase tracking-widest mb-4">
+                    <MapPin size={14} className="text-primary" />
                     {project.location}
-                  </p>
-                  <p className="text-slate-600 text-sm font-light mb-3">{project.type}</p>
-                  <p className="text-slate-500 text-xs font-medium border-t border-black/5 pt-3 flex items-center justify-between">
-                    <span>{project.status}</span>
-                    <span className="inline-flex items-center gap-1 text-primary font-medium">
-                      View Project
-                      <ArrowUpRight size={14} />
+                  </div>
+                  <div className="flex items-center justify-between border-t border-primary/10 pt-6">
+                    <span className="text-xs font-bold uppercase tracking-[0.2em] text-secondary">{project.status}</span>
+                    <span className="inline-flex items-center gap-2 text-primary font-bold text-xs uppercase tracking-widest group-hover:gap-4 transition-all">
+                      View Project <ArrowUpRight size={16} className="text-secondary" />
                     </span>
-                  </p>
+                  </div>
                 </div>
               </Link>
             </motion.div>

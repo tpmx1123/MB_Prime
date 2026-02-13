@@ -73,7 +73,7 @@ const Commitments = () => {
             </header>
 
             {/* Grid: 2 columns on all screens – same as desktop */}
-            <div className="grid grid-cols-2 gap-x-2 gap-y-2 sm:gap-x-4 sm:gap-y-3 md:gap-x-6 md:gap-y-4 lg:gap-y-1 min-w-0">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-2 gap-y-2 sm:gap-x-4 sm:gap-y-3 md:gap-x-6 md:gap-y-4 lg:gap-y-1 min-w-0">
               {commitments.map((item, i) => (
                 <Motion.div
                   key={item.title}
@@ -87,7 +87,7 @@ const Commitments = () => {
                     <span className="text-secondary/80 group-hover:text-secondary transition-colors duration-300 shrink-0">
                       <item.icon size={16} className="sm:w-5 sm:h-5 md:w-7 md:h-7" strokeWidth={1.5} />
                     </span>
-                    <h3 className="font-bold text-primary text-[11px] sm:text-base md:text-xl group-hover:translate-x-1 transition-transform duration-300 leading-tight">
+                    <h3 className="font-bold text-primary text-[11px] sm:text-sm md:text-xl group-hover:translate-x-1 transition-transform duration-300 leading-tight">
                       {item.title}
                     </h3>
                   </div>
