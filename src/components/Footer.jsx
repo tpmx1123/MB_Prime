@@ -7,7 +7,7 @@ const Footer = () => {
     const developments = [
         { label: 'MB Prime Villas | Srikakulam', link: '/projects/villas' },
         { label: 'MB Prime Enclave | Vizianagaram', link: '/projects/enclave' },
-        { label: 'Vijayawada Project | Vijayawada', link: '/projects/vijayawada' },
+        { label: 'Jewel City | Vizag', link: '/projects/jewelcity' },
         { label: 'Capital West', link: '/projects/capital-west' },
         { label: 'AI Gen Villas', link: '/projects/ai-gen-villas' },
     ];
@@ -68,15 +68,15 @@ const Footer = () => {
                         <ul className="space-y-4 md:space-y-6">
                             <li className="flex items-start gap-3 md:gap-4 text-[11px] md:text-sm text-white/60">
                                 <MapPin size={16} className="shrink-0 text-secondary/60" />
-                                <span>Andhra Pradesh, India</span>
+                                <span>vijayawada, Andhra Pradesh.</span>
                             </li>
                             <li className="flex items-center gap-3 md:gap-4 text-[11px] md:text-sm text-white/60">
                                 <Phone size={16} className="shrink-0 text-secondary/60" />
-                                <span>+91 1234567890</span>
+                                <span>+91 9088456 999</span>
                             </li>
                             <li className="flex items-center gap-3 md:gap-4 text-[11px] md:text-sm text-white/60">
                                 <Mail size={16} className="shrink-0 text-secondary/60" />
-                                <span>connect@mbprime.in</span>
+                                <span>mbprimeprojects@gmail.com</span>
                             </li>
                         </ul>
                     </div>

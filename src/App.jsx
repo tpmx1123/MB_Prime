@@ -18,7 +18,7 @@ import Location from './components/Location'
 import Founder from './components/Founder'
 import AboutMBPrime from './components/AboutMBPrime'
 import MBPrimeEnclave from './components/MBPrimeEnclave'
-import Vijayawadaproject from './components/Vijayawadaproject'
+import JewelCity from './components/jewelcity'
 import FounderSection from './components/FounderSection'
 import MBPrimeVillas from './components/MBPrimeVillas'
 import AIGenVillas from './components/AIGenVillas'
@@ -99,7 +99,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/projects" element={<Projects />} />
             <Route path="/projects/villas" element={<MBPrimeVillas />} />
-            <Route path="/projects/vijayawada" element={<Vijayawadaproject />} />
+            <Route path="/projects/jewelcity" element={<JewelCity />} />
             <Route path="/projects/enclave" element={<MBPrimeEnclave />} />
             <Route path="/projects/capital-west" element={<CapitalWest />} />
             <Route path="/projects/ai-gen-villas" element={<AIGenVillas />} />

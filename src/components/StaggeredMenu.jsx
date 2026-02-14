@@ -110,7 +110,7 @@ const StaggeredMenu = ({ isOpen, setIsOpen, items, displayItemNumbering }) => {
 
             <div className="border-t border-white/10 pt-4">
               <p className="text-secondary font-bold text-[10px] uppercase tracking-[0.3em] mb-1">Inquiries</p>
-              <p className="text-white/40 text-xs">connect@mbprime.in</p>
+              <p className="text-white/40 text-xs">mbprimeprojects@gmail.com</p>
             </div>
           </motion.div>
         )}

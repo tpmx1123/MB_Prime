@@ -14,8 +14,8 @@ const iconMap = {
   Hospital: Stethoscope, School: GraduationCap, Train, Bus, Plane, MapPin
 };
 
-const Vijayawadaproject = () => {
-  const project = getProjectBySlug('vijayawada');
+const JewelCity = () => {
+  const project = getProjectBySlug('vizag');
 
   const [startIndex, setStartIndex] = useState(0);
   useEffect(() => {
@@ -30,8 +30,8 @@ const Vijayawadaproject = () => {
   }, [project]);
   useEffect(() => {
     setStartIndex(0);
-  }, ['vijayawada']);
-  const allOtherProjects = projects.filter(p => p.slug !== 'vijayawada');
+  }, ['vizag']);
+  const allOtherProjects = projects.filter(p => p.slug !== 'vizag');
   const visibleProjects = allOtherProjects.slice(startIndex, startIndex + 4);
 
   const nextProjects = () => {
@@ -1007,4 +1007,4 @@ const Vijayawadaproject = () => {
   );
 };
 
-export default Vijayawadaproject;
+export default JewelCity;

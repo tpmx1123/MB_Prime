@@ -51,7 +51,7 @@ const EnquiryForm = ({ isModal = false, onClose, className = "" }) => {
                     <div className="md:col-span-2">
                         <input
                             type="tel"
-                            placeholder="Mobile Number*"
+                            placeholder="+91 9088456 999"
                             className="w-full px-4 py-3 text-sm md:text-base rounded-xl border-2 border-slate-200 bg-slate-50/50 text-primary placeholder:text-slate-400 focus:border-secondary focus:bg-white outline-none transition-all duration-300"
                         />
                     </div>
@@ -60,7 +60,7 @@ const EnquiryForm = ({ isModal = false, onClose, className = "" }) => {
                 <div>
                     <input
                         type="email"
-                        placeholder="Email Address"
+                        placeholder="mbprimeprojects@gmail.com"
                         className="w-full px-4 py-3 text-sm md:text-base rounded-xl border-2 border-slate-200 bg-slate-50/50 text-primary placeholder:text-slate-400 focus:border-secondary focus:bg-white outline-none transition-all duration-300"
                     />
                 </div>

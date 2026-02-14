@@ -5,15 +5,15 @@ import villaBrochure from '../assets/MBPrimevillasbrochure.pdf';
 // Order: 1. Vijayawada, 2. MB Prime Enclave, 3. MB Prime Villas, 4. Capital West, 5. AI Gen Villas
 export const projects = [
   {
-    slug: 'vijayawada',
+    slug: 'vizag',
     name: 'Jewel City ',
-    tagline: 'LIVE IN THE HEART OF VIJAYAWADA',
+    tagline: 'LIVE IN THE HEART OF Vizag',
     subtitle: 'A premium residential community designed for modern living.',
     configurations: '3 Towers | G+15 Floors | 70% Open Area',
     acres: '5.2 acres',
     handover: 'December 2026',
     brochureLink: '#',
-    location: 'Vijayawada',
+    location: 'Vizag',
     type: 'Residential Development',
     status: 'Under Planning',
     image: PROJECT_IMAGE_A,
@@ -283,7 +283,7 @@ export const projects = [
     acres: '10 acres',
     handover: '2027',
     brochureLink: '#',
-    location: 'Vizag',
+    location: 'vijayawada',
     type: 'Residential Development',
     status: 'Under Planning',
     image: PROJECT_IMAGE_A,

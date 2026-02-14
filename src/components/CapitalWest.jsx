@@ -140,6 +140,11 @@ const CapitalWest = () => {
               {project.name}
             </h1>
 
+            {/* Partnership Text */}
+            <p className="text-secondary text-sm md:text-base font-sans font-medium mb-4">
+              In Collaboration with BBG Group
+            </p>
+
             {/* Subtitle */}
             <p className="text-lg md:text-xl text-white/90 font-sans font-light mb-2">
               {project.subtitle || 'Experience the pinnacle of modern living.'}
