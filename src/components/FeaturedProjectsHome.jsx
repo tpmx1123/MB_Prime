@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay, Pagination } from 'swiper/modules';
+import { Autoplay, Navigation } from 'swiper/modules';
 import { projects } from '../data/projects';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 // Import Swiper styles
 import 'swiper/css';
-import 'swiper/css/pagination';
+import 'swiper/css/navigation';
 
 const CARD_MIN_HEIGHT = 420; // same size for all cards
 
@@ -37,7 +38,7 @@ const ProjectCard = ({ project }) => {
             <h3 className="text-lg font-bold tracking-[0.2em] uppercase text-center mb-3">
               {project.name}
             </h3>
-            
+
             <div className="w-full h-px bg-white/10 mb-4" />
 
             <div className="flex flex-col items-center gap-1">
@@ -56,9 +57,11 @@ const ProjectCard = ({ project }) => {
 };
 
 const FeaturedProjectsHome = () => {
+  const swiperRef = useRef(null);
+
   // Swiper configuration for 4 visible items
   const swiperOptions = {
-    modules: [Autoplay, Pagination],
+    modules: [Autoplay, Navigation],
     spaceBetween: 20,
     slidesPerView: 1,
     loop: true,
@@ -66,14 +69,26 @@ const FeaturedProjectsHome = () => {
       delay: 4000,
       disableOnInteraction: false,
     },
-    pagination: {
-      clickable: true,
-      dynamicBullets: true,
+    navigation: {
+      nextEl: '.swiper-button-next-custom',
+      prevEl: '.swiper-button-prev-custom',
     },
     breakpoints: {
       640: { slidesPerView: 2 },
       1024: { slidesPerView: 4 }, // Display 4 projects on desktop
     },
+  };
+
+  const handlePrev = () => {
+    if (swiperRef.current) {
+      swiperRef.current.swiper.slidePrev();
+    }
+  };
+
+  const handleNext = () => {
+    if (swiperRef.current) {
+      swiperRef.current.swiper.slideNext();
+    }
   };
 
   return (
@@ -90,21 +105,51 @@ const FeaturedProjectsHome = () => {
         </div>
 
         {/* Carousel Implementation */}
-        <div className="projects-carousel pb-12">
-          <Swiper {...swiperOptions}>
+        <div className="projects-carousel relative">
+          <Swiper {...swiperOptions} ref={swiperRef}>
             {projects.map((project) => (
               <SwiperSlide key={project.slug}>
                 <ProjectCard project={project} />
               </SwiperSlide>
             ))}
           </Swiper>
+
+          {/* Navigation Buttons */}
+          <button
+            onClick={handlePrev}
+            className="swiper-button-prev-custom absolute right-20 -top-10 -translate-y-1/2 z-10 bg-white/90 text-primary p-3 rounded-full shadow-lg hover:bg-secondary hover:text-white transition-all duration-300"
+          >
+            <ChevronLeft size={24} />
+          </button>
+          <button
+            onClick={handleNext}
+            className="swiper-button-next-custom absolute right-4 -top-10 -translate-y-1/2 z-10 bg-white/90 text-primary p-3 rounded-full shadow-lg hover:bg-secondary hover:text-white transition-all duration-300"
+          >
+            <ChevronRight size={24} />
+          </button>
         </div>
       </div>
       {/* Same height for all slides */}
       <style>{`
-        .projects-carousel .swiper-pagination-bullet-active { background: #B8860B !important; }
         .projects-carousel .swiper-slide { height: auto; display: flex; min-height: ${CARD_MIN_HEIGHT}px; }
         .projects-carousel .swiper-slide > div { width: 100%; }
+        .projects-carousel .swiper-pagination {
+          display: none !important;
+        }
+        .projects-carousel .swiper-button-next-custom,
+        .projects-carousel .swiper-button-prev-custom {
+          opacity: 0.8;
+        }
+        .projects-carousel .swiper-button-next-custom:hover,
+        .projects-carousel .swiper-button-prev-custom:hover {
+          opacity: 1;
+        }
+        @media (max-width: 768px) {
+          .projects-carousel .swiper-button-next-custom,
+          .projects-carousel .swiper-button-prev-custom {
+            opacity: 0.6;
+          }
+        }
       `}</style>
     </section>
   );
