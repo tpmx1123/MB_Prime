@@ -60,8 +60,9 @@ const Home = () => (
     <FeaturedProjectsHome />
     <Commitments />
     <FounderSection />
-    <Location />
     <InvestmentPerspective />
+    <Location />
+ 
   </>
 )
 

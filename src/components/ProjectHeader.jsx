@@ -31,7 +31,7 @@ const ProjectHeader = ({ project }) => {
             <div className="container flex justify-between items-center">
                 {/* Left: Project Logo or Name */}
                 <div className="flex items-center ">
-                    <Link to="/projects" className="text-white/80 hover:text-white transition-colors mr-2">
+                    <Link to="/" className="text-white/80 hover:text-white transition-colors mr-2">
                         <ArrowLeft size={22} />
                     </Link>
                     {project.logo ? (
@@ -49,6 +49,12 @@ const ProjectHeader = ({ project }) => {
 
                 {/* Desktop Navigation */}
                 <nav className="hidden md:flex items-center gap-8">
+                    <Link
+                        to="/"
+                        className="text-white/90 font-sans font-medium text-sm uppercase tracking-wider hover:text-secondary transition-colors"
+                    >
+                        Home
+                    </Link>
                     <button
                         onClick={() => scrollToSection('plots')}
                         className="text-white/90 font-sans font-medium text-sm uppercase tracking-wider hover:text-secondary transition-colors"
@@ -144,6 +150,21 @@ const ProjectHeader = ({ project }) => {
                                 </motion.button>
 
                                 <div className="mt-24 w-full flex flex-col gap-6">
+                                    <motion.div
+                                        initial={{ opacity: 0, x: 20 }}
+                                        animate={{ opacity: 1, x: 0 }}
+                                        transition={{ delay: 0.3 }}
+                                    >
+                                        <Link
+                                            to="/"
+                                            onClick={() => setIsOpen(false)}
+                                            className="group flex items-center gap-4 w-full text-left py-2 border-b border-white/5 no-underline"
+                                        >
+                                            <span className="text-white text-base md:text-lg font-sans font-bold uppercase tracking-widest group-hover:text-secondary group-hover:translate-x-2 transition-all duration-300">
+                                                Home
+                                            </span>
+                                        </Link>
+                                    </motion.div>
                                     {navLinks.map((link, idx) => (
                                         <motion.button
                                             key={link.id}
@@ -158,6 +179,7 @@ const ProjectHeader = ({ project }) => {
                                             </span>
                                         </motion.button>
                                     ))}
+                                    
                                 </div>
 
                                 <motion.div
