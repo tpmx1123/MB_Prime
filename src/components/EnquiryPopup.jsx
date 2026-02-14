@@ -7,6 +7,22 @@ const EnquiryPopup = () => {
     const [formData, setFormData] = useState({ name: '', email: '', phone: '', message: '' });
     const [isSubmitted, setIsSubmitted] = useState(false);
 
+    // --- NEW EFFECT: Listen for the custom event from MBPrimeVillas ---
+    useEffect(() => {
+        const handleOpenPopup = () => {
+            setIsVisible(true);
+        };
+
+        // Adding listener for the event dispatched by your villa component
+        window.addEventListener('open-enquiry-popup', handleOpenPopup);
+
+        return () => {
+            // Clean up listener on unmount
+            window.removeEventListener('open-enquiry-popup', handleOpenPopup);
+        };
+    }, []);
+
+    // Existing Auto-show Logic
     useEffect(() => {
         const hasSubmitted = localStorage.getItem('mbPrimeEnquirySubmitted');
         const hasSeen = localStorage.getItem('mbPrimeEnquiryPopupSeen');
@@ -21,11 +37,13 @@ const EnquiryPopup = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Simulate luxury concierge processing
         setTimeout(() => {
             setIsSubmitted(true);
             localStorage.setItem('mbPrimeEnquirySubmitted', 'true');
-            setTimeout(() => setIsVisible(false), 3000);
+            setTimeout(() => {
+                setIsVisible(false);
+                setIsSubmitted(false); // Reset for future clicks
+            }, 3000);
         }, 1200);
     };
 
@@ -51,10 +69,8 @@ const EnquiryPopup = () => {
                             initial={{ opacity: 0, scale: 0.95, y: 20 }}
                             animate={{ opacity: 1, scale: 1, y: 0 }}
                             exit={{ opacity: 0, scale: 0.95, y: 20 }}
-                            // Reduced max-width for a more elegant, compact feel
                             className="bg-white rounded-[2rem] shadow-[0_32px_64px_rgba(0,0,0,0.2)] w-full max-w-md overflow-hidden relative border border-slate-100"
                         >
-                            {/* Premium Gold Header Accent */}
                             <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-secondary via-primary to-secondary" />
                             
                             <button
@@ -64,13 +80,11 @@ const EnquiryPopup = () => {
                                 <X size={20} />
                             </button>
 
-                            {/* Corrected padding (pt-14) to ensure text isn't cut at the top */}
                             <div className="p-6 md:p-8 pt-14 md:pt-14">
                                 {!isSubmitted ? (
                                     <>
                                         <div className="mb-4 text-center">
                                             <span className="text-secondary font-bold tracking-[0.3em] uppercase text-[9px] block mb-2">Connect With Us</span>
-                                            {/* Balanced line-height for luxury serif fonts */}
                                             <h2 className="text-2xl md:text-3xl font-serif text-primary leading-tight py-1">
                                                 Embark on Your <br />
                                                 <span className="italic font-light opacity-70">Luxury Journey</span>
