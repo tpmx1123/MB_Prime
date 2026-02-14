@@ -94,7 +94,7 @@ export const projects = [
     imageHover: PROJECT_IMAGE_B,
     logo: 'https://res.cloudinary.com/durbtkhbz/image/upload/v1770526685/sklmlogo_c2trtg.png',
     masterPlan: 'https://res.cloudinary.com/dcrdkvt2q/image/upload/v1770968591/villas_plots_jpg.jpg_hovhc9.jpg',
-    locationMap: 'https://maps.google.com/maps?q=18.3597862,83.9194874+(MB+PRIME+VILLAS+PLOTS)&t=&z=15&ie=UTF8&iwloc=&output=embed',
+    locationMap: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2716.7785112791116!2d83.91691247334634!3d18.359791274069345!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a3c6b1319544a1d%3A0x8d95f21e30a1bdac!2sMB%20PRIME%20VILLAS%20PLOTS!5e1!3m2!1sen!2sin!4v1771046346979!5m2!1sen!2sin',
     layoutHighlights: [
       [
         ' Outdoor Function Area',
@@ -261,12 +261,12 @@ export const projects = [
       }
     ],
     locationDistances: [
-      { time: '05', unit: 'Mins', label: 'GEMS Hospital' },
-      { time: '05', unit: 'Mins', label: 'Gayatri Educational Society NH 16' },
-      { time: '10', unit: 'Mins', label: 'Railway Station' },
-      { time: '10', unit: 'Mins', label: 'RTC Complex' },
-      { time: '10', unit: 'Mins', label: 'Palakonda Road' },
-      { time: '60', unit: 'Mins', label: 'Bhogapuram International Airport', type: 'airport' },
+      { time: '05', unit: 'Mins', label: 'GEMS Hospital', icon: 'Hospital' },
+      { time: '05', unit: 'Mins', label: 'Gayatri Educational Society NH 16', icon: 'School' },
+      { time: '10', unit: 'Mins', label: 'Railway Station', icon: 'Train' },
+      { time: '10', unit: 'Mins', label: 'RTC Complex', icon: 'Bus' },
+      { time: '10', unit: 'Mins', label: 'Palakonda Road', icon: 'MapPin' },
+      { time: '60', unit: 'Mins', label: 'Bhogapuram International Airport', type: 'airport', icon: 'Plane' },
     ],
   },
   {
