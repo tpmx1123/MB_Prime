@@ -76,7 +76,7 @@ const IntroPhilosophy = () => {
                 viewport={{ once: true }}
                 transition={{ delay: 0.2 }}
               >
-                "We build residential communities where thoughtful planning meets everyday life"
+                We build residential communities where thoughtful planning meets everyday life
               </Motion.p>
 
               <Motion.p

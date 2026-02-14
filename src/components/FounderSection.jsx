@@ -46,13 +46,13 @@ const FounderSection = () => {
               
               <div className="absolute -inset-[1px] md:-inset-[2px] bg-secondary/20 rounded-[1.1rem] md:rounded-[2.2rem]"></div>
               
-              <div className="relative z-10 rounded-[1rem] md:rounded-[2rem] overflow-hidden border-[4px] md:border-[8px] border-white bg-white shadow-lg md:shadow-xl">
-                <img 
-                  src="https://res.cloudinary.com/durbtkhbz/image/upload/v1770873893/052A9115_jpd5pn.jpg" 
-                  alt="Mr. Maganti Ravi Babu" 
-                  className="w-full h-auto object-cover transition-all duration-1000 ease-in-out scale-100 group-hover:scale-105"
-                />
-              </div>
+             <div className="relative z-10 rounded-[1rem] md:rounded-[2rem] overflow-hidden border-[4px] md:border-[8px] border-white bg-white shadow-lg md:shadow-xl">
+  <img 
+    src="https://res.cloudinary.com/dgmrbxuvb/image/upload/v1771054701/mbprime_ravibabu_adjxfk.png" 
+    alt="Mr. Maganti Ravi Babu" 
+    className="w-full h-[150px] md:h-[350px] object-cover object-top transition-all duration-1000 ease-in-out scale-100 group-hover:scale-105"
+  />
+</div>
 
               <div className="absolute -top-3 -right-3 md:-top-6 md:-right-6 w-10 h-10 md:w-24 md:h-24 border-t border-r md:border-t-2 md:border-r-2 border-secondary/20 rounded-tr-[1.5rem] md:rounded-tr-[3rem] -z-0"></div>
             </div>
