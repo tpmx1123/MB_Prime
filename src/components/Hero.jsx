@@ -12,7 +12,7 @@ const Hero = () => {
     // 5-second timer to clear the video and hide the text
     const timer = setTimeout(() => {
       setIsHighlighted(true);
-    }, 5000); 
+    }, 8000); 
 
     return () => clearTimeout(timer);
   }, []);

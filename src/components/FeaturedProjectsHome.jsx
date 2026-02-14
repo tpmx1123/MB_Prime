@@ -35,14 +35,14 @@ const ProjectCard = ({ project }) => {
         {/* Info Bar - fixed height so all cards same size */}
         <div className="bg-[#1A1A1A] text-white p-6 rounded-b-[2rem] transition-all duration-500 group-hover:bg-black shadow-xl shrink-0">
           <div className="flex flex-col items-center">
-            <h3 className="text-lg font-bold tracking-[0.2em] uppercase text-center mb-3">
+            <h3 className="text-lg font-bold  text-center mb-3 ">
               {project.name}
             </h3>
 
             <div className="w-full h-px bg-white/10 mb-4" />
 
             <div className="flex flex-col items-center gap-1">
-              <p className="text-[10px] font-bold tracking-[0.3em] text-secondary uppercase">
+              <p className="text-[10px] font-bold  text-secondary uppercase">
                 {project.location}
               </p>
               <p className="text-[9px] font-medium uppercase tracking-widest text-white/40">
@@ -96,7 +96,7 @@ const FeaturedProjectsHome = () => {
       <div className="container mx-auto px-4 md:px-15">
         {/* Header Section */}
         <div className="text-center mb-16">
-          <span className="text-secondary font-bold tracking-[0.5em] uppercase text-[20px] block mb-4">
+          <span className="text-secondary font-bold tracking-[0.2em] uppercase text-[20px] block mb-4">
             MB Prime Project
           </span>
           <h2 className="text-2xl md:text-4xl font-sans font-bold text-primary tracking-tight uppercase leading-tight">

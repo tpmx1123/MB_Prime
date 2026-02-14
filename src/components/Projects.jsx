@@ -28,9 +28,7 @@ const Projects = () => {
     <section id="projects" className="bg-[#0A0A0A] pb-32 pt-24 text-white overflow-hidden">
       <div className="container mx-auto px-6 md:px-16">
         <div className="mb-16">
-          <motion.span className="block text-secondary font-sans font-bold text-xs uppercase tracking-[0.4em] mb-4">
-            Portfolio
-          </motion.span>
+         
           <h2 className="text-4xl md:text-6xl font-serif leading-tight">
             <span className="italic font-light text-white/50 text-2xl md:text-4xl block mb-2">Our Projects</span>
             <span className="font-bold text-white">Unmissable Stature, Incomparable Living.</span>
@@ -58,7 +56,7 @@ const Projects = () => {
                 </div>
 
                 <div className="p-6 md:p-8 bg-white">
-                  <h3 className="text-xl md:text-2xl font-serif text-primary mb-3 group-hover:text-secondary transition-colors duration-300">
+                  <h3 className="text-xl md:text-2xl font-centaur text-primary mb-3 group-hover:text-secondary transition-colors duration-300">
                     {project.name}
                   </h3>
                   <div className="flex items-center gap-2 text-primary/40 text-xs font-semibold uppercase tracking-widest mb-4">
