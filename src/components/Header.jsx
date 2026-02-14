@@ -15,7 +15,7 @@ const Header = () => {
         { label: 'Projects', link: '/projects' },
         { label: 'MB Prime Villas | Srikakulam', link: '/projects/villas' },
         { label: 'MB Prime Enclave | Vizianagaram', link: '/projects/enclave' },
-        { label: 'Jewel City | Vizag', link: '/projects/jewelcity' },
+        { label: 'Jewel City | Vizag', link: '/projects/vizag' },
         { label: 'Capital West | Vijayawada', link: '/projects/capital-west' },
         { label: 'AI Gen Villas | Guntur', link: '/projects/ai-gen-villas' },
       ],
