@@ -46,7 +46,7 @@ const InvestmentSection = () => {
                   Investment
                 </span>
                 <h2 className="text-base sm:text-2xl md:text-3xl font-sans font-bold text-slate-900 tracking-tight leading-tight">
-                  Why Andhra Pradesh
+                  Why Andhra Pradesh !
                 </h2>
                 <div className="w-10 sm:w-14 h-0.5 bg-secondary/40 mt-2 sm:mt-4 rounded-full" />
               </div>

@@ -1,23 +1,33 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, useParams, Navigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Check, MapPin, Layout, ClipboardList, ChevronLeft, ChevronRight, Download, Plane,
   Footprints, Trophy, Target, Zap, Smile, Trees, Music, Home, Waves, Users, Sunrise, Droplets, Leaf, Compass,
-  Info, X, ZoomIn, ZoomOut, ArrowRight
-} from 'lucide-react';
+  Info, X, ZoomIn, ZoomOut, ArrowRight, ChevronDown, ChevronUp, Stethoscope, GraduationCap, Train, Bus
+ } from 'lucide-react';
 import { projects, getProjectBySlug } from '../data/projects';
 import ProjectHeader from './ProjectHeader';
-
+import { updateFavicon, updatePageTitle } from '../utils/favicon';
 const iconMap = {
-  Footprints, Trophy, Target, Zap, Smile, Trees, Music, Home, Waves, Users, Sunrise, Droplets, Leaf, Compass, Check
+  Footprints, Trophy, Target, Zap, Smile, Trees, Music, Home, Waves, Users, Sunrise, Droplets, Leaf, Compass, Check,
+  Hospital: Stethoscope, School: GraduationCap, Train, Bus, Plane, MapPin
 };
 
 const AIGenVillas = () => {
   const project = getProjectBySlug('ai-gen-villas');
 
   const [startIndex, setStartIndex] = useState(0);
+  useEffect(() => {
+    updateFavicon(project?.favicon);
+    updatePageTitle(project?.name);
 
+    // Reset to default when component unmounts
+    return () => {
+      updateFavicon(); // Reset to default
+      updatePageTitle(); // Reset to default
+    };
+  }, [project]);
   useEffect(() => {
     setStartIndex(0);
   }, ['ai-gen-villas']);
@@ -37,14 +47,34 @@ const AIGenVillas = () => {
   };
 
   const [activePlotTab, setActivePlotTab] = useState(0);
+  const tabsRef = useRef([]);
+  const tabsContainerRef = useRef(null);
+
+  useEffect(() => {
+    if (tabsRef.current[activePlotTab] && tabsContainerRef.current) {
+      const tab = tabsRef.current[activePlotTab];
+      const container = tabsContainerRef.current;
+
+      const tabLeft = tab.offsetLeft;
+      const tabWidth = tab.offsetWidth;
+      const containerWidth = container.offsetWidth;
+
+      const scrollPosition = tabLeft - (containerWidth / 2) + (tabWidth / 2);
+
+      container.scrollTo({
+        left: scrollPosition,
+        behavior: 'smooth'
+      });
+    }
+  }, [activePlotTab]);
   const [isLayoutZoomed, setIsLayoutZoomed] = useState(false);
   const [zoomLevel, setZoomLevel] = useState(1);
+  const [showAllAmenities, setShowAllAmenities] = useState(false);
 
   // Reset zoom when modal opens/closes
   useEffect(() => {
     if (!isLayoutZoomed) setZoomLevel(1);
   }, [isLayoutZoomed]);
-
   const handleZoomIn = (e) => {
     e.stopPropagation();
     setZoomLevel(prev => Math.min(prev + 0.5, 3));
@@ -71,18 +101,24 @@ const AIGenVillas = () => {
       <section className="relative h-screen w-full overflow-hidden">
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
-          <motion.img
-            src={project.image}
-            alt={project.name}
-            className="w-full h-full object-cover"
-            initial={{ scale: 1.1 }}
-            animate={{ scale: 1 }}
-            transition={{ duration: 1.5, ease: "easeOut" }}
-          />
-          {/* Gradient Overlay for text readability */}
-          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent" />
-        </div>
+  {/* Video Background */}
+  <video
+    autoPlay
+    muted
+    playsInline
+    className="w-full h-full object-cover"
+  >
+    <source 
+      src="https://res.cloudinary.com/dgmrbxuvb/video/upload/v1771062732/mb_prime_villas_kgthud.mp4" 
+      type="video/mp4" 
+    />
+    Your browser does not support the video tag.
+  </video>
 
+  {/* Gradient Overlay for text readability */}
+  <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent" />
+
+</div>
         {/* Content Container */}
         <div className="relative z-10 container h-full flex flex-col justify-center px-6 md:px-12">
 
@@ -161,7 +197,7 @@ const AIGenVillas = () => {
                     transition={{ duration: 0.6 }}
                     className="relative mb-12"
                   >
-                    <h2 className="text-3xl md:text-4xl font-sans font-bold text-primary tracking-tight">
+                    <h2 className="text-2xl md:text-4xl font-sans font-bold text-primary tracking-tight">
                       Villa Configurations
                     </h2>
                     <motion.div
@@ -176,14 +212,16 @@ const AIGenVillas = () => {
                     initial={{ opacity: 0, y: 10 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.3, duration: 0.6 }}
-                    className="flex p-1 bg-slate-100 rounded-xl w-full md:w-fit overflow-x-auto border border-slate-200/50 shadow-sm no-scrollbar"
+                    ref={tabsContainerRef}
+                    className="flex p-1 bg-slate-100 rounded-xl w-full md:w-fit overflow-x-auto border border-slate-200/50 shadow-sm no-scrollbar scroll-smooth md:-mt-0 -mt-5"
                   >
                     <div className="flex min-w-max md:min-w-0">
                       {project.villaTypes.map((type, index) => (
                         <button
                           key={type.id}
+                          ref={el => tabsRef.current[index] = el}
                           onClick={() => setActivePlotTab(index)}
-                          className={`relative px-4 md:px-6 py-2.5 rounded-lg font-sans font-bold text-[10px] md:text-xs uppercase tracking-wide transition-colors duration-300 whitespace-nowrap ${activePlotTab === index
+                          className={`relative px-3 md:px-8 py-2.5 rounded-lg font-sans font-bold text-[10px] md:text-xs uppercase tracking-wide transition-colors duration-300 whitespace-nowrap ${activePlotTab === index
                             ? 'text-secondary'
                             : 'text-slate-400 hover:text-slate-600'
                             }`}
@@ -223,7 +261,7 @@ const AIGenVillas = () => {
                   initial="hidden"
                   whileInView="visible"
                   viewport={{ once: true }}
-                  className="flex items-center justify-center gap-2 md:gap-8 "
+                  className="flex items-center justify-center gap-2 md:gap-8 md:-mt-0 -mt-7  "
                 >
                   <button
                     onClick={() => setActivePlotTab(prev => (prev === 0 ? project.villaTypes.length - 1 : prev - 1))}
@@ -244,9 +282,9 @@ const AIGenVillas = () => {
                       <img
                         src={project.villaTypes[activePlotTab].image}
                         alt={project.villaTypes[activePlotTab].type}
-                        className="w-auto h-[250px] md:h-[350px] object-cover transition-transform duration-700 group-hover:scale-105"
+                        className="w-auto h-[200px] md:h-[350px] object-cover transition-transform duration-700 group-hover:scale-105"
                       />
-                      <div className={`absolute top-4 left-4 ${project.villaTypes[activePlotTab].color} text-white px-2 py-0.5 rounded-full text-[8px] font-bold uppercase tracking-wider shadow-sm`}>
+                      <div className={`absolute md:top-4 md:left-4 top-2 left-2 ${project.villaTypes[activePlotTab].color} text-white md:px-2 md:py-0.5 px-1 py-0 rounded-full md:text-[8px] text-[5px] font-bold uppercase tracking-wider shadow-sm`}>
                         {project.villaTypes[activePlotTab].type}
                       </div>
                     </motion.div>
@@ -256,38 +294,38 @@ const AIGenVillas = () => {
                       initial={{ opacity: 0, x: 20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ duration: 0.5 }}
-                      className="md:justify-self-start max-w-md"
+                      className="md:justify-self-start max-w-md text-center md:text-left"
                     >
-                      <h3 className="text-2xl font-sans font-bold text-primary mb-4">
+                      <h3 className="md:text-2xl text-[17px] font-sans font-bold text-primary md:mb-4 mb-2">
                         {project.villaTypes[activePlotTab].type}
                       </h3>
-                      <div className="flex flex-wrap gap-4 mb-6 text-sm font-sans text-slate-500">
-                        <span className="bg-slate-50 px-3 py-1 rounded border border-slate-100">
+                      <div className="flex flex-nowrap gap-4 mb-6 text-sm font-sans text-slate-500 justify-center md:justify-start items-center">
+                        <span className="bg-slate-50 px-3 py-1 rounded border border-slate-100 whitespace-nowrap">
                           Size: <strong className="text-slate-700">{project.villaTypes[activePlotTab].size}</strong>
                         </span>
                         {project.villaTypes[activePlotTab].direction && (
-                          <span className="bg-slate-50 px-3 py-1 rounded border border-slate-100">
+                          <span className="bg-slate-50 px-3 py-1 rounded border border-slate-100 whitespace-nowrap">
                             Direction: <strong className="text-slate-700">{project.villaTypes[activePlotTab].direction}</strong>
                           </span>
                         )}
 
                       </div>
 
-                      <p className="text-slate-600 font-sans leading-relaxed mb-6">
+                      <p className="text-slate-600 font-sans leading-relaxed mb-6 md:text-[16px] text-[12px]">
                         {project.villaTypes[activePlotTab].description}
                       </p>
 
                       {/* Area Details Grid */}
-                      <div className="grid grid-cols-2 gap-x-8 mt-10">
+                      <div className="grid grid-cols-2 gap-x-8 md:mt-10 ">
                         <div>
-                          <p className="text-sm font-sans font-medium text-slate-700 mb-1">Plot Area</p>
-                          <div className="h-0.5 w-10 bg-indigo-400 rounded-full mb-3"></div>
-                          <p className="text-2xl font-sans font-bold text-primary">{project.villaTypes[activePlotTab].area}</p>
+                          <p className="md:text-sm text-[12px] font-sans font-medium text-slate-700 mb-1">Plot Area</p>
+                          <div className="h-0.5 w-10 bg-indigo-400 rounded-full mb-3 mx-auto md:mx-0"></div>
+                          <p className="md:text-2xl text-[14px] font-sans font-bold text-primary">{project.villaTypes[activePlotTab].area}</p>
                         </div>
                         <div>
-                          <p className="text-sm font-sans font-medium text-slate-700 mb-1">Built Up Area</p>
-                          <div className="h-0.5 w-10 bg-indigo-400 rounded-full mb-3"></div>
-                          <p className="text-2xl font-sans font-bold text-primary">{project.villaTypes[activePlotTab].builtUp}</p>
+                          <p className="md:text-sm text-[12px] font-sans font-medium text-slate-700 mb-1">Built Up Area</p>
+                          <div className="h-0.5 w-10 bg-indigo-400 rounded-full mb-3 mx-auto md:mx-0"></div>
+                          <p className="md:text-2xl text-[14px] font-sans font-bold text-primary">{project.villaTypes[activePlotTab].builtUp}</p>
                         </div>
                       </div>
                     </motion.div>
@@ -324,26 +362,7 @@ const AIGenVillas = () => {
                 }
               }}
             >
-              <motion.div
-                variants={{
-                  hidden: { opacity: 0, scale: 0.95 },
-                  visible: { opacity: 1, scale: 1, transition: { duration: 0.6 } }
-                }}
-                className="flex flex-col items-start -mb-8 mt-32 max-w-6xl mx-auto w-full px-6 md:px-12"
-              >
-                <div className="relative inline-block px-10 py-3 bg-secondary rounded-r-full backdrop-blur-sm">
-                  <h2 className="text-3xl md:text-4xl font-sans font-bold text-primary tracking-tight">
-                    Master Layout
-                  </h2>
-                  <motion.div
-                    variants={{
-                      hidden: { width: 0 },
-                      visible: { width: '100%', transition: { delay: 0.3, duration: 0.8 } }
-                    }}
-                    className="absolute bottom-0 left-0 h-[2px] bg-gradient-to-r from-secondary to-transparent"
-                  />
-                </div>
-              </motion.div>
+
 
               <motion.div
                 variants={{
@@ -357,40 +376,36 @@ const AIGenVillas = () => {
                 className="max-w-6xl mx-auto grid md:grid-cols-2 items-center py-20 px-6 md:px-12 "
               >
                 {/* Left Side: Highlights */}
-                <div className="flex flex-col gap-4 md:pl-16">
-                  {project.layoutHighlights?.[0]?.map((item, idx) => (
+                <div className="flex flex-col gap-4 md:pl-16 md:-mt-0 -mt-8 md:mb-0 mb-4">
+                  <div className="relative inline-block px-6 py-2 md:px-10 md:py-3 bg-secondary rounded-r-full backdrop-blur-sm mb-6 -ml-1 self-start ">
+                    <h2 className="text-xl md:text-3xl font-sans font-bold text-primary tracking-tight">
+                      Master Layout
+                    </h2>
                     <motion.div
-                      key={idx}
                       variants={{
-                        hidden: { opacity: 0, x: -30 },
-                        visible: { opacity: 1, x: 0, transition: { duration: 0.6 } }
+                        hidden: { width: 0 },
+                        visible: { width: '100%', transition: { delay: 0.3, duration: 0.8 } }
                       }}
-                      className="flex items-center gap-4 group cursor-default"
-                    >
-                      <span className="text-primary/70 group-hover:text-primary font-sans text-sm font-medium tracking-tight transition-colors duration-300">
-                        {item}
-                      </span>
-                    </motion.div>
-                  ))}
-
-                  {project.layoutHighlights?.[1] && (
-                    <div className="space-y-4 pt-2">
-                      {project.layoutHighlights[1].map((item, idx) => (
-                        <motion.div
-                          key={`col2-${idx}`}
-                          variants={{
-                            hidden: { opacity: 0, x: -30 },
-                            visible: { opacity: 1, x: 0, transition: { duration: 0.6 } }
-                          }}
-                          className="flex items-center gap-3 group cursor-default"
-                        >
-                          <span className="text-primary/70 group-hover:text-primary font-sans text-sm font-medium tracking-tight transition-colors duration-300">
-                            {item}
-                          </span>
-                        </motion.div>
-                      ))}
-                    </div>
-                  )}
+                      className="absolute bottom-0 left-0 h-[2px] bg-gradient-to-r from-secondary to-transparent"
+                    />
+                  </div>
+                  <div className="grid grid-cols-2 gap-x-3 md:gap-x-8 gap-y-3 md:gap-y-4 w-full">
+                    {project.layoutHighlights?.flat().map((item, idx) => (
+                      <motion.div
+                        key={idx}
+                        variants={{
+                          hidden: { opacity: 0, x: -20 },
+                          visible: { opacity: 1, x: 0, transition: { duration: 0.5, delay: idx * 0.1 } }
+                        }}
+                        className="flex items-start gap-2 md:gap-3 group cursor-default"
+                      >
+                        <div className="mt-1.5 md:mt-2 w-1 md:w-1.5 h-1 md:h-1.5 rounded-full bg-secondary shrink-0 group-hover:scale-125 transition-transform duration-300" />
+                        <span className="text-primary/80 group-hover:text-primary font-sans text-[11px] md:text-base font-medium tracking-tight transition-colors duration-300 leading-relaxed">
+                          {item}
+                        </span>
+                      </motion.div>
+                    ))}
+                  </div>
                 </div>
 
                 {/* Right Side: Image */}
@@ -410,7 +425,7 @@ const AIGenVillas = () => {
                       <img
                         src={project.masterPlan}
                         alt={`${project.name} Master Plan`}
-                        className="w-full h-auto max-w-[550px] object-contain transition-transform duration-700 hover:scale-[1.02] drop-shadow-2xl rounded-lg"
+                        className="w-full h-auto max-w-[430px] object-contain transition-transform duration-700 hover:scale-[1.02] drop-shadow-2xl rounded-lg"
                       />
                       <div className="absolute inset-0 bg-black/0 group-hover/image:bg-black/10 transition-colors duration-300 rounded-lg flex items-center justify-center opacity-0 group-hover/image:opacity-100">
                         <span className="bg-white/90 text-primary px-4 py-2 rounded-full text-sm font-semibold shadow-lg transform translate-y-4 group-hover/image:translate-y-0 transition-all duration-300">
@@ -439,7 +454,7 @@ const AIGenVillas = () => {
                 }
               }}
             >
-              <div className="flex flex-col items-center justify-center mb-6 mt-40">
+              <div className="flex flex-col items-center justify-center mb-6 mt-18 md:mt-40">
                 <motion.div
                   variants={{
                     hidden: { opacity: 0, scale: 0.95 },
@@ -447,11 +462,13 @@ const AIGenVillas = () => {
                   }}
                   className="relative"
                 >
-                  <div className="flex items-center gap-3">
-                    <MapPin className="text-secondary" size={32} />
-                    <h2 className="text-3xl md:text-4xl font-sans font-bold text-primary tracking-tight">
-                      Location Highlights
-                    </h2>
+                  <div className="flex items-start gap-4 justify-between w-full mb-6 mt-18">
+                    <div className="flex items-center gap-3">
+                      <MapPin className="text-secondary shrink-0" size={32} />
+                      <h2 className="text-2xl md:text-3xl font-sans font-bold text-primary tracking-tight">
+                        Location Highlights
+                      </h2>
+                    </div>
                   </div>
                   <motion.div
                     variants={{
@@ -463,9 +480,8 @@ const AIGenVillas = () => {
                 </motion.div>
               </div>
 
-              <div className="relative w-full pb-10">
+              {/* <div className="relative w-full pb-10 md:-mt-0 -mt-10">
                 <div className="max-w-7xl mx-auto px-4 py-20 relative">
-                  {/* Horizontal Timeline Line (Ash Line) - Hidden on mobile */}
                   <motion.div
                     initial={{ width: 0 }}
                     whileInView={{ width: 'calc(100% - 60px)' }}
@@ -473,15 +489,9 @@ const AIGenVillas = () => {
                     className="absolute top-[215px] left-[30px] h-[2px] border-b-2 border-dashed border-slate-400/40 hidden md:block"
                   />
 
-                  {/* Vertical Timeline Line for Mobile */}
-                  <motion.div
-                    initial={{ height: 0 }}
-                    whileInView={{ height: '80%' }}
-                    transition={{ duration: 1.5, ease: "easeInOut" }}
-                    className="absolute left-1/2 top-40 w-[2px] border-l-2 border-dashed border-slate-400/40 md:hidden -translate-x-1/2"
-                  />
+                  <div className="hidden" />
 
-                  <div className="flex flex-col md:flex-row justify-between items-center md:items-start relative z-10 w-full gap-20 md:gap-0">
+                  <div className="flex flex-row md:flex-row overflow-x-auto md:overflow-visible justify-start md:justify-between items-start relative z-10 w-full gap-4 md:gap-0 px-4 md:px-0 scroll-smooth snap-x snap-mandatory no-scrollbar pb-4">
                     {project.locationDistances?.map((loc, idx) => (
                       <motion.div
                         key={idx}
@@ -489,12 +499,11 @@ const AIGenVillas = () => {
                           hidden: { opacity: 0, y: 20 },
                           visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
                         }}
-                        className="flex flex-col items-center group relative w-full md:flex-1 min-w-0"
+                        className="flex flex-col items-center group relative min-w-[100px] md:min-w-0 md:flex-1 snap-center"
                       >
-                        {/* 1. Time Distance Label */}
-                        <div className="h-20 flex flex-col justify-end mb-4">
+                        <div className="h-14 md:h-20 flex flex-col justify-end mb-2 md:mb-4">
                           <div className="flex items-baseline gap-1">
-                            <span className="text-4xl lg:text-6xl font-sans font-extrabold text-[#5B6BF9]/40 group-hover:text-[#5B6BF9] transition-all duration-700 cursor-default">
+                            <span className="text-2xl md:text-4xl lg:text-6xl font-sans font-extrabold text-[#5B6BF9]/40 group-hover:text-[#5B6BF9] transition-all duration-700 cursor-default">
                               {loc.time}
                             </span>
                             <div className="flex flex-col">
@@ -508,30 +517,25 @@ const AIGenVillas = () => {
                           </div>
                         </div>
 
-                        {/* 2. Map Pin and Vertical Connector (ABOVE the ash line) */}
-                        <div className="relative h-24 w-full flex flex-col items-center">
+                        <div className="relative h-12 md:h-24 w-full flex flex-col items-center">
                           <motion.div
                             whileHover={{ y: -5 }}
                             className="z-20 mb-2"
                           >
-                            <MapPin size={24} className="text-slate-700 group-hover:text-[#5B6BF9] transition-all duration-500" fill="currentColor" />
+                            <MapPin size={24} className="text-slate-700 group-hover:text-[#5B6BF9] transition-all duration-500 w-5 h-5 md:w-6 md:h-6" fill="currentColor" />
                           </motion.div>
 
-                          {/* Vertical Line connecting to Ash Line */}
                           <div className="w-[2px] h-full bg-gradient-to-t from-[#5B6BF9] to-slate-200/50 opacity-60 group-hover:opacity-100 transition-opacity duration-500" />
 
-                          {/* Intersection Point Dot (on the Ash Line) */}
                           <div className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-3 h-3 rounded-full border-[3px] border-white bg-[#5B6BF9] shadow-md z-30 transform scale-0 group-hover:scale-100 transition-transform duration-300" />
                         </div>
 
-                        {/* 3. Location Label (BELOW the ash line) */}
-                        <div className="mt-8 text-center px-1 w-full flex justify-center">
-                          <p className="text-primary font-sans font-bold text-[11px] lg:text-sm tracking-tight leading-relaxed group-hover:text-[#5B6BF9] transition-colors duration-300 max-w-[120px] lg:max-w-none">
+                        <div className="mt-4 md:mt-8 text-center px-1 w-full flex justify-center">
+                          <p className="text-primary font-sans font-bold text-[9px] md:text-[11px] lg:text-sm tracking-tight leading-relaxed group-hover:text-[#5B6BF9] transition-colors duration-300 max-w-[100px] lg:max-w-none">
                             {loc.label}
                           </p>
                         </div>
 
-                        {/* Airport Curve SVG (Starts from the dash line intersection) */}
                         {loc.type === 'airport' && (
                           <div className="absolute top-[215px] left-[50%] w-[120px] h-[1px] pointer-events-none overflow-visible">
                             <svg className="w-full h-full overflow-visible" viewBox="0 0 100 100" fill="none">
@@ -564,8 +568,107 @@ const AIGenVillas = () => {
                     ))}
                   </div>
                 </div>
-              </div>
+              </div> */}
 
+
+              <div className="relative w-full pb-10">
+                <div className="max-w-7xl mx-auto px-4 py-12 md:py-20 relative">
+                  {/* DESKTOP: Horizontal Timeline Line (Ash Line) */}
+                  <motion.div
+                    initial={{ width: 0 }}
+                    whileInView={{ width: 'calc(100% - 60px)' }}
+                    transition={{ duration: 1.5, ease: "easeInOut" }}
+                    className="absolute top-[215px] left-[30px] h-[2px] border-b-2 border-dashed border-slate-300 hidden md:block"
+                  />
+
+                  {/* MOBILE: Vertical Timeline Line (Positioned at the gutter between time and text) */}
+                  <motion.div
+                    initial={{ height: 0 }}
+                    whileInView={{ height: '100%' }}
+                    transition={{ duration: 1.5, ease: "easeInOut" }}
+                    className="absolute left-[85px] top-0 w-[2px] border-l-2 border-dashed border-slate-300 md:hidden z-0"
+                  />
+
+                  <div className="flex flex-col md:flex-row justify-between items-start md:items-start relative z-10 w-full gap-12 md:gap-0">
+                    {project.locationDistances?.map((loc, idx) => (
+                      <motion.div
+                        key={idx}
+                        variants={{
+                          hidden: { opacity: 0, y: 20 },
+                          visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
+                        }}
+                        className="flex flex-row md:flex-col items-center md:items-center group relative w-full md:flex-1 min-w-0"
+                      >
+                        {/* 1. Time Indicator (Fixed width on mobile to align with the gutter) */}
+                        <div className="w-[70px] md:w-full flex flex-col items-end md:items-center pr-4 md:pr-0 md:mb-4">
+                          <div className="flex items-baseline gap-1">
+                            <span className="text-3xl md:text-5xl lg:text-6xl font-sans font-extrabold text-[#5B6BF9]/40 group-hover:text-[#5B6BF9] transition-all duration-700 cursor-default">
+                              {loc.time}
+                            </span>
+                            <div className="flex flex-col">
+                              <span className="text-[9px] md:text-[10px] lg:text-xs uppercase tracking-widest font-black text-slate-400">
+                                {loc.unit}
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* 2. Map Pin (Centered on the dashed line) */}
+                        <div className="relative z-10 flex items-center justify-center w-8 md:w-full md:h-24">
+                          <motion.div
+                            whileHover={{ y: -5 }}
+                            className="bg-white rounded-full p-2 md:p-3 border-2 border-slate-100 shadow-sm group-hover:border-[#5B6BF9] transition-all duration-500"
+                          >
+                            {(() => {
+                              const IconComponent = iconMap[loc.icon] || MapPin;
+                              return <IconComponent size={20} className="text-slate-700 group-hover:text-[#5B6BF9] md:w-6 md:h-6" strokeWidth={1.5} />;
+                            })()}
+                          </motion.div>
+
+                          {/* Desktop-only vertical stem connecting to horizontal line */}
+                          <div className="hidden md:block absolute bottom-0 w-[2px] h-12 bg-gradient-to-t from-[#5B6BF9] to-slate-200/50 opacity-60 group-hover:opacity-100 transition-opacity" />
+
+                          {/* Desktop-only intersection dot */}
+                          <div className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-3 h-3 rounded-full border-[3px] border-white bg-[#5B6BF9] shadow-md z-30 transform scale-0 group-hover:scale-100 transition-transform duration-300 hidden md:block" />
+                        </div>
+
+                        {/* 3. Location Label (Right-aligned on mobile) */}
+                        <div className="flex-1 pl-4 md:pl-0 md:mt-8 md:text-center">
+                          <p className="text-primary font-sans font-bold text-sm lg:text-base tracking-tight leading-snug group-hover:text-[#5B6BF9] transition-colors duration-300">
+                            {loc.label}
+                          </p>
+                        </div>
+
+                        {/* Airport Curve SVG (Desktop Only) */}
+                        {loc.type === 'airport' && (
+                          <div className="absolute top-[215px] left-[50%] w-[120px] h-[1px] pointer-events-none overflow-visible hidden md:block">
+                            <svg className="w-full h-full overflow-visible" viewBox="0 0 100 100" fill="none">
+                              <motion.path
+                                initial={{ pathLength: 0, opacity: 0 }}
+                                whileInView={{ pathLength: 1, opacity: 1 }}
+                                transition={{ duration: 1.5, delay: 0.8 }}
+                                d="M0 0C30 0 70 -20 90 -80"
+                                stroke="#5B6BF9"
+                                strokeWidth="2.5"
+                                strokeDasharray="5 5"
+                                strokeLinecap="round"
+                              />
+                              <motion.g
+                                initial={{ opacity: 0, scale: 0 }}
+                                whileInView={{ opacity: 1, scale: 1 }}
+                                transition={{ delay: 2.2, duration: 0.5 }}
+                                style={{ transform: 'translate(90px, -80px) rotate(-45deg)' }}
+                              >
+                                <Plane size={24} className="text-[#5B6BF9]" />
+                              </motion.g>
+                            </svg>
+                          </div>
+                        )}
+                      </motion.div>
+                    ))}
+                  </div>
+                </div>
+              </div>
               {/* Google Maps Embed */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -613,7 +716,7 @@ const AIGenVillas = () => {
                     <h2 className="text-xl md:text-2xl font-sans font-bold text-secondary tracking-[0.2em] uppercase mb-2">
                       20 PLUS
                     </h2>
-                    <h3 className="text-3xl md:text-5xl font-sans font-extrabold text-primary tracking-tight">
+                    <h3 className="text-2xl md:text-5xl font-sans font-extrabold text-primary tracking-tight">
                       High Level Amenities
                     </h3>
                     <motion.div
@@ -635,7 +738,7 @@ const AIGenVillas = () => {
                           initial={{ opacity: 0, y: 20 }}
                           whileInView={{ opacity: 1, y: 0 }}
                           transition={{ duration: 0.5, delay: idx * 0.05 }}
-                          className="relative aspect-[4/3] rounded-xl overflow-hidden group cursor-pointer shadow-md"
+                          className={`relative aspect-[4/3] rounded-xl overflow-hidden group cursor-pointer shadow-md ${!showAllAmenities && idx >= 8 ? 'hidden md:block' : ''}`}
                         >
                           {/* Background Image */}
                           <motion.img
@@ -650,8 +753,8 @@ const AIGenVillas = () => {
                           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-100 group-hover:opacity-0 transition-opacity duration-300" />
 
                           {/* Static Title (Bottom Left - fades on hover) */}
-                          <div className="absolute bottom-4 left-4 group-hover:opacity-0 transition-opacity duration-300">
-                            <h4 className="text-base font-sans font-bold text-white tracking-tight drop-shadow-lg">
+                          <div className="absolute md:bottom-4 bottom-2 left-2 md:left-4 group-hover:opacity-0 transition-opacity duration-300">
+                            <h4 className="md:text-base text-[10px] font-sans font-bold text-white tracking-tight drop-shadow-lg">
                               {item.title}
                             </h4>
                           </div>
@@ -694,6 +797,17 @@ const AIGenVillas = () => {
                       );
                     })}
                   </div>
+                  {project.amenities.length > 10 && (
+                    <div className="flex justify-center mt-8 md:hidden">
+                      <button
+                        onClick={() => setShowAllAmenities(!showAllAmenities)}
+                        className="flex items-center gap-2 px-6 py-2 bg-white border border-secondary text-secondary font-sans font-bold rounded-full shadow-sm hover:bg-secondary hover:text-white transition-all duration-300 text-sm"
+                      >
+                        {showAllAmenities ? 'View Less' : 'View More'}
+                        {showAllAmenities ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+                      </button>
+                    </div>
+                  )}
                 </div>
               </motion.section>
             ) : project.highlights && project.highlights.length > 0 ? (
@@ -738,14 +852,14 @@ const AIGenVillas = () => {
 
 
           <motion.div
-            className="mt-14 ml-19 max-w-5xl bg-[#6366f1] rounded-lg p-8 md:p-10 flex flex-col md:flex-row items-center justify-center gap-16 shadow-2xl  overflow-hidden group"
+            className="mt-14 mx-auto max-w-5xl bg-[#6366f1] rounded-lg p-6 md:p-10 flex flex-col md:flex-row items-center justify-between gap-6 md:gap-16 shadow-2xl  overflow-hidden group"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
             <div className="absolute top-0 right-0 bg-white/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 gap-10" />
 
-            <h3 className="text-2xl md:text-2xl font-sans font-bold text-white tracking-tight z-10 text-center md:text-left ">
+            <h3 className="text-xl md:text-2xl font-sans font-bold text-white tracking-tight z-10 text-center md:text-left ">
               Are you interested in this Property?
             </h3>
 
@@ -760,7 +874,7 @@ const AIGenVillas = () => {
       </section >
 
       {/* Other Projects Section */}
-      < section id="other-projects" className="py-20 bg-white border-t border-slate-100 scroll-mt-24" >
+      <section id="other-projects" className="py-20 bg-white border-t border-slate-100 scroll-mt-24">
         <div className="container">
           <div className="flex items-center justify-between mb-10">
             <h2 className="text-3xl font-sans text-slate-400">Other <span className="font-bold text-primary">Projects</span></h2>

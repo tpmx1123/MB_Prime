@@ -1,12 +1,12 @@
 // Shared project images for hover effect (user-provided Cloudinary URLs)
 export const PROJECT_IMAGE_A = 'https://res.cloudinary.com/durbtkhbz/image/upload/v1770638196/EA-1-7-scaled.jpg_opvxht.webp';
 export const PROJECT_IMAGE_B = 'https://res.cloudinary.com/durbtkhbz/image/upload/v1770802746/cf5d2f057cf4017_f4cvnw.jpg';
-
+import villaBrochure from '../assets/MBPrimevillasbrochure.pdf';
 // Order: 1. Vijayawada, 2. MB Prime Enclave, 3. MB Prime Villas, 4. Capital West, 5. AI Gen Villas
 export const projects = [
   {
     slug: 'vijayawada',
-    name: 'Vijayawada Project',
+    name: 'Jewel City ',
     tagline: 'LIVE IN THE HEART OF VIJAYAWADA',
     subtitle: 'A premium residential community designed for modern living.',
     configurations: '3 Towers | G+15 Floors | 70% Open Area',
@@ -21,6 +21,7 @@ export const projects = [
     logo: null,
     masterPlan: null,
     locationMap: null,
+    favicon: 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1771063124/sklmlogo_c2trtg_wk10v3_cztpx0.ico', // MB Prime Villas favicon
     locationText: 'Strategically located in Vijayawada, offering excellent connectivity to key educational institutions, healthcare centers, and entertainment hubs.',
     overview: 'Projects under planning in Vijayawada. Early registrations open.',
     highlights: [
@@ -43,7 +44,7 @@ export const projects = [
   },
   {
     slug: 'enclave',
-    name: 'MB Prime Enclave',
+    name: 'MB Prime Enclave ',
     tagline: 'THE PRIDE OF VIZIANAGARAM',
     subtitle: 'Live amidst nature and openness.',
     configurations: '5 Blocks | G+5 Floors | Modern Amenities',
@@ -58,6 +59,8 @@ export const projects = [
     logo: null,
     masterPlan: null,
     locationMap: null,
+    favicon: 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1771063124/sklmlogo_c2trtg_wk10v3_cztpx0.ico', // MB Prime Villas favicon
+    masterPlan: 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1771068556/Gemini_Generated_Image_wx0r97wx0r97wx0r_g1tdty.png',
     locationText: 'Located in the rapidly growing Vizianagaram area, MB Prime Enclave combines peaceful living with urban convenience.',
     overview: 'MB Prime Enclave represents a modern residential approach for Vizianagaram—balancing urban convenience with community-focused planning.',
     highlights: [
@@ -86,13 +89,15 @@ export const projects = [
     configurations: '20+ High Level Amenities with Water Theme Park',
     acres: '70 acres',
     handover: 'Ready for Registration',
-    brochureLink: '#',
+    // projects.js
+    brochureLink: villaBrochure,
     location: 'Srikakulam',
     type: 'Plotted Villa Development',
     status: 'Phase 1 Completed | Phase 2 Ongoing',
     image: PROJECT_IMAGE_A,
     imageHover: PROJECT_IMAGE_B,
     logo: 'https://res.cloudinary.com/durbtkhbz/image/upload/v1770526685/sklmlogo_c2trtg.png',
+    favicon: 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1771063124/sklmlogo_c2trtg_wk10v3_cztpx0.ico',
     masterPlan: 'https://res.cloudinary.com/dcrdkvt2q/image/upload/v1770968591/villas_plots_jpg.jpg_hovhc9.jpg',
     locationMap: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2716.7785112791116!2d83.91691247334634!3d18.359791274069345!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a3c6b1319544a1d%3A0x8d95f21e30a1bdac!2sMB%20PRIME%20VILLAS%20PLOTS!5e1!3m2!1sen!2sin!4v1771046346979!5m2!1sen!2sin',
     layoutHighlights: [
@@ -278,7 +283,7 @@ export const projects = [
     acres: '10 acres',
     handover: '2027',
     brochureLink: '#',
-    location: 'Andhra Pradesh',
+    location: 'Vizag',
     type: 'Residential Development',
     status: 'Under Planning',
     image: PROJECT_IMAGE_A,
@@ -286,6 +291,7 @@ export const projects = [
     logo: null,
     masterPlan: null,
     locationMap: null,
+    favicon: 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1771063124/sklmlogo_c2trtg_wk10v3_cztpx0.ico', // MB Prime Villas favicon
     locationText: 'Capital West is positioned to be a landmark development in Andhra Pradesh, promising high returns and modern lifestyle amenities.',
     overview: 'Capital West is a planned residential development. Early registrations open.',
     highlights: [
@@ -315,7 +321,7 @@ export const projects = [
     acres: '8 acres',
     handover: '2027',
     brochureLink: '#',
-    location: 'Andhra Pradesh',
+    location: 'Guntur',
     type: 'Residential Development',
     status: 'Under Planning',
     image: PROJECT_IMAGE_B,
@@ -323,6 +329,7 @@ export const projects = [
     logo: null,
     masterPlan: null,
     locationMap: null,
+    favicon: 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1771063124/sklmlogo_c2trtg_wk10v3_cztpx0.ico', // MB Prime Villas favicon
     locationText: 'AI Gen Villas brings futuristic living concepts to Andhra Pradesh, featuring smart home technologies and sustainable design.',
     overview: 'AI Gen Villas is a planned residential development. Early registrations open.',
     highlights: [

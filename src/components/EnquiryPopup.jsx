@@ -6,18 +6,21 @@ const EnquiryPopup = () => {
     const [isVisible, setIsVisible] = useState(false);
     const [formData, setFormData] = useState({ name: '', email: '', phone: '', message: '' });
     const [isSubmitted, setIsSubmitted] = useState(false);
+    const [intendedBrochure, setIntendedBrochure] = useState(null);
+    const [autoDownload, setAutoDownload] = useState(false);
 
-    // --- NEW EFFECT: Listen for the custom event from MBPrimeVillas ---
+    // Listen for the custom event from MBPrimeVillas. Event may include detail: { brochure: '/path.pdf', autoDownloadAfterSubmit: true }
     useEffect(() => {
-        const handleOpenPopup = () => {
+        const handleOpenPopup = (e) => {
+            const detail = e && e.detail ? e.detail : {};
+            setIntendedBrochure(detail.brochure || null);
+            setAutoDownload(Boolean(detail.autoDownloadAfterSubmit));
             setIsVisible(true);
         };
 
-        // Adding listener for the event dispatched by your villa component
         window.addEventListener('open-enquiry-popup', handleOpenPopup);
 
         return () => {
-            // Clean up listener on unmount
             window.removeEventListener('open-enquiry-popup', handleOpenPopup);
         };
     }, []);
@@ -37,12 +40,45 @@ const EnquiryPopup = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        setTimeout(() => {
+        setTimeout(async () => {
             setIsSubmitted(true);
             localStorage.setItem('mbPrimeEnquirySubmitted', 'true');
+
+            // Trigger download if a brochure was intended. Use fetch + blob to ensure proper PDF download and readability.
+           // Inside handleSubmit in EnquiryPopup.js
+if (intendedBrochure) {
+    try {
+        const response = await fetch(intendedBrochure);
+        if (!response.ok) throw new Error('File not found');
+        
+        const blob = await response.blob();
+        // Force the blob to be recognized specifically as a PDF
+        const pdfBlob = new Blob([blob], { type: 'application/pdf' });
+        const url = window.URL.createObjectURL(pdfBlob);
+        
+        const link = document.createElement('a');
+        link.href = url;
+        // This ensures the browser downloads it instead of trying to preview it
+        link.setAttribute('download', 'MBPrime_Villas_Brochure.pdf'); 
+        
+        document.body.appendChild(link);
+        link.click();
+        
+        // Cleanup
+        link.parentNode.removeChild(link);
+        window.URL.revokeObjectURL(url);
+    } catch (err) {
+        console.error("Download failed:", err);
+        // Fallback: Just open the link in a new tab if fetch fails
+        window.open(intendedBrochure, '_blank');
+    }
+}
+
             setTimeout(() => {
                 setIsVisible(false);
                 setIsSubmitted(false); // Reset for future clicks
+                setIntendedBrochure(null);
+                setAutoDownload(false);
             }, 3000);
         }, 1200);
     };

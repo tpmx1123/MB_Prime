@@ -5,10 +5,10 @@ import {
   Check, MapPin, Layout, ClipboardList, ChevronLeft, ChevronRight, Download, Plane,
   Footprints, Trophy, Target, Zap, Smile, Trees, Music, Home, Waves, Users, Sunrise, Droplets, Leaf, Compass,
   Info, X, ZoomIn, ZoomOut, ArrowRight, ChevronDown, ChevronUp, Stethoscope, GraduationCap, Train, Bus
-} from 'lucide-react';
+ } from 'lucide-react';
 import { projects, getProjectBySlug } from '../data/projects';
 import ProjectHeader from './ProjectHeader';
-
+import { updateFavicon, updatePageTitle } from '../utils/favicon';
 const iconMap = {
   Footprints, Trophy, Target, Zap, Smile, Trees, Music, Home, Waves, Users, Sunrise, Droplets, Leaf, Compass, Check,
   Hospital: Stethoscope, School: GraduationCap, Train, Bus, Plane, MapPin
@@ -18,7 +18,16 @@ const MBPrimeVillas = () => {
   const project = getProjectBySlug('villas');
 
   const [startIndex, setStartIndex] = useState(0);
+  useEffect(() => {
+    updateFavicon(project?.favicon);
+    updatePageTitle(project?.name);
 
+    // Reset to default when component unmounts
+    return () => {
+      updateFavicon(); // Reset to default
+      updatePageTitle(); // Reset to default
+    };
+  }, [project]);
   useEffect(() => {
     setStartIndex(0);
   }, ['villas']);
@@ -66,7 +75,6 @@ const MBPrimeVillas = () => {
   useEffect(() => {
     if (!isLayoutZoomed) setZoomLevel(1);
   }, [isLayoutZoomed]);
-
   const handleZoomIn = (e) => {
     e.stopPropagation();
     setZoomLevel(prev => Math.min(prev + 0.5, 3));
@@ -93,18 +101,24 @@ const MBPrimeVillas = () => {
       <section className="relative h-screen w-full overflow-hidden">
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
-          <motion.img
-            src={project.image}
-            alt={project.name}
-            className="w-full h-full object-cover"
-            initial={{ scale: 1.1 }}
-            animate={{ scale: 1 }}
-            transition={{ duration: 1.5, ease: "easeOut" }}
-          />
-          {/* Gradient Overlay for text readability */}
-          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent" />
-        </div>
+  {/* Video Background */}
+  <video
+    autoPlay
+    muted
+    playsInline
+    className="w-full h-full object-cover"
+  >
+    <source 
+      src="https://res.cloudinary.com/dgmrbxuvb/video/upload/v1771062732/mb_prime_villas_kgthud.mp4" 
+      type="video/mp4" 
+    />
+    Your browser does not support the video tag.
+  </video>
 
+  {/* Gradient Overlay for text readability */}
+  <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent" />
+
+</div>
         {/* Content Container */}
         <div className="relative z-10 container h-full flex flex-col justify-center px-6 md:px-12">
 
@@ -151,6 +165,8 @@ const MBPrimeVillas = () => {
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
+              onClick={() => window.dispatchEvent(new CustomEvent('open-enquiry-popup', { detail: { brochure: project.brochureLink } }))}
+              type="button"
               className="bg-white text-primary px-6 py-3 rounded-full font-sans font-bold flex items-center gap-2 hover:bg-secondary hover:text-primary transition-colors text-sm"
             >
               <Download size={18} />
@@ -860,7 +876,7 @@ const MBPrimeVillas = () => {
       </section >
 
       {/* Other Projects Section */}
-      < section id="other-projects" className="py-20 bg-white border-t border-slate-100 scroll-mt-24" >
+      <section id="other-projects" className="py-20 bg-white border-t border-slate-100 scroll-mt-24">
         <div className="container">
           <div className="flex items-center justify-between mb-10">
             <h2 className="text-3xl font-sans text-slate-400">Other <span className="font-bold text-primary">Projects</span></h2>

@@ -58,7 +58,7 @@ const Hero = () => {
         <motion.div 
           className="absolute inset-0 bg-black z-10"
           initial={{ opacity: 0.8 }}
-          animate={{ opacity: isHighlighted ? 0.15 : 0.8 }} 
+          animate={{ opacity: isHighlighted ? 0.15 : 0.49 }} 
           transition={{ duration: 1.5, ease: "easeInOut" }}
         />
         

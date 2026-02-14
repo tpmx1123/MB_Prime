@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 const EnquiryForm = ({ isModal = false, onClose, className = "" }) => {
     return (
         <motion.div
-            className={`w-full ${isModal ? 'max-w-[500px]' : 'max-w-full'} bg-white border border-slate-100 rounded-[2rem] shadow-2xl overflow-hidden p-8 md:p-10 flex flex-col relative ${className}`}
+            className={`w-full ${isModal ? 'max-w-[500px]' : 'max-w-full'}  rounded-[2rem] overflow-hidden p-8 md:p-10 flex flex-col relative ${className}`}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -20,7 +20,7 @@ const EnquiryForm = ({ isModal = false, onClose, className = "" }) => {
                 </button>
             )}
 
-            <div className="text-center mb-10">
+            <div className="text-center mb-5">
                 <span className="text-secondary font-bold tracking-[0.3em] uppercase text-[10px] block mb-2">
                     Connect With Us
                 </span>
@@ -35,13 +35,13 @@ const EnquiryForm = ({ isModal = false, onClose, className = "" }) => {
                     <input
                         type="text"
                         placeholder="Full Name"
-                        className="w-full px-5 py-4 text-sm md:text-base rounded-xl border border-slate-100 bg-slate-50/50 text-primary placeholder:text-slate-400 focus:border-secondary/50 focus:bg-white outline-none transition-all duration-300 group-hover:bg-slate-50"
+                        className="w-full px-4 py-3 text-sm md:text-base rounded-xl border-2 border-slate-200 bg-slate-50/50 text-primary placeholder:text-slate-400 focus:border-secondary focus:bg-white outline-none transition-all duration-300 group-hover:bg-slate-50"
                     />
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div className="relative">
-                        <select className="w-full h-full px-4 py-4 text-sm md:text-base rounded-xl border border-slate-100 bg-slate-50/50 text-primary focus:border-secondary/50 outline-none appearance-none cursor-pointer transition-all">
+                        <select className="w-full h-full px-3 py-3 text-sm md:text-base rounded-xl border-2 border-slate-200 bg-slate-50/50 text-primary focus:border-secondary outline-none appearance-none cursor-pointer transition-all">
                             <option value="+91">+91 (IN)</option>
                             <option value="+1">+1 (US)</option>
                             <option value="+44">+44 (UK)</option>
@@ -52,7 +52,7 @@ const EnquiryForm = ({ isModal = false, onClose, className = "" }) => {
                         <input
                             type="tel"
                             placeholder="Mobile Number*"
-                            className="w-full px-5 py-4 text-sm md:text-base rounded-xl border border-slate-100 bg-slate-50/50 text-primary placeholder:text-slate-400 focus:border-secondary/50 focus:bg-white outline-none transition-all duration-300"
+                            className="w-full px-4 py-3 text-sm md:text-base rounded-xl border-2 border-slate-200 bg-slate-50/50 text-primary placeholder:text-slate-400 focus:border-secondary focus:bg-white outline-none transition-all duration-300"
                         />
                     </div>
                 </div>
@@ -61,7 +61,7 @@ const EnquiryForm = ({ isModal = false, onClose, className = "" }) => {
                     <input
                         type="email"
                         placeholder="Email Address"
-                        className="w-full px-5 py-4 text-sm md:text-base rounded-xl border border-slate-100 bg-slate-50/50 text-primary placeholder:text-slate-400 focus:border-secondary/50 focus:bg-white outline-none transition-all duration-300"
+                        className="w-full px-4 py-3 text-sm md:text-base rounded-xl border-2 border-slate-200 bg-slate-50/50 text-primary placeholder:text-slate-400 focus:border-secondary focus:bg-white outline-none transition-all duration-300"
                     />
                 </div>
 
@@ -69,7 +69,7 @@ const EnquiryForm = ({ isModal = false, onClose, className = "" }) => {
                     <textarea
                         placeholder="Your Message"
                         rows="4"
-                        className="w-full px-5 py-4 text-sm md:text-base rounded-xl border border-slate-100 bg-slate-50/50 text-primary placeholder:text-slate-400 focus:border-secondary/50 focus:bg-white outline-none transition-all resize-none duration-300"
+                        className="w-full px-4 py-3 text-sm md:text-base rounded-xl border-2 border-slate-200 bg-slate-50/50 text-primary placeholder:text-slate-400 focus:border-secondary focus:bg-white outline-none transition-all resize-none duration-300"
                     ></textarea>
                 </div>
 
@@ -78,7 +78,7 @@ const EnquiryForm = ({ isModal = false, onClose, className = "" }) => {
                         whileHover={{ scale: 1.02, backgroundColor: '#000' }}
                         whileTap={{ scale: 0.98 }}
                         type="submit"
-                        className="w-full py-5 bg-primary text-white font-bold tracking-[0.2em] rounded-xl transition-all duration-300 shadow-xl flex items-center justify-center gap-3 uppercase text-xs md:text-sm"
+                        className="w-full py-4 bg-primary text-white font-bold tracking-[0.2em] rounded-xl transition-all duration-300 shadow-xl flex items-center justify-center gap-3 uppercase text-xs md:text-sm"
                     >
                         <span>Submit Request</span>
                         <Send size={16} className="opacity-70" />

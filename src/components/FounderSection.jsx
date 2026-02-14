@@ -47,7 +47,7 @@ const FounderSection = () => {
               <div className="absolute -inset-[1px] md:-inset-[2px] bg-secondary/20 rounded-[1.1rem] md:rounded-[2.2rem]"></div>
               
              <div className="relative z-10 rounded-[1rem] md:rounded-[2rem] overflow-hidden border-[4px] md:border-[8px] border-white bg-white shadow-lg md:shadow-xl">
-  <img 
+        <img 
     src="https://res.cloudinary.com/dgmrbxuvb/image/upload/v1771054701/mbprime_ravibabu_adjxfk.png" 
     alt="Mr. Maganti Ravi Babu" 
     className="w-full h-[150px] md:h-[350px] object-cover object-top transition-all duration-1000 ease-in-out scale-100 group-hover:scale-105"
