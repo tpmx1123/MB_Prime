@@ -80,6 +80,22 @@ export const projects = [
       { time: '20', unit: 'Mins', label: 'Bhogapuram International Airport', type: 'airport' },
       { time: '0', unit: 'Mins', label: 'Metro Convention Centre', isMetro: true },
     ],
+    layoutHighlights: [
+      [
+        ' Children Park',
+        ' Play Area',
+        ' Seating Zone',
+        ' Green Buffer Zone',
+        ' Landscaped Garden',
+      ],
+      [
+        ' Wide Internal Roads',
+        ' Gated Community Layout',
+        ' Planned Plotting',
+        ' Perimeter Fencing',
+        ' Tree-Lined Avenues',
+      ]
+    ],
   },
   {
     slug: 'villas',
