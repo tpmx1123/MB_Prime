@@ -121,9 +121,6 @@ const MBPrimeEnclave = () => {
 </div>
         {/* Content Container */}
         <div className="relative z-10 container h-full flex flex-col justify-center px-6 md:px-12">
-
-
-
           <motion.div
             className="max-w-3xl ml-0 lg:ml-12 mt-10"
             initial={{ opacity: 0, x: -30 }}

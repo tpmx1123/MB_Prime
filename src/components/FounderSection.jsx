@@ -3,6 +3,23 @@ import { motion as Motion } from 'framer-motion';
 import { Calendar, Phone, Quote as QuoteIcon } from 'lucide-react';
 
 const FounderSection = () => {
+  // Function to trigger EnquiryPopup
+  const handlePrivateTour = () => {
+    // Dispatch custom event to open the enquiry popup
+    window.dispatchEvent(new CustomEvent('open-enquiry-popup', {
+      detail: {
+        brochure: null,
+        autoDownloadAfterSubmit: false
+      }
+    }));
+  };
+
+  // Function to handle phone call
+  const handleSpeakWithTeam = () => {
+    // Open phone dialer with the specified number
+    window.location.href = 'tel:+919088456999';
+  };
+
   return (
     <section id="founder" className="bg-white text-primary overflow-hidden">
       {/* 1. FOUNDER NARRATIVE AREA – text left, portrait right; shifted right on desktop */}
@@ -74,12 +91,18 @@ const FounderSection = () => {
             </h2>
             
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 md:gap-8">
-              <button className=" sm:w-auto flex items-center justify-center gap-2 sm:gap-3 bg-secondary hover:bg-primary hover:text-white text-black font-bold py-2.5 px-4 sm:py-3 sm:px-6 md:py-4 md:px-10 rounded-full transition-all duration-300 shadow-lg text-[9px] sm:text-[10px] md:text-xs">
+              <button 
+                onClick={handlePrivateTour}
+                className=" sm:w-auto flex items-center justify-center gap-2 sm:gap-3 bg-secondary hover:bg-primary hover:text-white text-black font-bold py-2.5 px-4 sm:py-3 sm:px-6 md:py-4 md:px-10 rounded-full transition-all duration-300 shadow-lg text-[9px] sm:text-[10px] md:text-xs"
+              >
                 <Calendar className="w-3 h-3 sm:w-3.5 sm:h-3.5 md:w-4 md:h-4" />
                 <span className="uppercase tracking-widest">Request a Private Tour</span>
               </button>
 
-              <button className="sm:w-auto flex items-center justify-center gap-2 sm:gap-3 bg-transparent border border-primary/10 hover:border-primary text-primary font-bold py-2.5 px-4 sm:py-3 sm:px-6 md:py-4 md:px-10 rounded-full transition-all duration-300 text-[9px] sm:text-[10px] md:text-xs">
+              <button 
+                onClick={handleSpeakWithTeam}
+                className="sm:w-auto flex items-center justify-center gap-2 sm:gap-3 bg-transparent border border-primary/10 hover:border-primary text-primary font-bold py-2.5 px-4 sm:py-3 sm:px-6 md:py-4 md:px-10 rounded-full transition-all duration-300 text-[9px] sm:text-[10px] md:text-xs"
+              >
                 <Phone className="w-3 h-3 sm:w-3.5 sm:h-3.5 md:w-4 md:h-4 group-hover:animate-bounce" />
                 <span className="uppercase tracking-widest">Speak with our team</span>
               </button>
