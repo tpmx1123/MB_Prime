@@ -72,7 +72,7 @@ export const projects = [
     ],
     // Added locationDistances
     locationDistances: [
-      { time: '2', unit: 'Mins', label: 'Metro Convention Centre' },
+      { time: '02', unit: 'Mins', label: 'Metro Convention Centre' },
       { time: '05', unit: 'Mins', label: 'Narayana School' },
       { time: '05', unit: 'Mins', label: 'Chaitanya School' },
       { time: '10', unit: 'Mins', label: 'RTC Bus Stand' },
