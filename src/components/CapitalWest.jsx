@@ -5,7 +5,7 @@ import {
   Check, MapPin, Layout, ClipboardList, ChevronLeft, ChevronRight, Download, Plane,
   Footprints, Trophy, Target, Zap, Smile, Trees, Music, Home, Waves, Users, Sunrise, Droplets, Leaf, Compass,
   Info, X, ZoomIn, ZoomOut, ArrowRight, ChevronDown, ChevronUp, Stethoscope, GraduationCap, Train, Bus
- } from 'lucide-react';
+} from 'lucide-react';
 import { projects, getProjectBySlug } from '../data/projects';
 import ProjectHeader from './ProjectHeader';
 import { updateFavicon, updatePageTitle } from '../utils/favicon';
@@ -101,24 +101,25 @@ const CapitalWest = () => {
       <section className="relative h-screen w-full overflow-hidden">
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
-  {/* Video Background */}
-  <video
-    autoPlay
-    muted
-    playsInline
-    className="w-full h-full object-cover"
-  >
-    <source 
-      src="https://res.cloudinary.com/dgmrbxuvb/video/upload/v1771062732/mb_prime_villas_kgthud.mp4" 
-      type="video/mp4" 
-    />
-    Your browser does not support the video tag.
-  </video>
+          {/* Video Background */}
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="w-full h-full object-cover"
+          >
+            <source
+              src="https://res.cloudinary.com/dgmrbxuvb/video/upload/v1771062732/mb_prime_villas_kgthud.mp4"
+              type="video/mp4"
+            />
+            Your browser does not support the video tag.
+          </video>
 
-  {/* Gradient Overlay for text readability */}
-  <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent" />
+          {/* Gradient Overlay for text readability */}
+          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent" />
 
-</div>
+        </div>
         {/* Content Container */}
         <div className="relative z-10 container h-full flex flex-col justify-center px-6 md:px-12">
 

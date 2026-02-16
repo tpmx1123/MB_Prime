@@ -5,7 +5,7 @@ import {
   Check, MapPin, Layout, ClipboardList, ChevronLeft, ChevronRight, Download, Plane,
   Footprints, Trophy, Target, Zap, Smile, Trees, Music, Home, Waves, Users, Sunrise, Droplets, Leaf, Compass,
   Info, X, ZoomIn, ZoomOut, ArrowRight, ChevronDown, ChevronUp, Stethoscope, GraduationCap, Train, Bus
- } from 'lucide-react';
+} from 'lucide-react';
 import { projects, getProjectBySlug } from '../data/projects';
 import ProjectHeader from './ProjectHeader';
 import { updateFavicon, updatePageTitle } from '../utils/favicon';
@@ -101,24 +101,25 @@ const MBPrimeVillas = () => {
       <section className="relative h-screen w-full overflow-hidden">
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
-  {/* Video Background */}
-  <video
-    autoPlay
-    muted
-    playsInline
-    className="w-full h-full object-cover"
-  >
-    <source 
-      src="https://res.cloudinary.com/dgmrbxuvb/video/upload/v1771062732/mb_prime_villas_kgthud.mp4" 
-      type="video/mp4" 
-    />
-    Your browser does not support the video tag.
-  </video>
+          {/* Video Background */}
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="w-full h-full object-cover"
+          >
+            <source
+              src="https://res.cloudinary.com/dgmrbxuvb/video/upload/v1771062732/mb_prime_villas_kgthud.mp4"
+              type="video/mp4"
+            />
+            Your browser does not support the video tag.
+          </video>
 
-  {/* Gradient Overlay for text readability */}
-  <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent" />
+          {/* Gradient Overlay for text readability */}
+          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent" />
 
-</div>
+        </div>
         {/* Content Container */}
         <div className="relative z-10 container h-full flex flex-col justify-center px-6 md:px-12">
 
@@ -442,7 +443,7 @@ const MBPrimeVillas = () => {
           </div>
 
           {/* Location Section */}
-          <div id="location" className="scroll-mt-32 mb-20 px-4">
+          <div id="location" className="scroll-mt-28 mb-20 px-4">
             <motion.section
               initial="hidden"
               whileInView="visible"
@@ -456,7 +457,7 @@ const MBPrimeVillas = () => {
                 }
               }}
             >
-              <div className="flex flex-col items-center justify-center mb-6 mt-18 md:mt-40">
+              <div className="flex flex-col items-center justify-center mb-6 mt-18 md:mt-10">
                 <motion.div
                   variants={{
                     hidden: { opacity: 0, scale: 0.95 },
@@ -464,7 +465,7 @@ const MBPrimeVillas = () => {
                   }}
                   className="relative"
                 >
-                  <div className="flex items-start gap-4 justify-between w-full mb-6 mt-18">
+                  <div className="flex items-start gap-4 justify-between w-full mb-6 mt-10">
                     <div className="flex items-center gap-3">
                       <MapPin className="text-secondary shrink-0" size={32} />
                       <h2 className="text-2xl md:text-3xl font-sans font-bold text-primary tracking-tight">
@@ -716,7 +717,7 @@ const MBPrimeVillas = () => {
                   >
 
                     <h2 className="text-xl md:text-2xl font-sans font-bold text-secondary tracking-[0.2em] uppercase mb-2">
-                      20 PLUS
+                      20<span className="md:text-3xl text-xl">+</span>
                     </h2>
                     <h3 className="text-2xl md:text-5xl font-sans font-extrabold text-primary tracking-tight">
                       High Level Amenities
@@ -737,9 +738,14 @@ const MBPrimeVillas = () => {
                       return (
                         <motion.div
                           key={idx}
-                          initial={{ opacity: 0, y: 20 }}
-                          whileInView={{ opacity: 1, y: 0 }}
-                          transition={{ duration: 0.5, delay: idx * 0.05 }}
+                          initial="hidden"
+                          whileInView="visible"
+                          whileHover="hover"
+                          viewport={{ once: true }}
+                          variants={{
+                            hidden: { opacity: 0, y: 20 },
+                            visible: { opacity: 1, y: 0, transition: { duration: 0.5, delay: idx * 0.05 } }
+                          }}
                           className={`relative aspect-[4/3] rounded-xl overflow-hidden group cursor-pointer shadow-md ${!showAllAmenities && idx >= 8 ? 'hidden md:block' : ''}`}
                         >
                           {/* Background Image */}
@@ -747,7 +753,9 @@ const MBPrimeVillas = () => {
                             src={item.image}
                             alt={item.title}
                             className="absolute inset-0 w-full h-full object-cover"
-                            whileHover={{ scale: 1.08 }}
+                            variants={{
+                              hover: { scale: 1.08 }
+                            }}
                             transition={{ duration: 0.8, ease: "easeOut" }}
                           />
 
@@ -764,14 +772,18 @@ const MBPrimeVillas = () => {
                           {/* Hover Overlay Content (ASBL Style) */}
                           <motion.div
                             initial={{ opacity: 0 }}
-                            whileHover={{ opacity: 1 }}
+                            variants={{
+                              hover: { opacity: 1 }
+                            }}
                             transition={{ duration: 0.4 }}
                             className="absolute inset-0 bg-black/60 flex flex-col justify-between p-6 backdrop-blur-[1px]"
                           >
                             {/* Top Left: Text */}
                             <motion.div
                               initial={{ x: -20, opacity: 0 }}
-                              whileHover={{ x: 0, opacity: 1 }}
+                              variants={{
+                                hover: { x: 0, opacity: 1 }
+                              }}
                               transition={{ delay: 0.05, duration: 0.3 }}
                               className="text-left"
                             >
@@ -784,16 +796,18 @@ const MBPrimeVillas = () => {
                             </motion.div>
 
                             {/* Bottom Right: Icon */}
-                            <motion.div
+                            {/* <motion.div
                               initial={{ scale: 0, opacity: 0 }}
-                              whileHover={{ scale: 1, opacity: 1 }}
+                              variants={{
+                                hover: { scale: 1, opacity: 1 }
+                              }}
                               transition={{ delay: 0.15, duration: 0.3 }}
                               className="self-end"
                             >
                               <div className="p-3 bg-white/10 rounded-full backdrop-blur-sm border border-white/20 text-white group-hover:bg-secondary group-hover:border-secondary transition-all duration-300">
                                 <AmenityIcon size={24} strokeWidth={1.5} />
                               </div>
-                            </motion.div>
+                            </motion.div> */}
                           </motion.div>
                         </motion.div>
                       );

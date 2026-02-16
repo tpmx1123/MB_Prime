@@ -58,7 +58,7 @@ export const projects = [
     imageHover: PROJECT_IMAGE_A,
     logo: null,
     masterPlan: null,
-    locationMap:'https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3792.6244768817246!2d83.399245!3d18.088931!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMTjCsDA1JzIwLjIiTiA4M8KwMjMnNTcuMyJF!5e0!3m2!1sen!2sin!4v1771135120420!5m2!1sen!2sin',
+    locationMap: 'https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3792.6244768817246!2d83.399245!3d18.088931!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMTjCsDA1JzIwLjIiTiA4M8KwMjMnNTcuMyJF!5e0!3m2!1sen!2sin!4v1771135120420!5m2!1sen!2sin',
     favicon: 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1771063124/sklmlogo_c2trtg_wk10v3_cztpx0.ico', // MB Prime Villas favicon
     masterPlan: 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1771068556/Gemini_Generated_Image_wx0r97wx0r97wx0r_g1tdty.png',
     overview: 'MB Prime Enclave represents a modern residential approach for Vizianagaram—balancing urban convenience with community-focused planning.',
@@ -72,12 +72,12 @@ export const projects = [
     ],
     // Added locationDistances
     locationDistances: [
-      { time: '02', unit: 'Mins', label: 'Metro Convention Centre' },
-      { time: '05', unit: 'Mins', label: 'Narayana School' },
-      { time: '05', unit: 'Mins', label: 'Chaitanya School' },
-      { time: '10', unit: 'Mins', label: 'RTC Bus Stand' },
-      { time: '10', unit: 'Mins', label: 'DMart' },
-      { time: '20', unit: 'Mins', label: 'Bhogapuram International Airport', type: 'airport' },
+      { time: '02', unit: 'Mins', label: 'Metro Convention Centre', icon: 'Train' },
+      { time: '05', unit: 'Mins', label: 'Narayana School', icon: 'School' },
+      { time: '05', unit: 'Mins', label: 'Chaitanya School', icon: 'School' },
+      { time: '10', unit: 'Mins', label: 'RTC Bus Stand', icon: 'Bus' },
+      { time: '10', unit: 'Mins', label: 'DMart', icon: 'ShoppingBag' },
+      { time: '20', unit: 'Mins', label: 'Bhogapuram International Airport', type: 'airport', icon: 'Plane' },
 
     ],
     layoutHighlights: [
@@ -95,6 +95,65 @@ export const projects = [
         ' Perimeter Fencing',
         ' Tree-Lined Avenues',
       ]
+    ],
+    amenities: [
+
+      {
+        title: 'Children\'s Park & Seating',
+        desc: 'Special parks for children with comfortable rest benches.',
+        icon: 'Smile',
+        image: 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1771224658/children_s_park_enclave_vhsdhu.jpg'
+      },
+      {
+        title: 'Jogging Tracks',
+        desc: 'Dedicated tracks for morning and evening walks.',
+        icon: 'Footprints',
+        image: 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1771225829/jogging_pmr9bs.jpg'
+      },
+      {
+        title: 'Cricket Ground',
+        desc: 'Dedicated cricket play area for sports enthusiasts.',
+        icon: 'Trophy',
+        image: 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1771227055/cricket_l6vr3n.jpg'
+      },
+      {
+        title: 'Amphitheater',
+        desc: 'Open-air amphitheater for community events and gatherings.',
+        icon: 'Music',
+        image: 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1771227055/amphitheater_algnsc.jpg'
+      },
+
+      {
+        title: 'Underground Infrastructure',
+        desc: 'Modern underground drainage and electric cabling system.',
+        icon: 'Zap',
+        image: 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1771227055/drain_dukiqm.jpg'
+      },
+      {
+        title: 'Wide Roads & Lighting',
+        desc: '40ft main roads with central dividers and street lights.',
+        icon: 'MapPin',
+        image: 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1771227056/road_lightling_tzel97.jpg'
+      },
+      {
+        title: 'Clean Drinking Water',
+        desc: 'Reliable supply of clean drinking water.',
+        icon: 'Droplets',
+        image: 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1771227055/clean_water_bybu1t.jpg'
+      },
+      {
+        title: 'Lush Greenery',
+        desc: 'Green plants and landscaping on all four sides.',
+        icon: 'Trees',
+        image: 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1771227056/greenery_pijtcg.jpg'
+      },
+      {
+        title: '24/7 Security',
+        desc: '24/7 gate security with security guards & solar fencing.',
+        icon: 'Check',
+        image: 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1771237189/security_ledwwh.jpg'
+      },
+
     ],
   },
   {
@@ -165,7 +224,7 @@ export const projects = [
         title: 'Volleyball Courts',
         desc: 'For Competitive & Casual Play',
         icon: 'Target',
-        image: 'https://res.cloudinary.com/durbtkhbz/image/upload/v1770960985/playgrounds_htjgx4.jpg'
+        image: 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1771232397/volley_ball_xp1fss.jpg'
       },
       {
         title: 'Basketball Court',
@@ -233,18 +292,24 @@ export const projects = [
         icon: 'Droplets',
         image: 'https://res.cloudinary.com/dcrdkvt2q/image/upload/v1770964608/waterfountain2_ltvyjk.jpg'
       },
-      // {
-      //   title: 'Designed Landscaping',
-      //   desc: 'With Manicured Lawns',
-      //   icon: 'Leaf',
-      //   image: 'https://images.unsplash.com/photo-1558905619-1af6999fa691?q=80&w=1000&auto=format&fit=crop'
-      // },
-      // {
-      //   title: '100% Vasthu',
-      //   desc: 'Designed for Harmony',
-      //   icon: 'Compass',
-      //   image: 'https://images.unsplash.com/photo-1518780664697-55e3ad937233?q=80&w=1000&auto=format&fit=crop'
-      // }
+      {
+        title: 'Designed Landscaping',
+        desc: 'With Manicured Lawns',
+        icon: 'Leaf',
+        image: 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1771235363/lawn_s3ny1k.jpg'
+      },
+      {
+        title: '100% Vasthu',
+        desc: 'Designed for Harmony',
+        icon: 'Compass',
+        image: 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1771235552/kalasam_uhhsib.jpg'
+      },
+      {
+        title: 'Underground Drainage & Electricity',
+        desc: 'Advanced underground sewage & modern cabling.',
+        icon: 'Zap',
+        image: 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1771236752/drain_y4nc6r.jpg'
+      }
     ],
     villaTypes: [
       {
@@ -287,7 +352,7 @@ export const projects = [
       { time: '10', unit: 'Mins', label: 'Railway Station', icon: 'Train' },
       { time: '10', unit: 'Mins', label: 'RTC Complex', icon: 'Bus' },
       { time: '10', unit: 'Mins', label: 'Palakonda Road', icon: 'MapPin' },
-      { time: '60', unit: 'Mins', label: 'Bhogapuram International Airport', type: 'airport', icon: 'Plane' },
+      { time: '45', unit: 'Mins', label: 'Bhogapuram International Airport', type: 'airport', icon: 'Plane' },
     ],
   },
   {

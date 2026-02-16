@@ -1,23 +1,35 @@
+
+
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useParams, Navigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Check, MapPin, Layout, ClipboardList, ChevronLeft, ChevronRight, Download, Plane,
   Footprints, Trophy, Target, Zap, Smile, Trees, Music, Home, Waves, Users, Sunrise, Droplets, Leaf, Compass,
-  Info, X, ZoomIn, ZoomOut, ArrowRight, ChevronDown, ChevronUp, Stethoscope, GraduationCap, Train, Bus
- } from 'lucide-react';
+  Info, X, ZoomIn, ZoomOut, ArrowRight, ChevronDown, ChevronUp, Stethoscope, GraduationCap, Train, Bus, ShoppingBag
+} from 'lucide-react';
 import { projects, getProjectBySlug } from '../data/projects';
 import ProjectHeader from './ProjectHeader';
 import { updateFavicon, updatePageTitle } from '../utils/favicon';
 const iconMap = {
   Footprints, Trophy, Target, Zap, Smile, Trees, Music, Home, Waves, Users, Sunrise, Droplets, Leaf, Compass, Check,
-  Hospital: Stethoscope, School: GraduationCap, Train, Bus, Plane, MapPin
+  Hospital: Stethoscope, School: GraduationCap, Train, Bus, Plane, MapPin, ShoppingBag
 };
 
 const MBPrimeEnclave = () => {
   const project = getProjectBySlug('enclave');
 
   const [startIndex, setStartIndex] = useState(0);
+
+  /* Badge Visibility State */
+  const [showBadge, setShowBadge] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowBadge(false);
+    }, 8000); // Hide after 20 seconds
+    return () => clearTimeout(timer);
+  }, []);
   useEffect(() => {
     updateFavicon(project?.favicon);
     updatePageTitle(project?.name);
@@ -101,24 +113,25 @@ const MBPrimeEnclave = () => {
       <section className="relative h-screen w-full overflow-hidden">
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
-  {/* Video Background */}
-  <video
-    autoPlay
-    muted
-    playsInline
-    className="w-full h-full object-cover"
-  >
-    <source 
-      src="https://res.cloudinary.com/dgmrbxuvb/video/upload/v1771064084/mb_prime_enclave_o69n0k.mp4" 
-      type="video/mp4" 
-    />
-    Your browser does not support the video tag.
-  </video>
+          {/* Video Background */}
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="w-full h-full object-cover"
+          >
+            <source
+              src="https://res.cloudinary.com/dgmrbxuvb/video/upload/v1771064084/mb_prime_enclave_o69n0k.mp4"
+              type="video/mp4"
+            />
+            Your browser does not support the video tag.
+          </video>
 
-  {/* Gradient Overlay for text readability */}
-  <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent" />
+          {/* Gradient Overlay for text readability */}
+          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent" />
 
-</div>
+        </div>
         {/* Content Container */}
         <div className="relative z-10 container h-full flex flex-col justify-center px-6 md:px-12">
           <motion.div
@@ -167,9 +180,31 @@ const MBPrimeEnclave = () => {
               <Download size={18} />
               Brochure
             </motion.button>
-
           </motion.div>
         </div>
+
+        {/* VMRDA-RERA Approved Badge */}
+        <AnimatePresence>
+          {showBadge && (
+            <motion.div
+              initial={{ x: 100, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              exit={{ x: 100, opacity: 0, transition: { duration: 0.8 } }}
+              transition={{ delay: 1, duration: 0.8, ease: "easeOut" }}
+              className="absolute bottom-10 right-6 md:right-10 z-20 flex items-center justify-center w-22 h-22 md:w-27 md:h-27 bg-white/95 backdrop-blur-md rounded-full shadow-lg border-2 border-secondary"
+            >
+              <div className="flex flex-col items-center justify-center p-1 ml-2">
+                <div className="flex items-center justify-center ">
+                  <img src="https://res.cloudinary.com/dgmrbxuvb/image/upload/v1771238479/Vmrda_logo_eddawf.png" alt="VMRDA" className="w-8 h-8 md:w-9 md:h-9 object-contain" />
+                  <img src="https://res.cloudinary.com/dgmrbxuvb/image/upload/v1771238635/rerawithout_bg_irz1u4.png" alt="RERA" className="w-10 h-10 md:w-15 md:h-15 object-contain" />
+                </div>
+                <p className="text-[7px] md:text-[9px] font-sans font-bold text-secondary uppercase tracking-wider">
+                  APPROVED
+                </p>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </section>
 
       {/* Content block – clean, editorial */}
@@ -341,7 +376,7 @@ const MBPrimeEnclave = () => {
           </div>
 
           {/* Layout Section */}
-          <div id="layout" className="scroll-mt-24 mb-12 bg-secondary/10 rounded-3xl">
+          <div id="layout" className="scroll-mt-24 mb-20 bg-secondary/10 rounded-3xl">
             <motion.section
               initial="hidden"
               whileInView="visible"
@@ -370,12 +405,12 @@ const MBPrimeEnclave = () => {
                     transition: { staggerChildren: 0.1, delayChildren: 0.2 }
                   }
                 }}
-                className="max-w-6xl mx-auto grid md:grid-cols-2 items-center py-12 px-4 md:px-8 "
+                className="max-w-6xl mx-auto grid md:grid-cols-2 items-center py-20 px-6 md:px-12 "
               >
                 {/* Left Side: Highlights */}
-                <div className="flex flex-col gap-3 md:pl-12 md:-mt-0 -mt-6 md:mb-0 mb-3">
-                  <div className="relative inline-block px-4 py-1.5 md:px-8 md:py-2 bg-secondary rounded-r-full backdrop-blur-sm mb-4 -ml-1 self-start ">
-                    <h2 className="text-lg md:text-2xl font-sans font-bold text-primary tracking-tight">
+                <div className="flex flex-col gap-4 md:pl-16 md:-mt-0 -mt-8 md:mb-0 mb-4">
+                  <div className="relative inline-block px-6 py-2 md:px-10 md:py-3 bg-secondary rounded-r-full backdrop-blur-sm mb-6 -ml-1 self-start ">
+                    <h2 className="text-xl md:text-3xl font-sans font-bold text-primary tracking-tight">
                       Master Layout
                     </h2>
                     <motion.div
@@ -422,7 +457,7 @@ const MBPrimeEnclave = () => {
                       <img
                         src={project.masterPlan}
                         alt={`${project.name} Master Plan`}
-                        className="w-full h-auto max-w-[380px] object-contain transition-transform duration-700 hover:scale-[1.02] drop-shadow-xl rounded-lg"
+                        className="w-full h-auto max-w-[430px] object-contain transition-transform duration-700 hover:scale-[1.02] drop-shadow-2xl rounded-lg"
                       />
                       <div className="absolute inset-0 bg-black/0 group-hover/image:bg-black/10 transition-colors duration-300 rounded-lg flex items-center justify-center opacity-0 group-hover/image:opacity-100">
                         <span className="bg-white/90 text-primary px-4 py-2 rounded-full text-sm font-semibold shadow-lg transform translate-y-4 group-hover/image:translate-y-0 transition-all duration-300">
@@ -451,7 +486,7 @@ const MBPrimeEnclave = () => {
                 }
               }}
             >
-              <div className="flex flex-col items-center justify-center mb-6 mt-18 md:mt-40">
+              <div className="flex flex-col items-center justify-center mb-6 mt-18 md:mt-10">
                 <motion.div
                   variants={{
                     hidden: { opacity: 0, scale: 0.95 },
@@ -459,7 +494,7 @@ const MBPrimeEnclave = () => {
                   }}
                   className="relative"
                 >
-                  <div className="flex items-start gap-4 justify-between w-full mb-6 mt-18">
+                  <div className="flex items-start gap-4 justify-between w-full mb-6 mt-10">
                     <div className="flex items-center gap-3">
                       <MapPin className="text-secondary shrink-0" size={32} />
                       <h2 className="text-2xl md:text-3xl font-sans font-bold text-primary tracking-tight">
@@ -693,7 +728,171 @@ const MBPrimeEnclave = () => {
             </motion.section>
           </div>
 
-         
+          {/* Amenities / Specifications Section */}
+          <div id="amenities" className="scroll-mt-38 mb-20">
+            {project.amenities ? (
+              <motion.section
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="max-w-7xl mx-auto"
+              >
+                <div className="flex flex-col items-center justify-center mb-16 mt-30">
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.6 }}
+                    className="relative text-center"
+                  >
+
+                    {/* <h2 className="text-xl md:text-2xl font-sans font-bold text-secondary tracking-[0.2em] uppercase mb-2">
+                      20 PLUS
+                    </h2> */}
+                    <h3 className="text-2xl md:text-5xl font-sans font-extrabold text-primary tracking-tight">
+                      High Level Amenities
+                    </h3>
+                    <motion.div
+                      initial={{ width: 0 }}
+                      whileInView={{ width: '100%' }}
+                      transition={{ delay: 0.5, duration: 0.8 }}
+                      className="absolute -bottom-4 left-0 h-1.5 bg-gradient-to-r from-secondary/60 via-secondary to-transparent rounded-full"
+                    />
+                  </motion.div>
+                </div>
+
+                <div className="max-w-5xl mx-auto px-4">
+                  <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6">
+                    {project.amenities.map((item, idx) => {
+                      const AmenityIcon = iconMap[item.icon] || Info;
+                      return (
+                        <motion.div
+                          key={idx}
+                          initial="hidden"
+                          whileInView="visible"
+                          whileHover="hover"
+                          viewport={{ once: true }}
+                          variants={{
+                            hidden: { opacity: 0, y: 20 },
+                            visible: { opacity: 1, y: 0, transition: { duration: 0.5, delay: idx * 0.05 } }
+                          }}
+                          className={`relative aspect-[4/3] rounded-xl overflow-hidden group cursor-pointer shadow-md ${!showAllAmenities && idx >= 8 ? 'hidden md:block' : ''}`}
+                        >
+                          {/* Background Image */}
+                          <motion.img
+                            src={item.image}
+                            alt={item.title}
+                            className="absolute inset-0 w-full h-full object-cover"
+                            variants={{
+                              hover: { scale: 1.08 }
+                            }}
+                            transition={{ duration: 0.8, ease: "easeOut" }}
+                          />
+
+                          {/* Initial State Overlay (Subtle Gradient for Readability) */}
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-100 group-hover:opacity-0 transition-opacity duration-300" />
+
+                          {/* Static Title (Bottom Left - fades on hover) */}
+                          <div className="absolute md:bottom-4 bottom-2 left-2 md:left-4 group-hover:opacity-0 transition-opacity duration-300">
+                            <h4 className="md:text-base text-[10px] font-sans font-bold text-white tracking-tight drop-shadow-lg">
+                              {item.title}
+                            </h4>
+                          </div>
+
+                          {/* Hover Overlay Content (ASBL Style) */}
+                          <motion.div
+                            initial={{ opacity: 0 }}
+                            variants={{
+                              hover: { opacity: 1 }
+                            }}
+                            transition={{ duration: 0.4 }}
+                            className="absolute inset-0 bg-black/60 flex flex-col justify-between p-6 backdrop-blur-[1px]"
+                          >
+                            {/* Top Left: Text */}
+                            <motion.div
+                              initial={{ x: -20, opacity: 0 }}
+                              variants={{
+                                hover: { x: 0, opacity: 1 }
+                              }}
+                              transition={{ delay: 0.05, duration: 0.3 }}
+                              className="text-left"
+                            >
+                              <h4 className="text-xl font-sans font-extrabold text-white mb-2 tracking-tight">
+                                {item.title}
+                              </h4>
+                              <p className="text-xs font-sans font-medium text-white/90 leading-relaxed max-w-[180px]">
+                                {item.desc}
+                              </p>
+                            </motion.div>
+                            {/* 
+                            <motion.div
+                              initial={{ scale: 0, opacity: 0 }}
+                              variants={{
+                                hover: { scale: 1, opacity: 1 }
+                              }}
+                              transition={{ delay: 0.15, duration: 0.3 }}
+                              className="self-end"
+                            >
+                              <div className="p-3 bg-white/10 rounded-full backdrop-blur-sm border border-white/20 text-white group-hover:bg-secondary group-hover:border-secondary transition-all duration-300">
+                                <AmenityIcon size={24} strokeWidth={1.5} />
+                              </div>
+                            </motion.div> */}
+                          </motion.div>
+                        </motion.div>
+                      );
+                    })}
+                  </div>
+                  {project.amenities.length > 10 && (
+                    <div className="flex justify-center mt-8 md:hidden">
+                      <button
+                        onClick={() => setShowAllAmenities(!showAllAmenities)}
+                        className="flex items-center gap-2 px-6 py-2 bg-white border border-secondary text-secondary font-sans font-bold rounded-full shadow-sm hover:bg-secondary hover:text-white transition-all duration-300 text-sm"
+                      >
+                        {showAllAmenities ? 'View Less' : 'View More'}
+                        {showAllAmenities ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+                      </button>
+                    </div>
+                  )}
+                </div>
+              </motion.section>
+            ) : project.highlights && project.highlights.length > 0 ? (
+              <motion.section
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+              >
+                <div className="flex items-center gap-3 mb-6 border-b border-primary/10 pb-4">
+                  <ClipboardList className="text-secondary" size={24} />
+                  <h2 className="text-2xl font-sans font-bold text-primary">
+                    Specifications & Highlights
+                  </h2>
+                </div>
+                <ul className="grid md:grid-cols-2 gap-4 font-sans font-light text-slate-700">
+                  {project.highlights.map((item) => (
+                    <li key={item} className="flex items-start gap-3 bg-white p-4 rounded-md shadow-sm border border-slate-50">
+                      <span className="shrink-0 w-6 h-6 rounded-full bg-secondary/10 text-secondary flex items-center justify-center mt-0.5">
+                        <Check size={14} />
+                      </span>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </motion.section>
+            ) : (
+              <motion.section
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+              >
+                <div className="flex items-center gap-3 mb-6 border-b border-primary/10 pb-4">
+                  <ClipboardList className="text-secondary" size={24} />
+                  <h2 className="text-2xl font-sans font-bold text-primary">
+                    Specifications
+                  </h2>
+                </div>
+                <p className="text-slate-500 font-sans italic">Detailed specifications to be announced.</p>
+              </motion.section>
+            )}
+          </div >
 
 
           <motion.div
