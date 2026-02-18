@@ -15,7 +15,7 @@ const iconMap = {
 };
 
 const AIGenVillas = () => {
-  const project = getProjectBySlug('ai-gen-villas');
+  const project = getProjectBySlug('ai-gen-serenity-villas');
 
   const [startIndex, setStartIndex] = useState(0);
   useEffect(() => {
@@ -30,8 +30,8 @@ const AIGenVillas = () => {
   }, [project]);
   useEffect(() => {
     setStartIndex(0);
-  }, ['ai-gen-villas']);
-  const allOtherProjects = projects.filter(p => p.slug !== 'ai-gen-villas');
+  }, ['ai-gen-serenity-villas']);
+  const allOtherProjects = projects.filter(p => p.slug !== 'ai-gen-serenity-villas');
   const visibleProjects = allOtherProjects.slice(startIndex, startIndex + 4);
 
   const nextProjects = () => {

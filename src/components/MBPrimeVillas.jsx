@@ -15,25 +15,83 @@ const iconMap = {
 };
 
 const MBPrimeVillas = () => {
-  const project = getProjectBySlug('villas');
-
+  const project = getProjectBySlug('MB-Prime-Villas');
+  const [showBadge, setShowBadge] = useState(true);
+  
+    useEffect(() => {
+      const timer = setTimeout(() => {
+        setShowBadge(false);
+      }, 8000); // Hide after 20 seconds
+      return () => clearTimeout(timer);
+    }, []);
+  // 1. STATE DECLARATIONS (Must come first)
   const [startIndex, setStartIndex] = useState(0);
+  const [activePlotTab, setActivePlotTab] = useState(0);
+  const [isLayoutZoomed, setIsLayoutZoomed] = useState(false);
+  const [zoomLevel, setZoomLevel] = useState(1);
+  const [showAllAmenities, setShowAllAmenities] = useState(false);
+  
+  // New States for Amazon-style Gallery
+  const [selectedImgIndex, setSelectedImgIndex] = useState(0);
+  const [isImgZoomed, setIsImgZoomed] = useState(false);
+
+  // 2. DEPENDENT CONSTANTS (Safely access state here)
+  const currentVilla = project?.villaTypes?.[activePlotTab];
+  const villaImages = currentVilla ? [
+    currentVilla.image,
+    currentVilla.image1,
+    currentVilla.image2,
+    currentVilla.image3
+  ].filter(Boolean) : [];
+
+  const allOtherProjects = projects.filter(p => p.slug !== 'MB-Prime-Villas');
+  const visibleProjects = allOtherProjects.slice(startIndex, startIndex + 4);
+
+  // 3. REFS
+  const tabsRef = useRef([]);
+  const tabsContainerRef = useRef(null);
+
+  // 4. EFFECTS
   useEffect(() => {
     updateFavicon(project?.favicon);
     updatePageTitle(project?.name);
 
-    // Reset to default when component unmounts
     return () => {
-      updateFavicon(); // Reset to default
-      updatePageTitle(); // Reset to default
+      updateFavicon(); 
+      updatePageTitle(); 
     };
   }, [project]);
+
   useEffect(() => {
     setStartIndex(0);
-  }, ['villas']);
-  const allOtherProjects = projects.filter(p => p.slug !== 'villas');
-  const visibleProjects = allOtherProjects.slice(startIndex, startIndex + 4);
+  }, ['MB-Prime-Villas']);
 
+  // Reset thumbnail selection when switching villa tabs
+  useEffect(() => {
+    setSelectedImgIndex(0);
+  }, [activePlotTab]);
+
+  useEffect(() => {
+    if (tabsRef.current[activePlotTab] && tabsContainerRef.current) {
+      const tab = tabsRef.current[activePlotTab];
+      const container = tabsContainerRef.current;
+      const tabLeft = tab.offsetLeft;
+      const tabWidth = tab.offsetWidth;
+      const containerWidth = container.offsetWidth;
+      const scrollPosition = tabLeft - (containerWidth / 2) + (tabWidth / 2);
+
+      container.scrollTo({
+        left: scrollPosition,
+        behavior: 'smooth'
+      });
+    }
+  }, [activePlotTab]);
+
+  useEffect(() => {
+    if (!isLayoutZoomed && !isImgZoomed) setZoomLevel(1);
+  }, [isLayoutZoomed, isImgZoomed]);
+
+  // 5. HANDLERS
   const nextProjects = () => {
     if (startIndex + 4 < allOtherProjects.length) {
       setStartIndex(prev => prev + 1);
@@ -46,35 +104,6 @@ const MBPrimeVillas = () => {
     }
   };
 
-  const [activePlotTab, setActivePlotTab] = useState(0);
-  const tabsRef = useRef([]);
-  const tabsContainerRef = useRef(null);
-
-  useEffect(() => {
-    if (tabsRef.current[activePlotTab] && tabsContainerRef.current) {
-      const tab = tabsRef.current[activePlotTab];
-      const container = tabsContainerRef.current;
-
-      const tabLeft = tab.offsetLeft;
-      const tabWidth = tab.offsetWidth;
-      const containerWidth = container.offsetWidth;
-
-      const scrollPosition = tabLeft - (containerWidth / 2) + (tabWidth / 2);
-
-      container.scrollTo({
-        left: scrollPosition,
-        behavior: 'smooth'
-      });
-    }
-  }, [activePlotTab]);
-  const [isLayoutZoomed, setIsLayoutZoomed] = useState(false);
-  const [zoomLevel, setZoomLevel] = useState(1);
-  const [showAllAmenities, setShowAllAmenities] = useState(false);
-
-  // Reset zoom when modal opens/closes
-  useEffect(() => {
-    if (!isLayoutZoomed) setZoomLevel(1);
-  }, [isLayoutZoomed]);
   const handleZoomIn = (e) => {
     e.stopPropagation();
     setZoomLevel(prev => Math.min(prev + 0.5, 3));
@@ -91,92 +120,108 @@ const MBPrimeVillas = () => {
   };
 
   if (!project) return <Navigate to="/projects" replace />;
-
   return (
     <>
       <ProjectHeader project={project} />
 
       {/* Full-bleed hero – 3D depth, separate-website feel */}
       {/* Full-bleed hero – Inspired by ASBL Spectra */}
-      <section className="relative h-screen w-full overflow-hidden">
-        {/* Background Image */}
-        <div className="absolute inset-0 z-0">
-          {/* Video Background */}
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="w-full h-full object-cover"
-          >
-            <source
-              src="https://res.cloudinary.com/dgmrbxuvb/video/upload/v1771062732/mb_prime_villas_kgthud.mp4"
-              type="video/mp4"
-            />
-            Your browser does not support the video tag.
-          </video>
-
-          {/* Gradient Overlay for text readability */}
-          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent" />
-
-        </div>
-        {/* Content Container */}
-        <div className="relative z-10 container h-full flex flex-col justify-center px-6 md:px-12">
-
-
-
-          <motion.div
-            className="max-w-3xl ml-0 lg:ml-12 mt-10"
-            initial={{ opacity: 0, x: -30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
-            {/* Tagline */}
-            <p className="text-white/80 text-xs md:text-sm font-sans font-bold tracking-[0.2em] mb-4 uppercase">
-              {project.tagline || 'LIVE IN LUXURY'}
-            </p>
-
-            {/* Main Title */}
-            <h1 className="text-3xl md:text-5xl lg:text-6xl font-sans font-bold text-white leading-tight mb-4">
-              {project.name}
-            </h1>
-
-            {/* Subtitle */}
-            <p className="text-lg md:text-xl text-white/90 font-sans font-light mb-2">
-              {project.subtitle || 'Experience the pinnacle of modern living.'}
-            </p>
-
-            {/* Configurations / Highlights Inline */}
-            <p className="text-white/70 text-xs md:text-sm font-sans mb-10">
-              {project.configurations || 'Luxury Configurations Available'}
-            </p>
-
-            {/* Stats Grid */}
-            <div className="flex gap-12 mb-10 border-l-2 border-secondary pl-6">
-              <div>
-                <p className="text-white/60 text-xs font-sans uppercase tracking-wider mb-1">SPREAD ACROSS</p>
-                <p className="text-white text-2xl md:text-3xl font-sans font-medium">
-                  {project.acres || 'TBA'}
-                </p>
-              </div>
-
-            </div>
-
-            {/* Brochure Button */}
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => window.dispatchEvent(new CustomEvent('open-enquiry-popup', { detail: { brochure: project.brochureLink } }))}
-              type="button"
-              className="bg-white text-primary px-6 py-3 rounded-full font-sans font-bold flex items-center gap-2 hover:bg-secondary hover:text-primary transition-colors text-sm"
-            >
-              <Download size={18} />
-              Brochure
-            </motion.button>
-
-          </motion.div>
-        </div>
-      </section>
+     <section className="relative h-screen w-full overflow-hidden">
+             {/* Background Image */}
+             <div className="absolute inset-0 z-0">
+               {/* Video Background */}
+               <video
+                 autoPlay
+                 loop
+                 muted
+                 playsInline
+                 className="w-full h-full object-cover"
+               >
+                 <source
+                   src="https://res.cloudinary.com/dgmrbxuvb/video/upload/v1771064084/mb_prime_enclave_o69n0k.mp4"
+                   type="video/mp4"
+                 />
+                 Your browser does not support the video tag.
+               </video>
+     
+               {/* Gradient Overlay for text readability */}
+               <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent" />
+     
+             </div>
+             {/* Content Container */}
+             <div className="relative z-10 container h-full flex flex-col justify-center px-6 md:px-12">
+               <motion.div
+                 className="max-w-3xl ml-0 lg:ml-12 mt-10"
+                 initial={{ opacity: 0, x: -30 }}
+                 animate={{ opacity: 1, x: 0 }}
+                 transition={{ duration: 0.8, delay: 0.2 }}
+               >
+                 {/* Tagline */}
+                 <p className="text-white/80 text-xs md:text-sm font-sans font-bold tracking-[0.2em] mb-4 uppercase">
+                   {project.tagline || 'LIVE IN LUXURY'}
+                 </p>
+     
+                 {/* Main Title */}
+                 <h1 className="text-3xl md:text-5xl lg:text-6xl font-sans font-bold text-white leading-tight mb-4">
+                   {project.name}
+                 </h1>
+     
+                 {/* Subtitle */}
+                 <p className="text-lg md:text-xl text-white/90 font-sans font-light mb-2">
+                   {project.subtitle || 'Experience the pinnacle of modern living.'}
+                 </p>
+     
+                 {/* Configurations / Highlights Inline */}
+                 <p className="text-white/70 text-xs md:text-sm font-sans mb-10">
+                   {project.configurations || 'Luxury Configurations Available'}
+                 </p>
+     
+                 {/* Stats Grid */}
+                 <div className="flex gap-12 mb-10 border-l-2 border-secondary pl-6">
+                   <div>
+                     <p className="text-white/60 text-xs font-sans uppercase tracking-wider mb-1">SPREAD ACROSS</p>
+                     <p className="text-white text-2xl md:text-3xl font-sans font-medium">
+                       {project.acres || 'TBA'}
+                     </p>
+                   </div>
+     
+                 </div>
+     
+                 {/* Brochure Button */}
+                 <motion.button
+                   whileHover={{ scale: 1.05 }}
+                   whileTap={{ scale: 0.95 }}
+                   className="bg-white text-primary px-6 py-3 rounded-full font-sans font-bold flex items-center gap-2 hover:bg-secondary hover:text-primary transition-colors text-sm"
+                 >
+                   <Download size={18} />
+                   Brochure
+                 </motion.button>
+               </motion.div>
+             </div>
+     
+             {/* VMRDA-RERA Approved Badge */}
+             <AnimatePresence>
+               {showBadge && (
+                 <motion.div
+                   initial={{ x: 100, opacity: 0 }}
+                   animate={{ x: 0, opacity: 1 }}
+                   exit={{ x: 100, opacity: 0, transition: { duration: 0.8 } }}
+                   transition={{ delay: 1, duration: 0.8, ease: "easeOut" }}
+                   className="absolute bottom-10 right-6 md:right-10 z-20 flex items-center justify-center w-22 h-22 md:w-27 md:h-27 bg-white/95 backdrop-blur-md rounded-full shadow-lg border-2 border-secondary"
+                 >
+                   <div className="flex flex-col items-center justify-center p-1 ml-2">
+                     <div className="flex items-center justify-center ">
+                       <img src="https://res.cloudinary.com/dgmrbxuvb/image/upload/v1771238479/Vmrda_logo_eddawf.png" alt="VMRDA" className="w-8 h-8 md:w-9 md:h-9 object-contain" />
+                       <img src="https://res.cloudinary.com/dgmrbxuvb/image/upload/v1771238635/rerawithout_bg_irz1u4.png" alt="RERA" className="w-10 h-10 md:w-15 md:h-15 object-contain" />
+                     </div>
+                     <p className="text-[7px] md:text-[9px] font-sans font-bold text-secondary uppercase tracking-wider">
+                       APPROVED
+                     </p>
+                   </div>
+                 </motion.div>
+               )}
+             </AnimatePresence>
+           </section>
 
       {/* Content block – clean, editorial */}
       <section className="py-16 md:py-24 bg-bg-light">
@@ -186,165 +231,194 @@ const MBPrimeVillas = () => {
 
 
           {/* Plots Section */}
-          <div id="plots" className="scroll-mt-32 mb-20">
-            {project.villaTypes && (
-              <motion.section
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
+          
+<div id="plots" className="scroll-mt-32 mb-20">
+  {project.villaTypes && (
+    <motion.section
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+    >
+      {/* Header & Tabs */}
+      <div className="flex flex-col items-center justify-center mb-16">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.6 }}
+          className="relative mb-12"
+        >
+          <h2 className="text-2xl md:text-4xl font-sans font-bold text-primary tracking-tight">
+            Villa Configurations
+          </h2>
+          <motion.div
+            initial={{ width: 0 }}
+            whileInView={{ width: '100%' }}
+            transition={{ delay: 0.5, duration: 0.8 }}
+            className="absolute -bottom-2 left-0 h-1 bg-gradient-to-r from-secondary/60 to-transparent rounded-full"
+          />
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3, duration: 0.6 }}
+          ref={tabsContainerRef}
+          className="flex p-1 bg-slate-100 rounded-xl w-full md:w-fit overflow-x-auto border border-slate-200/50 shadow-sm no-scrollbar scroll-smooth md:-mt-0 -mt-5"
+        >
+          <div className="flex min-w-max md:min-w-0">
+            {project.villaTypes.map((type, index) => (
+              <button
+                key={type.id}
+                ref={el => tabsRef.current[index] = el}
+                onClick={() => setActivePlotTab(index)}
+                className={`relative px-3 md:px-8 py-2.5 rounded-lg font-sans font-bold text-[10px] md:text-xs uppercase tracking-wide transition-colors duration-300 whitespace-nowrap ${activePlotTab === index ? 'text-secondary' : 'text-slate-400 hover:text-slate-600'}`}
               >
-                <div className="flex flex-col items-center justify-center mb-16">
+                {activePlotTab === index && (
                   <motion.div
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.6 }}
-                    className="relative mb-12"
-                  >
-                    <h2 className="text-2xl md:text-4xl font-sans font-bold text-primary tracking-tight">
-                      Villa Configurations
-                    </h2>
-                    <motion.div
-                      initial={{ width: 0 }}
-                      whileInView={{ width: '100%' }}
-                      transition={{ delay: 0.5, duration: 0.8 }}
-                      className="absolute -bottom-2 left-0 h-1 bg-gradient-to-r from-secondary/60 to-transparent rounded-full"
-                    />
-                  </motion.div>
-
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.3, duration: 0.6 }}
-                    ref={tabsContainerRef}
-                    className="flex p-1 bg-slate-100 rounded-xl w-full md:w-fit overflow-x-auto border border-slate-200/50 shadow-sm no-scrollbar scroll-smooth md:-mt-0 -mt-5"
-                  >
-                    <div className="flex min-w-max md:min-w-0">
-                      {project.villaTypes.map((type, index) => (
-                        <button
-                          key={type.id}
-                          ref={el => tabsRef.current[index] = el}
-                          onClick={() => setActivePlotTab(index)}
-                          className={`relative px-3 md:px-8 py-2.5 rounded-lg font-sans font-bold text-[10px] md:text-xs uppercase tracking-wide transition-colors duration-300 whitespace-nowrap ${activePlotTab === index
-                            ? 'text-secondary'
-                            : 'text-slate-400 hover:text-slate-600'
-                            }`}
-                        >
-                          {activePlotTab === index && (
-                            <motion.div
-                              layoutId="activePlotTabBackgroundHeader"
-                              className="absolute inset-0 bg-white rounded-lg shadow-sm"
-                              transition={{ type: "spring", bounce: 0.15, duration: 0.5 }}
-                            />
-                          )}
-                          <span className="relative z-10">
-                            {type.type} {type.direction && <span className="ml-1 opacity-60 text-[10px]">({type.direction})</span>}
-                          </span>
-                        </button>
-                      ))}
-                    </div>
-                  </motion.div>
-                </div>
-
-
-
-                {/* Content with Chevron Navigation */}
-                <motion.div
-                  variants={{
-                    hidden: { opacity: 0, y: 30 },
-                    visible: {
-                      opacity: 1,
-                      y: 0,
-                      transition: {
-                        duration: 0.8,
-                        ease: "easeOut",
-                        delay: 0.4
-                      }
-                    }
-                  }}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true }}
-                  className="flex items-center justify-center gap-2 md:gap-8 md:-mt-0 -mt-7  "
-                >
-                  <button
-                    onClick={() => setActivePlotTab(prev => (prev === 0 ? project.villaTypes.length - 1 : prev - 1))}
-                    className="p-2 md:p-3 rounded-full bg-slate-50 text-slate-400 hover:bg-secondary hover:text-white transition-all shadow-sm z-10"
-                    aria-label="Previous Villa Configuration"
-                  >
-                    <ChevronLeft size={24} />
-                  </button>
-
-                  <div className="grid md:grid-cols-2 gap-4 md:gap-12 items-center justify-items-center md:-ml-10">
-                    <motion.div
-                      key={project.villaTypes[activePlotTab].id}
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.5 }}
-                      className="relative w-fit overflow-hidden rounded-xl shadow-md group md:justify-self-end"
-                    >
-                      <img
-                        src={project.villaTypes[activePlotTab].image}
-                        alt={project.villaTypes[activePlotTab].type}
-                        className="w-auto h-[200px] md:h-[350px] object-cover transition-transform duration-700 group-hover:scale-105"
-                      />
-                      <div className={`absolute md:top-4 md:left-4 top-2 left-2 ${project.villaTypes[activePlotTab].color} text-white md:px-2 md:py-0.5 px-1 py-0 rounded-full md:text-[8px] text-[5px] font-bold uppercase tracking-wider shadow-sm`}>
-                        {project.villaTypes[activePlotTab].type}
-                      </div>
-                    </motion.div>
-
-                    <motion.div
-                      key={`${project.villaTypes[activePlotTab].id}-details`}
-                      initial={{ opacity: 0, x: 20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.5 }}
-                      className="md:justify-self-start max-w-md text-center md:text-left"
-                    >
-                      <h3 className="md:text-2xl text-[17px] font-sans font-bold text-primary md:mb-4 mb-2">
-                        {project.villaTypes[activePlotTab].type}
-                      </h3>
-                      <div className="flex flex-nowrap gap-4 mb-6 text-sm font-sans text-slate-500 justify-center md:justify-start items-center">
-                        <span className="bg-slate-50 px-3 py-1 rounded border border-slate-100 whitespace-nowrap">
-                          Size: <strong className="text-slate-700">{project.villaTypes[activePlotTab].size}</strong>
-                        </span>
-                        {project.villaTypes[activePlotTab].direction && (
-                          <span className="bg-slate-50 px-3 py-1 rounded border border-slate-100 whitespace-nowrap">
-                            Direction: <strong className="text-slate-700">{project.villaTypes[activePlotTab].direction}</strong>
-                          </span>
-                        )}
-
-                      </div>
-
-                      <p className="text-slate-600 font-sans leading-relaxed mb-6 md:text-[16px] text-[12px]">
-                        {project.villaTypes[activePlotTab].description}
-                      </p>
-
-                      {/* Area Details Grid */}
-                      <div className="grid grid-cols-2 gap-x-8 md:mt-10 ">
-                        <div>
-                          <p className="md:text-sm text-[12px] font-sans font-medium text-slate-700 mb-1">Plot Area</p>
-                          <div className="h-0.5 w-10 bg-indigo-400 rounded-full mb-3 mx-auto md:mx-0"></div>
-                          <p className="md:text-2xl text-[14px] font-sans font-bold text-primary">{project.villaTypes[activePlotTab].area}</p>
-                        </div>
-                        <div>
-                          <p className="md:text-sm text-[12px] font-sans font-medium text-slate-700 mb-1">Built Up Area</p>
-                          <div className="h-0.5 w-10 bg-indigo-400 rounded-full mb-3 mx-auto md:mx-0"></div>
-                          <p className="md:text-2xl text-[14px] font-sans font-bold text-primary">{project.villaTypes[activePlotTab].builtUp}</p>
-                        </div>
-                      </div>
-                    </motion.div>
-                  </div>
-
-                  <button
-                    onClick={() => setActivePlotTab(prev => (prev === project.villaTypes.length - 1 ? 0 : prev + 1))}
-                    className="p-2 md:p-3 rounded-full bg-slate-50 text-slate-400 hover:bg-secondary hover:text-white transition-all shadow-sm z-10"
-                    aria-label="Next Villa Configuration"
-                  >
-                    <ChevronRight size={24} />
-                  </button>
-                </motion.div>
-              </motion.section>
-            )}
+                    layoutId="activePlotTabBackgroundHeader"
+                    className="absolute inset-0 bg-white rounded-lg shadow-sm"
+                    transition={{ type: "spring", bounce: 0.15, duration: 0.5 }}
+                  />
+                )}
+                <span className="relative z-10">
+                  {type.type} {type.direction && <span className="ml-1 opacity-60 text-[10px]">({type.direction})</span>}
+                </span>
+              </button>
+            ))}
           </div>
+        </motion.div>
+      </div>
+
+      {/* Gallery and Content Container */}
+      <div className="flex items-center justify-center gap-2 md:gap-8 md:-mt-0 -mt-7">
+        <button
+          onClick={() => setActivePlotTab(prev => (prev === 0 ? project.villaTypes.length - 1 : prev - 1))}
+          className="p-2 md:p-3 rounded-full bg-slate-50 text-slate-400 hover:bg-secondary hover:text-white transition-all shadow-sm z-10"
+        >
+          <ChevronLeft size={24} />
+        </button>
+
+        <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center justify-items-center w-full max-w-6xl">
+          
+          {/* Left: Amazon-style Gallery */}
+          <div className="flex flex-col gap-6 w-full items-center">
+            <motion.div
+              key={`${currentVilla.id}-${selectedImgIndex}`}
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="relative w-full max-w-[350px] aspect-[3/3] overflow-hidden rounded-2xl shadow-xl group cursor-zoom-in"
+              onClick={() => setIsImgZoomed(true)}
+            >
+              <img
+                src={villaImages[selectedImgIndex]}
+                alt={currentVilla.type}
+                className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                <div className="bg-white/90 p-2 rounded-full shadow-lg">
+                  <ZoomIn size={20} className="text-primary" />
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Thumbnails Row */}
+            <div className="flex gap-3 justify-center">
+              {villaImages.map((img, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => setSelectedImgIndex(idx)}
+                  className={`w-16 h-16 md:w-20 md:h-20 rounded-xl overflow-hidden border-2 transition-all shadow-sm 
+                    ${selectedImgIndex === idx ? 'border-secondary scale-105 ring-2 ring-secondary/20' : 'border-transparent opacity-70 hover:opacity-100'}`}
+                >
+                  <img src={img} className="w-full h-full object-cover" alt="thumbnail" />
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Right: Vertically Centered Details */}
+          <motion.div
+            key={`${currentVilla.id}-details`}
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            className="flex flex-col justify-center text-center md:text-left w-full h-full"
+          >
+            <h3 className="md:text-3xl text-2xl font-sans font-bold text-primary md:mb-6 mb-2">
+              {currentVilla.type}
+            </h3>
+            
+            <div className="flex flex-wrap gap-4 mb-8 text-sm font-sans text-slate-500 justify-center md:justify-start">
+              <span className="bg-white px-4 py-2 rounded-lg border border-slate-100 shadow-sm">
+                Size: <strong className="text-slate-800">{currentVilla.size}</strong>
+              </span>
+              {currentVilla.direction && (
+                <span className="bg-white px-4 py-2 rounded-lg border border-slate-100 shadow-sm">
+                  Direction: <strong className="text-slate-800">{currentVilla.direction}</strong>
+                </span>
+              )}
+            </div>
+
+            <p className="text-slate-600 font-sans leading-relaxed mb-8 md:text-lg text-sm">
+              {currentVilla.description}
+            </p>
+
+            <div className="grid grid-cols-2 gap-8 pt-8 border-t border-slate-100">
+              <div>
+                <p className="md:text-sm text-[10px] uppercase tracking-widest font-bold text-slate-400 mb-1">Plot Area</p>
+                <div className="h-0.5 w-8 bg-indigo-400 rounded-full mb-3 mx-auto md:mx-0"></div>
+                <p className="md:text-2xl text-lg font-sans font-bold text-primary">{currentVilla.area}</p>
+              </div>
+              <div>
+                <p className="md:text-sm text-[10px] uppercase tracking-widest font-bold text-slate-400 mb-1">Built Up Area</p>
+                <div className="h-0.5 w-8 bg-indigo-400 rounded-full mb-3 mx-auto md:mx-0"></div>
+                <p className="md:text-2xl text-lg font-sans font-bold text-primary">{currentVilla.builtUp}</p>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+
+        <button
+          onClick={() => setActivePlotTab(prev => (prev === project.villaTypes.length - 1 ? 0 : prev + 1))}
+          className="p-2 md:p-3 rounded-full bg-slate-50 text-slate-400 hover:bg-secondary hover:text-white transition-all shadow-sm z-10"
+        >
+          <ChevronRight size={24} />
+        </button>
+      </div>
+    </motion.section>
+  )}
+
+  {/* Villa Image Zoom Modal */}
+  <AnimatePresence>
+    {isImgZoomed && (
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        onClick={() => setIsImgZoomed(false)}
+        className="fixed inset-0 z-[110] flex items-center justify-center bg-black/95 backdrop-blur-md p-4"
+      >
+        <motion.div
+          initial={{ scale: 0.9 }}
+          animate={{ scale: 1 }}
+          className="relative max-w-6xl w-full flex flex-col items-center"
+          onClick={e => e.stopPropagation()}
+        >
+          <img 
+            src={villaImages[selectedImgIndex]} 
+            alt="Villa Detail" 
+            className="max-h-[85vh] w-auto rounded-lg shadow-2xl"
+          />
+          <button 
+            onClick={() => setIsImgZoomed(false)}
+            className="absolute -top-12 right-0 text-white hover:text-secondary transition-colors"
+          >
+            <X size={32} />
+          </button>
+        </motion.div>
+      </motion.div>
+    )}
+  </AnimatePresence>
+</div>
 
           {/* Layout Section */}
           <div id="layout" className="scroll-mt-24 mb-20 bg-secondary/10 rounded-3xl">

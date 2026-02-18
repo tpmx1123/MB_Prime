@@ -15,7 +15,7 @@ const iconMap = {
 };
 
 const JewelCity = () => {
-  const project = getProjectBySlug('vizag');
+  const project = getProjectBySlug('Prime-Jewel-City');
 
   const [startIndex, setStartIndex] = useState(0);
   useEffect(() => {
@@ -30,8 +30,8 @@ const JewelCity = () => {
   }, [project]);
   useEffect(() => {
     setStartIndex(0);
-  }, ['vizag']);
-  const allOtherProjects = projects.filter(p => p.slug !== 'vizag');
+  }, ['Prime-Jewel-City']);
+  const allOtherProjects = projects.filter(p => p.slug !== 'Prime-Jewel-City');
   const visibleProjects = allOtherProjects.slice(startIndex, startIndex + 4);
 
   const nextProjects = () => {

@@ -1,19 +1,20 @@
 // Shared project images for hover effect (user-provided Cloudinary URLs)
 export const PROJECT_IMAGE_A = 'https://res.cloudinary.com/durbtkhbz/image/upload/v1770638196/EA-1-7-scaled.jpg_opvxht.webp';
 export const PROJECT_IMAGE_B = 'https://res.cloudinary.com/durbtkhbz/image/upload/v1770802746/cf5d2f057cf4017_f4cvnw.jpg';
-import villaBrochure from '../assets/MBPrimevillasbrochure.pdf';
+import villaBrochure from '../assets/MB Prime Brochure_P.pdf';
+import enclaveBrochure from '../assets/EnclaveBrochure.pdf';
 // Order: 1. Vijayawada, 2. MB Prime Enclave, 3. MB Prime Villas, 4. Capital West, 5. AI Gen Villas
 export const projects = [
   {
-    slug: 'vizag',
-    name: 'Jewel City ',
-    tagline: 'LIVE IN THE HEART OF Vizag',
+    slug: 'Prime-Jewel-City',
+    name: 'Prime Jewel City ',
+    tagline: 'LIVE IN THE HEART OF VIJAYAWADA',
     subtitle: 'A premium residential community designed for modern living.',
     configurations: '3 Towers | G+15 Floors | 70% Open Area',
     acres: '5.2 acres',
     handover: 'December 2026',
     brochureLink: '#',
-    location: 'Vizag',
+    location: 'Vijayawada',
     type: 'Residential Development',
     status: 'Under Planning',
     image: PROJECT_IMAGE_A,
@@ -43,21 +44,20 @@ export const projects = [
     ],
   },
   {
-    slug: 'enclave',
+    slug: 'MB-Prime-Enclave',
     name: 'MB Prime Enclave ',
     tagline: 'THE PRIDE OF VIZIANAGARAM',
     subtitle: 'Live amidst nature and openness.',
     configurations: '5 Blocks | G+5 Floors | Modern Amenities',
     acres: '6.6699 acres',
     handover: 'March 2026',
-    brochureLink: '#',
+    brochureLink: enclaveBrochure,
     location: 'Vizianagaram',
     type: 'Residential Development',
     status: 'Lister Development (30% GDV)',
     image: PROJECT_IMAGE_B,
     imageHover: PROJECT_IMAGE_A,
     logo: null,
-    masterPlan: null,
     locationMap: 'https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3792.6244768817246!2d83.399245!3d18.088931!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMTjCsDA1JzIwLjIiTiA4M8KwMjMnNTcuMyJF!5e0!3m2!1sen!2sin!4v1771135120420!5m2!1sen!2sin',
     favicon: 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1771063124/sklmlogo_c2trtg_wk10v3_cztpx0.ico', // MB Prime Villas favicon
     masterPlan: 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1771068556/Gemini_Generated_Image_wx0r97wx0r97wx0r_g1tdty.png',
@@ -157,7 +157,7 @@ export const projects = [
     ],
   },
   {
-    slug: 'villas',
+    slug: 'MB-Prime-Villas',
     name: 'MB Prime Villas',
     tagline: 'LUXURY REDEFINED IN SRIKAKULAM',
     subtitle: 'Exclusive villa plots for a distinguished lifestyle.',
@@ -316,11 +316,14 @@ export const projects = [
         id: 'triplex',
         type: 'Triplex Villa',
         size: "36' x 50'",
-        direction: '',
+        direction: 'North',
         area: '200 Sq. Yards',
         builtUp: '3650 Sq. Ft',
         description: 'A grand triplex villa designed for modern luxury living, offering spacious interiors, premium finishes, and three levels of unmatched comfort.',
         image: 'https://res.cloudinary.com/durbtkhbz/image/upload/v1770882555/plot1_ikla4a.png',
+        image1: 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1771312600/TRIPLEX_NORTH_FACE_50_X_36_GF_squxzr.jpg',
+        image2: 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1771312601/TRIPLEX_NORTH_FACE_50_X_36_FF_hcvvla.jpg',
+        image3: 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1771312601/TRIPLEX_NORTH_FACE_50_X_36_SF_sajuim.jpg',
         color: 'bg-[#982B56]' // Deep Magenta/Red from image
       },
       {
@@ -332,6 +335,8 @@ export const projects = [
         builtUp: '2100 Sq. Ft',
         description: 'A beautifully planned duplex villa that blends comfort, style, and functionality, offering the perfect balance of privacy and modern family living.',
         image: 'https://res.cloudinary.com/durbtkhbz/image/upload/v1770882554/plot2_sn5bq0.png',
+        image1: 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1771312600/DUPLEX_SOUTH_FACE_40_x36_GF_idxvwq.jpg',
+        image2: 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1771312600/DUPLEX_SOUTH_FACE_40_x36_FF_srobau.jpg',
         color: 'bg-[#76A847]' // Green from image
       },
       {
@@ -343,6 +348,8 @@ export const projects = [
         builtUp: '2050 Sq. Ft',
         description: 'A stylish duplex villa featuring a spacious balcony, perfect for relaxing, entertaining, and enjoying open views with refreshing natural airflow.',
         image: 'https://res.cloudinary.com/durbtkhbz/image/upload/v1770882631/plot3_jzl1fn.png',
+        image1: 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1771312600/DUPLEX_NORTH_FACE_50_x36_GF_jdkulu.jpg',
+        image2: 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1771312600/DUPLEX_NORTH_FACE_50_x36_FF_s91kz9.jpg',
         color: 'bg-[#B5A445]' // Gold/Yellow from image
       }
     ],
@@ -394,15 +401,15 @@ export const projects = [
     ],
   },
   {
-    slug: 'ai-gen-villas',
-    name: 'AI Gen Villas',
+    slug: 'ai-gen-serenity-villas',
+    name: 'AI Gen Serenity villas',
     tagline: 'NEXT GENERATION LIVING',
     subtitle: 'Smart homes for a smarter future.',
     configurations: 'Smart Villas | Tech Integration',
     acres: '8 acres',
     handover: '2027',
     brochureLink: '#',
-    location: 'Guntur',
+    location: 'Amaravati',
     type: 'Residential Development',
     status: 'Under Planning',
     image: PROJECT_IMAGE_B,

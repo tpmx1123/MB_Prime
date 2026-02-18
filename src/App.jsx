@@ -98,11 +98,11 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/projects" element={<Projects />} />
-            <Route path="/projects/villas" element={<MBPrimeVillas />} />
-            <Route path="/projects/vizag" element={<JewelCity />} />
-            <Route path="/projects/enclave" element={<MBPrimeEnclave />} />
-            <Route path="/projects/capital-west" element={<CapitalWest />} />
-            <Route path="/projects/ai-gen-villas" element={<AIGenVillas />} />
+            <Route path="/projects/MB-Prime-Villas" element={<MBPrimeVillas />} />
+            <Route path="/projects/Prime-Jewel-City" element={<JewelCity />} />
+            <Route path="/projects/MB-Prime-Enclave" element={<MBPrimeEnclave />} />
+            <Route path="/projects/Capital-West" element={<CapitalWest />} />
+            <Route path="/projects/ai-gen-serenity-villas" element={<AIGenVillas />} />
             <Route path="/about" element={<AboutMBPrime asPage />} />
             <Route path="/founder" element={<Founder />} />
           </Routes>
