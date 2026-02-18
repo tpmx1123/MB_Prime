@@ -206,6 +206,7 @@ const MBPrimeVillas = () => {
                          brochure: brochure || null,
                          autoDownloadAfterSubmit: Boolean(brochure),
                          downloadFileName: brochure ? `${(project?.name || 'MB_Prime').replace(/\s+/g, '_')}_Brochure.pdf` : 'Brochure.pdf',
+                         formType: brochure ? 'brochure' : 'enquiry',
                        },
                      }));
                    }}
@@ -991,7 +992,7 @@ const MBPrimeVillas = () => {
             </h3>
 
             <button
-              onClick={() => window.dispatchEvent(new CustomEvent('open-enquiry-popup'))}
+              onClick={() => window.dispatchEvent(new CustomEvent('open-enquiry-popup', { detail: { formType: 'enquiry' } }))}
               className="inline-flex items-center gap-2 px-4 py-3 bg-white text-[#6366f1] font-sans font-bold rounded-full transition-all duration-300 hover:bg-slate-50 hover:scale-105 shadow-lg z-10"
             >
               Connect with Us <ArrowRight size={20} />

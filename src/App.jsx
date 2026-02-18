@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect } from 'react'
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom'
 
 // Layout & UI Components
@@ -23,6 +23,8 @@ import FounderSection from './components/FounderSection'
 import MBPrimeVillas from './components/MBPrimeVillas'
 import AIGenVillas from './components/AIGenVillas'
 import CapitalWest from './components/CapitalWest'
+import AdminLogin from './components/admin/AdminLogin'
+import AdminDashboard from './components/admin/AdminDashboard'
 
 /**
  * Handles smooth scrolling to hash anchors or top of page on route change
@@ -71,31 +73,43 @@ const Home = () => (
  */
 const AppContent = () => {
   const location = useLocation();
-  // Checks if the current path is a specific project detail (e.g., /projects/villas)
   const isProjectDetail = location.pathname.startsWith('/projects/') && location.pathname.split('/').length > 2;
+  const isAdminRoute = location.pathname === '/admin-login' || location.pathname === '/admin';
 
   return (
     <>
-      {!isProjectDetail && <Header />}
+      {!isProjectDetail && !isAdminRoute && <Header />}
     </>
   );
+};
+
+const FooterWrapper = () => {
+  const location = useLocation();
+  if (location.pathname === '/admin-login' || location.pathname === '/admin') return null;
+  return <Footer />;
 };
 
 /**
  * Main App Entry Point
  */
+const EnquiryPopupWrapper = () => {
+  const location = useLocation();
+  if (location.pathname === '/admin-login' || location.pathname === '/admin') return null;
+  return <EnquiryPopup />;
+};
+
 function App() {
   return (
     <Router>
       <ScrollToTop />
-      <EnquiryPopup />
+      <EnquiryPopupWrapper />
       <div className="app min-h-screen selection:bg-secondary selection:text-primary">
         <SEO />
-        {/* Conditional Header Rendering */}
         <AppContent />
-        
         <main>
           <Routes>
+            <Route path="/admin-login" element={<AdminLogin />} />
+            <Route path="/admin" element={<AdminDashboard />} />
             <Route path="/" element={<Home />} />
             <Route path="/projects" element={<Projects />} />
             <Route path="/projects/MB-Prime-Villas" element={<MBPrimeVillas />} />
@@ -107,8 +121,7 @@ function App() {
             <Route path="/founder" element={<Founder />} />
           </Routes>
         </main>
-
-        <Footer />
+        <FooterWrapper />
       </div>
     </Router>
   )

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, User, Mail, Phone, MessageSquare, ArrowRight } from 'lucide-react';
+import { submitFormSubmission } from '../services/api';
 
 const EnquiryPopup = () => {
     const [isVisible, setIsVisible] = useState(false);
@@ -9,14 +10,22 @@ const EnquiryPopup = () => {
     const [intendedBrochure, setIntendedBrochure] = useState(null);
     const [autoDownload, setAutoDownload] = useState(false);
     const [downloadFileName, setDownloadFileName] = useState('Brochure.pdf');
+    const [formType, setFormType] = useState('enquiry'); // 'brochure' | 'enquiry' (default)
+    const [submitError, setSubmitError] = useState(null);
 
-    // Listen for the custom event from any project. Event may include detail: { brochure: '/path.pdf', autoDownloadAfterSubmit: true, downloadFileName: 'Project_Brochure.pdf' }
+    // Listen for the custom event. Brochure button → formType brochure; Enquire Now → enquiry (default).
     useEffect(() => {
         const handleOpenPopup = (e) => {
             const detail = e && e.detail ? e.detail : {};
             setIntendedBrochure(detail.brochure || null);
             setAutoDownload(Boolean(detail.autoDownloadAfterSubmit));
             setDownloadFileName(detail.downloadFileName || 'Brochure.pdf');
+            if (detail.formType === 'brochure' || (detail.brochure && detail.autoDownloadAfterSubmit)) {
+                setFormType('brochure');
+            } else {
+                setFormType('enquiry');
+            }
+            setSubmitError(null);
             setIsVisible(true);
         };
 
@@ -49,11 +58,19 @@ const EnquiryPopup = () => {
         setDownloadFileName('Brochure.pdf');
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        localStorage.setItem('mbPrimeEnquirySubmitted', 'true');
+        setSubmitError(null);
+        try {
+            await submitFormSubmission({
+                formType,
+                name: formData.name,
+                email: formData.email,
+                phone: formData.phone,
+                message: formData.message,
+            });
+            localStorage.setItem('mbPrimeEnquirySubmitted', 'true');
 
-        const doBrochureDownload = async () => {
             if (intendedBrochure) {
                 try {
                     const response = await fetch(intendedBrochure);
@@ -74,9 +91,10 @@ const EnquiryPopup = () => {
                 }
             }
             resetAndClose();
-        };
-
-        doBrochureDownload();
+        } catch (err) {
+            console.error('Form submit failed:', err);
+            setSubmitError(err.message || 'Could not submit. Please try again.');
+        }
     };
 
     const handleClose = () => {
@@ -87,9 +105,13 @@ const EnquiryPopup = () => {
 
     return (
         <>
-            {/* Professional Sidebar Trigger */}
+            {/* Professional Sidebar Trigger – Enquire form */}
             <button
-                onClick={() => setIsVisible(true)}
+                onClick={() => {
+                    setFormType('enquiry');
+                    setSubmitError(null);
+                    setIsVisible(true);
+                }}
                 className="fixed right-0 top-1/2 z-[9990] -translate-y-1/2 bg-primary text-white font-bold text-[10px] md:text-xs py-3 px-3 rounded-r-2xl shadow-2xl hover:bg-secondary hover:text-primary transition-all duration-500 uppercase tracking-[0.2em] [writing-mode:vertical-lr] rotate-180 flex items-center gap-2 border-l border-white/10"
             >
                 <span className="mb-2">Enquire Now</span>
@@ -115,18 +137,23 @@ const EnquiryPopup = () => {
 
                             <div className="p-6 md:p-8 pt-14 md:pt-14">
                                 <div className="mb-4 text-center">
-                                    <span className="text-secondary font-bold tracking-[0.3em] uppercase text-[9px] block mb-2">Connect With Us</span>
+                                    <span className="text-secondary font-bold tracking-[0.3em] uppercase text-[9px] block mb-2">
+                                        {formType === 'brochure' ? 'Download Brochure' : 'Enquire Now'}
+                                    </span>
                                     <h2 className="text-2xl md:text-3xl font-serif text-primary leading-tight py-1">
                                         Embark on Your <br />
                                         <span className="italic font-light opacity-70">Luxury Journey</span>
                                     </h2>
                                 </div>
+                                {submitError && (
+                                    <p className="text-red-500 text-sm mb-2 text-center">{submitError}</p>
+                                )}
 
                                 <form onSubmit={handleSubmit} className="space-y-3.5">
                                     {[
-                                        { name: 'name', type: 'text', placeholder: 'Full Name', icon: User },
-                                        { name: 'email', type: 'email', placeholder: 'Email Address', icon: Mail },
-                                        { name: 'phone', type: 'tel', placeholder: 'Mobile Number', icon: Phone },
+                                        { name: 'name', type: 'text', placeholder: 'Full Name', icon: User, required: true },
+                                        { name: 'email', type: 'email', placeholder: 'Email Address', icon: Mail, required: false },
+                                        { name: 'phone', type: 'tel', placeholder: 'Mobile Number', icon: Phone, required: true },
                                     ].map((field) => (
                                         <div key={field.name} className="relative group">
                                             <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-300 group-focus-within:text-secondary transition-colors">
@@ -135,7 +162,7 @@ const EnquiryPopup = () => {
                                             <input
                                                 type={field.type}
                                                 name={field.name}
-                                                required
+                                                required={field.required}
                                                 placeholder={field.placeholder}
                                                 value={formData[field.name]}
                                                 onChange={handleChange}

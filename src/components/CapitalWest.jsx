@@ -183,6 +183,7 @@ const CapitalWest = () => {
                     brochure: brochure || null,
                     autoDownloadAfterSubmit: Boolean(brochure),
                     downloadFileName: brochure ? `${(project?.name || 'MB_Prime').replace(/\s+/g, '_')}_Brochure.pdf` : 'Brochure.pdf',
+                    formType: brochure ? 'brochure' : 'enquiry',
                   },
                 }));
               }}
