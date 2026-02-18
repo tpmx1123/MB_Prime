@@ -43,6 +43,9 @@ const MBPrimeEnclave = () => {
     currentVilla.image2,
     currentVilla.image3
   ].filter(Boolean) : [];
+  const villaImageTags = currentVilla
+    ? [currentVilla.tag, currentVilla.tag1, currentVilla.tag2, currentVilla.tag3].filter(Boolean)
+    : [];
 
   const allOtherProjects = projects.filter(p => p.slug !== 'MB-Prime-Enclave');
   const visibleProjects = allOtherProjects.slice(startIndex, startIndex + 4);
@@ -156,6 +159,11 @@ const MBPrimeEnclave = () => {
                  animate={{ opacity: 1, x: 0 }}
                  transition={{ duration: 0.8, delay: 0.2 }}
                >
+                 {project.heroImageTag && (
+                   <p className="text-[#8B4512] text-xs md:text-sm font-serif font-semibold tracking-wider mb-3 bg-white/90 backdrop-blur-sm inline-block px-3 py-1.5 rounded">
+                     {project.heroImageTag}
+                   </p>
+                 )}
                  {/* Tagline */}
                  <p className="text-white/80 text-xs md:text-sm font-sans font-bold tracking-[0.2em] mb-4 uppercase">
                    {project.tagline || 'LIVE IN LUXURY'}
@@ -187,10 +195,20 @@ const MBPrimeEnclave = () => {
      
                  </div>
      
-                 {/* Brochure Button */}
+                 {/* Brochure Button – opens EnquiryPopup; after form submit downloads brochure if brochureLink is set */}
                  <motion.button
                    whileHover={{ scale: 1.05 }}
                    whileTap={{ scale: 0.95 }}
+                   onClick={() => {
+                     const brochure = project?.brochureLink && project.brochureLink !== '#' ? project.brochureLink : null;
+                     window.dispatchEvent(new CustomEvent('open-enquiry-popup', {
+                       detail: {
+                         brochure: brochure || null,
+                         autoDownloadAfterSubmit: Boolean(brochure),
+                         downloadFileName: brochure ? `${(project?.name || 'MB_Prime').replace(/\s+/g, '_')}_Brochure.pdf` : 'Brochure.pdf',
+                       },
+                     }));
+                   }}
                    className="bg-white text-primary px-6 py-3 rounded-full font-sans font-bold flex items-center gap-2 hover:bg-secondary hover:text-primary transition-colors text-sm"
                  >
                    <Download size={18} />
@@ -314,6 +332,13 @@ const MBPrimeEnclave = () => {
                 alt={currentVilla.type}
                 className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-105"
               />
+              {villaImageTags[selectedImgIndex] && (
+                <div className="absolute top-3 left-0 right-0 flex justify-center pointer-events-none">
+                  <span className="text-[10px] md:text-xs font-serif font-semibold text-[#8B4512] uppercase tracking-wider bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded shadow-sm">
+                    {villaImageTags[selectedImgIndex]}
+                  </span>
+                </div>
+              )}
               <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                 <div className="bg-white/90 p-2 rounded-full shadow-lg">
                   <ZoomIn size={20} className="text-primary" />
@@ -322,15 +347,20 @@ const MBPrimeEnclave = () => {
             </motion.div>
 
             {/* Thumbnails Row */}
-            <div className="flex gap-3 justify-center">
+            <div className="flex gap-3 justify-center flex-wrap">
               {villaImages.map((img, idx) => (
                 <button
                   key={idx}
                   onClick={() => setSelectedImgIndex(idx)}
-                  className={`w-16 h-16 md:w-20 md:h-20 rounded-xl overflow-hidden border-2 transition-all shadow-sm 
+                  className={`flex flex-col items-center gap-1 w-16 md:w-20 rounded-xl overflow-hidden border-2 transition-all shadow-sm 
                     ${selectedImgIndex === idx ? 'border-secondary scale-105 ring-2 ring-secondary/20' : 'border-transparent opacity-70 hover:opacity-100'}`}
                 >
-                  <img src={img} className="w-full h-full object-cover" alt="thumbnail" />
+                  <img src={img} className="w-full h-14 md:h-16 object-cover" alt={villaImageTags[idx] || 'thumbnail'} />
+                  {villaImageTags[idx] && (
+                    <span className="text-[8px] md:text-[9px] font-sans font-medium text-primary px-1 text-center leading-tight line-clamp-2">
+                      {villaImageTags[idx]}
+                    </span>
+                  )}
                 </button>
               ))}
             </div>
@@ -405,9 +435,16 @@ const MBPrimeEnclave = () => {
         >
           <img 
             src={villaImages[selectedImgIndex]} 
-            alt="Villa Detail" 
+            alt={villaImageTags[selectedImgIndex] || 'Villa Detail'} 
             className="max-h-[85vh] w-auto rounded-lg shadow-2xl"
           />
+          {villaImageTags[selectedImgIndex] && (
+            <div className="absolute top-4 left-1/2 -translate-x-1/2 pointer-events-none">
+              <span className="text-sm font-serif font-semibold text-[#8B4512] uppercase tracking-wider bg-white/95 backdrop-blur-sm px-4 py-2 rounded shadow-lg">
+                {villaImageTags[selectedImgIndex]}
+              </span>
+            </div>
+          )}
           <button 
             onClick={() => setIsImgZoomed(false)}
             className="absolute -top-12 right-0 text-white hover:text-secondary transition-colors"

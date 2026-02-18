@@ -131,6 +131,11 @@ const CapitalWest = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
+            {project.heroImageTag && (
+              <p className="text-[#8B4512] text-xs md:text-sm font-serif font-semibold tracking-wider mb-3 bg-white/90 backdrop-blur-sm inline-block px-3 py-1.5 rounded">
+                {project.heroImageTag}
+              </p>
+            )}
             {/* Tagline */}
             <p className="text-white/80 text-xs md:text-sm font-sans font-bold tracking-[0.2em] mb-4 uppercase">
               {project.tagline || 'LIVE IN LUXURY'}
@@ -167,10 +172,20 @@ const CapitalWest = () => {
 
             </div>
 
-            {/* Brochure Button */}
+            {/* Brochure Button – opens EnquiryPopup; after form submit downloads brochure if brochureLink is set */}
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
+              onClick={() => {
+                const brochure = project?.brochureLink && project.brochureLink !== '#' ? project.brochureLink : null;
+                window.dispatchEvent(new CustomEvent('open-enquiry-popup', {
+                  detail: {
+                    brochure: brochure || null,
+                    autoDownloadAfterSubmit: Boolean(brochure),
+                    downloadFileName: brochure ? `${(project?.name || 'MB_Prime').replace(/\s+/g, '_')}_Brochure.pdf` : 'Brochure.pdf',
+                  },
+                }));
+              }}
               className="bg-white text-primary px-6 py-3 rounded-full font-sans font-bold flex items-center gap-2 hover:bg-secondary hover:text-primary transition-colors text-sm"
             >
               <Download size={18} />
