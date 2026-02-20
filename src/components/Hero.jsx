@@ -5,7 +5,8 @@ import { useLazyVideo } from '../hooks/useLazyVideo';
 
 const MotionDiv = motion.div;
 
-const HERO_VIDEO_SRC = 'https://res.cloudinary.com/durbtkhbz/video/upload/v1770631455/Generate_Car_Driving_Video2_oxqsho.mp4';
+const HERO_VIDEO_SRC = 'https://res.cloudinary.com/durbtkhbz/video/upload/q_auto,f_auto/v1770631455/Generate_Car_Driving_Video2_oxqsho.mp4';
+const HERO_VIDEO_POSTER = 'https://res.cloudinary.com/durbtkhbz/video/upload/so_0,q_auto,f_auto,w_1200/v1770631455/Generate_Car_Driving_Video2_oxqsho.jpg';
 
 const Hero = () => {
   const ref = useRef(null);
@@ -50,7 +51,8 @@ const Hero = () => {
           loop
           muted
           playsInline
-          preload={shouldLoadVideo ? 'auto' : 'none'}
+          preload={shouldLoadVideo ? 'metadata' : 'none'}
+          poster={HERO_VIDEO_POSTER}
           className="absolute inset-0 w-full h-[120%] object-cover scale-110"
         >
           {shouldLoadVideo && (

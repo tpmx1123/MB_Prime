@@ -53,10 +53,11 @@ const ScrollToTop = () => {
 };
 
 /**
- * Fallback shown while a lazy-loaded page chunk is loading
+ * Full-screen fallback while a lazy-loaded page chunk is loading.
+ * No header or footer – takes entire viewport.
  */
-const PageLoader = () => (
-  <div className="min-h-[60vh] flex items-center justify-center bg-slate-50">
+const FullScreenLoader = () => (
+  <div className="fixed inset-0 z-[9999] min-h-screen w-full flex items-center justify-center bg-slate-100">
     <style>{`
       @keyframes page-loader-fade {
         from { opacity: 0; transform: scale(0.96); }
@@ -146,11 +147,11 @@ function App() {
     <Router>
       <ScrollToTop />
       <EnquiryPopupWrapper />
-      <div className="app min-h-screen selection:bg-secondary selection:text-primary">
-        <SEO />
-        <AppContent />
-        <main>
-          <Suspense fallback={<PageLoader />}>
+      <Suspense fallback={<FullScreenLoader />}>
+        <div className="app min-h-screen selection:bg-secondary selection:text-primary">
+          <SEO />
+          <AppContent />
+          <main>
             <Routes>
               <Route path="/admin-login" element={<AdminLogin />} />
               <Route path="/admin-forgot-password" element={<AdminForgotPassword />} />
@@ -171,10 +172,10 @@ function App() {
               <Route path="/blogs" element={<Blogs />} />
               <Route path="/blogs/:slug" element={<BlogPost />} />
             </Routes>
-          </Suspense>
-        </main>
-        <FooterWrapper />
-      </div>
+          </main>
+          <FooterWrapper />
+        </div>
+      </Suspense>
     </Router>
   );
 }
