@@ -39,6 +39,7 @@ const ProjectHeader = ({ project }) => {
                             src={project.logo}
                             alt={`${project.name} Logo`}
                             className="h-12 md:h-18 w-auto object-contain"
+                            loading="lazy"
                         />
                     ) : (
                         <h2 className="text-2xl font-bold text-white font-sans tracking-wide">
@@ -132,6 +133,7 @@ const ProjectHeader = ({ project }) => {
                                             src={project.logo}
                                             alt={`${project.name} Logo`}
                                             className="h-12 w-auto object-contain"
+                                            loading="lazy"
                                         />
                                     ) : (
                                         <span className="text-white font-bold text-lg">{project.name}</span>

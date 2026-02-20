@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, User, Mail, Phone, MessageSquare, ArrowRight } from 'lucide-react';
+import { X, User, Mail, Phone, MessageSquare, ArrowRight, Loader2 } from 'lucide-react';
 import { submitFormSubmission } from '../services/api';
 
 const EnquiryPopup = () => {
@@ -12,6 +12,7 @@ const EnquiryPopup = () => {
     const [downloadFileName, setDownloadFileName] = useState('Brochure.pdf');
     const [formType, setFormType] = useState('enquiry'); // 'brochure' | 'enquiry' (default)
     const [submitError, setSubmitError] = useState(null);
+    const [submitting, setSubmitting] = useState(false);
 
     // Listen for the custom event. Brochure button → formType brochure; Enquire Now → enquiry (default).
     useEffect(() => {
@@ -61,6 +62,7 @@ const EnquiryPopup = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setSubmitError(null);
+        setSubmitting(true);
         try {
             await submitFormSubmission({
                 formType,
@@ -94,6 +96,8 @@ const EnquiryPopup = () => {
         } catch (err) {
             console.error('Form submit failed:', err);
             setSubmitError(err.message || 'Could not submit. Please try again.');
+        } finally {
+            setSubmitting(false);
         }
     };
 
@@ -186,13 +190,23 @@ const EnquiryPopup = () => {
                                     </div>
 
                                     <motion.button
-                                        whileHover={{ scale: 1.01, backgroundColor: '#000' }}
-                                        whileTap={{ scale: 0.99 }}
+                                        whileHover={!submitting ? { scale: 1.01, backgroundColor: '#000' } : {}}
+                                        whileTap={!submitting ? { scale: 0.99 } : {}}
                                         type="submit"
-                                        className="w-full mt-2 py-4 bg-primary text-white font-bold tracking-[0.2em] rounded-xl shadow-lg flex items-center justify-center gap-3 uppercase text-[10px] transition-all duration-500"
+                                        disabled={submitting}
+                                        className="w-full mt-2 py-4 bg-primary text-white font-bold tracking-[0.2em] rounded-xl shadow-lg flex items-center justify-center gap-3 uppercase text-[10px] transition-all duration-500 disabled:opacity-80 disabled:cursor-not-allowed"
                                     >
-                                        <span>Request Exclusive Access</span>
-                                        <ArrowRight size={14} />
+                                        {submitting ? (
+                                            <>
+                                                <Loader2 size={14} className="animate-spin" />
+                                                <span>Submitting...</span>
+                                            </>
+                                        ) : (
+                                            <>
+                                                <span>Request Exclusive Access</span>
+                                                <ArrowRight size={14} />
+                                            </>
+                                        )}
                                     </motion.button>
                                 </form>
 

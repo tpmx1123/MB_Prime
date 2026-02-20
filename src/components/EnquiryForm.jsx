@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, ChevronDown, Send } from 'lucide-react';
+import { X, ChevronDown, Send, Loader2 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { submitFormSubmission } from '../services/api';
 
@@ -13,6 +13,7 @@ const EnquiryForm = ({ isModal = false, onClose, className = "" }) => {
     });
     const [submitted, setSubmitted] = useState(false);
     const [error, setError] = useState(null);
+    const [submitting, setSubmitting] = useState(false);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -22,6 +23,7 @@ const EnquiryForm = ({ isModal = false, onClose, className = "" }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError(null);
+        setSubmitting(true);
         const phone = (formData.countryCode || '').trim() + (formData.phone || '').trim();
         try {
             await submitFormSubmission({
@@ -36,6 +38,8 @@ const EnquiryForm = ({ isModal = false, onClose, className = "" }) => {
         } catch (err) {
             console.error('EnquiryForm submit failed:', err);
             setError(err.message || 'Could not submit. Please try again.');
+        } finally {
+            setSubmitting(false);
         }
     };
 
@@ -135,13 +139,23 @@ const EnquiryForm = ({ isModal = false, onClose, className = "" }) => {
 
                     <div className="pt-4">
                         <motion.button
-                            whileHover={{ scale: 1.02, backgroundColor: '#000' }}
-                            whileTap={{ scale: 0.98 }}
+                            whileHover={!submitting ? { scale: 1.02, backgroundColor: '#000' } : {}}
+                            whileTap={!submitting ? { scale: 0.98 } : {}}
                             type="submit"
-                            className="w-full py-4 bg-primary text-white font-bold tracking-[0.2em] rounded-xl transition-all duration-300 shadow-xl flex items-center justify-center gap-3 uppercase text-xs md:text-sm"
+                            disabled={submitting}
+                            className="w-full py-4 bg-primary text-white font-bold tracking-[0.2em] rounded-xl transition-all duration-300 shadow-xl flex items-center justify-center gap-3 uppercase text-xs md:text-sm disabled:opacity-80 disabled:cursor-not-allowed"
                         >
-                            <span>Submit Request</span>
-                            <Send size={16} className="opacity-70" />
+                            {submitting ? (
+                                <>
+                                    <Loader2 size={18} className="animate-spin" />
+                                    <span>Submitting...</span>
+                                </>
+                            ) : (
+                                <>
+                                    <span>Submit Request</span>
+                                    <Send size={16} className="opacity-70" />
+                                </>
+                            )}
                         </motion.button>
                     </div>
                 </form>

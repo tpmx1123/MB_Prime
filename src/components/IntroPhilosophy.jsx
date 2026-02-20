@@ -80,7 +80,7 @@ const IntroPhilosophy = () => {
               </Motion.p>
 
               <Motion.p
-                className="text-slate-500 text-xs sm:text-sm md:text-base lg:text-lg leading-snug sm:leading-relaxed font-sans font-light"
+                className="text-slate-500 text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl leading-snug sm:leading-relaxed font-sans font-light"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}

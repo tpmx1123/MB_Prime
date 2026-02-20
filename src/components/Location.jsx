@@ -40,6 +40,7 @@ const Location = () => {
                             src="https://res.cloudinary.com/dgmrbxuvb/image/upload/v1771063695/MB_Map_e9a6vx.png" 
                             alt="MB Prime Locations Map" 
                             className="w-full max-w-[600px] h-auto object-contain "
+                            loading="lazy"
                         />
                     </motion.div>
 

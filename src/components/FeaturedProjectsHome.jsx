@@ -22,12 +22,14 @@ const ProjectCard = ({ project }) => {
             src={project.image}
             alt={project.name}
             className="absolute inset-0 w-full h-full object-cover transition-[opacity_0.4s,transform_1s] group-hover:scale-110 group-hover:opacity-0"
+            loading="lazy"
           />
           <img
             src={hoverSrc}
             alt=""
             aria-hidden
             className="absolute inset-0 w-full h-full object-cover transition-[opacity_0.4s,transform_1s] opacity-0 group-hover:opacity-100 group-hover:scale-110"
+            loading="lazy"
           />
           <div className="absolute inset-0 border border-black/5 rounded-t-[2rem] pointer-events-none" />
         </div>

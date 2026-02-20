@@ -28,6 +28,7 @@ const InvestmentSection = () => {
               src="https://res.cloudinary.com/durbtkhbz/image/upload/v1770888238/Gemini_Generated_Image_6x85006x85006x85_r8fepz.png" 
               alt="Andhra Pradesh Infrastructure Growth" 
               className="absolute inset-0 w-full h-full object-cover"
+              loading="lazy"
             />
             <div className="absolute inset-0 bg-black/10 transition-colors duration-700" />
           </Motion.div>

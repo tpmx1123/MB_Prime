@@ -1,12 +1,16 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import BlurText from './BlurText';
+import { useLazyVideo } from '../hooks/useLazyVideo';
 
 const MotionDiv = motion.div;
+
+const HERO_VIDEO_SRC = 'https://res.cloudinary.com/durbtkhbz/video/upload/v1770631455/Generate_Car_Driving_Video2_oxqsho.mp4';
 
 const Hero = () => {
   const ref = useRef(null);
   const [isHighlighted, setIsHighlighted] = useState(false);
+  const { shouldLoad: shouldLoadVideo } = useLazyVideo({ containerRef: ref, delayMs: 400 });
 
   useEffect(() => {
     // 5-second timer to clear the video and hide the text
@@ -39,19 +43,19 @@ const Hero = () => {
       className="relative min-h-screen w-full flex items-center md:items-end overflow-hidden pt-16 md:pt-0 pb-12 md:pb-16"
       style={{ perspective: '1200px' }}
     >
-      {/* Background Video Layer */}
+      {/* Background Video Layer – lazy loaded to improve initial load */}
       <motion.div className="absolute inset-0 z-0 overflow-hidden" style={{ y }}>
         <video
           autoPlay
           loop
           muted
           playsInline
+          preload={shouldLoadVideo ? 'auto' : 'none'}
           className="absolute inset-0 w-full h-[120%] object-cover scale-110"
         >
-          <source
-            src="https://res.cloudinary.com/durbtkhbz/video/upload/v1770631455/Generate_Car_Driving_Video2_oxqsho.mp4"
-            type="video/mp4"
-          />
+          {shouldLoadVideo && (
+            <source src={HERO_VIDEO_SRC} type="video/mp4" />
+          )}
         </video>
         
         {/* Responsive Overlay: On mobile, we might want it slightly clearer or darker initially */}

@@ -68,6 +68,7 @@ const FounderSection = () => {
     src="https://res.cloudinary.com/dgmrbxuvb/image/upload/v1771054701/mbprime_ravibabu_adjxfk.png" 
     alt="Mr. Maganti Ravi Babu" 
     className="w-full h-[150px] md:h-[350px] object-cover object-top transition-all duration-1000 ease-in-out scale-100 group-hover:scale-105"
+    loading="lazy"
   />
 </div>
 

@@ -9,6 +9,7 @@ import {
 import { projects, getProjectBySlug } from '../data/projects';
 import ProjectHeader from './ProjectHeader';
 import { updateFavicon, updatePageTitle } from '../utils/favicon';
+import { useLazyVideo } from '../hooks/useLazyVideo';
 const iconMap = {
   Footprints, Trophy, Target, Zap, Smile, Trees, Music, Home, Waves, Users, Sunrise, Droplets, Leaf, Compass, Check,
   Hospital: Stethoscope, School: GraduationCap, Train, Bus, Plane, MapPin
@@ -16,6 +17,7 @@ const iconMap = {
 
 const AIGenVillas = () => {
   const project = getProjectBySlug('ai-gen-serenity-villas');
+  const { ref: heroVideoRef, shouldLoad: shouldLoadHeroVideo } = useLazyVideo({ rootMargin: '100px' });
 
   const [startIndex, setStartIndex] = useState(0);
   useEffect(() => {
@@ -98,21 +100,24 @@ const AIGenVillas = () => {
 
       {/* Full-bleed hero – 3D depth, separate-website feel */}
       {/* Full-bleed hero – Inspired by ASBL Spectra */}
-      <section className="relative h-screen w-full overflow-hidden">
+      <section ref={heroVideoRef} className="relative h-screen w-full overflow-hidden">
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
-          {/* Video Background */}
+          {/* Video Background – lazy loaded */}
           <video
             autoPlay
             loop
             muted
             playsInline
+            preload={shouldLoadHeroVideo ? 'auto' : 'none'}
             className="w-full h-full object-cover"
           >
-            <source
-              src="https://res.cloudinary.com/dgmrbxuvb/video/upload/v1771062732/mb_prime_villas_kgthud.mp4"
-              type="video/mp4"
-            />
+            {shouldLoadHeroVideo && (
+              <source
+                src="https://res.cloudinary.com/dgmrbxuvb/video/upload/v1771062732/mb_prime_villas_kgthud.mp4"
+                type="video/mp4"
+              />
+            )}
             Your browser does not support the video tag.
           </video>
 
@@ -232,6 +237,7 @@ const AIGenVillas = () => {
                   src={other.image}
                   alt={other.name}
                   className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  loading="lazy"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent transition-opacity duration-300 group-hover:via-black/40" />
 
@@ -275,6 +281,7 @@ const AIGenVillas = () => {
                 src={project.masterPlan}
                 alt={`${project.name} Master Plan Zoomed`}
                 className="max-w-none transition-transform duration-300 ease-out origin-center"
+                loading="lazy"
                 style={{
                   transform: `scale(${zoomLevel})`,
                   cursor: zoomLevel > 1 ? 'grab' : 'zoom-in',

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Lock, User, LogIn } from 'lucide-react';
+import { Lock, User, LogIn, Eye, EyeOff, Home } from 'lucide-react';
 import { adminLogin } from '../../services/api';
 
 const AdminLogin = () => {
@@ -9,6 +9,7 @@ const AdminLogin = () => {
   const location = useLocation();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -68,7 +69,7 @@ const AdminLogin = () => {
                 <Lock size={18} />
               </div>
               <input
-                type="password"
+                type={showPassword ? 'text' : 'password'}
                 name="password"
                 id="admin-password"
                 value={password}
@@ -76,10 +77,23 @@ const AdminLogin = () => {
                 placeholder="Password"
                 required
                 autoComplete="current-password"
-                className="w-full pl-11 pr-4 py-3 bg-white border border-slate-300 rounded-xl focus:border-[#0a0a0a] outline-none transition-colors text-slate-800 placeholder:text-slate-400 [&::placeholder]:opacity-100"
+                className="w-full pl-11 pr-11 py-3 bg-white border border-slate-300 rounded-xl focus:border-[#0a0a0a] outline-none transition-colors text-slate-800 placeholder:text-slate-400 [&::placeholder]:opacity-100"
                 style={{ color: '#1e293b' }}
                 aria-label="Password"
               />
+              <button
+                type="button"
+                onClick={() => setShowPassword((p) => !p)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 p-1 rounded transition-colors"
+                aria-label={showPassword ? 'Hide password' : 'Show password'}
+              >
+                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+              </button>
+            </div>
+            <div className="flex justify-end">
+              <Link to="/admin-forgot-password" className="text-sm text-slate-500 hover:text-primary transition-colors">
+                Forgot password?
+              </Link>
             </div>
             <motion.button
               type="submit"
@@ -91,6 +105,14 @@ const AdminLogin = () => {
               {loading ? 'Signing in...' : 'Sign in'}
               <LogIn size={18} />
             </motion.button>
+            <div className="mt-6 text-center">
+              <Link
+                to="/"
+                className="inline-flex items-center gap-2 text-sm text-slate-500 hover:text-primary transition-colors"
+              >
+                <Home size={18} /> Back to home page
+              </Link>
+            </div>
           </form>
         </div>
       </motion.div>

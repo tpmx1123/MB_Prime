@@ -11,11 +11,13 @@ const ProjectImage = ({ project, isHovered }) => {
         src={project.image}
         alt={project.name}
         className={`absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-out ${isHovered ? 'opacity-0 scale-110' : 'opacity-100 scale-100'}`}
+        loading="lazy"
       />
       <img
         src={project.imageHover || project.image}
         alt=""
         className={`absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-out ${isHovered ? 'opacity-100 scale-105' : 'opacity-0 scale-110'}`}
+        loading="lazy"
       />
     </div>
   );

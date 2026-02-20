@@ -45,7 +45,7 @@ const StaggeredMenu = ({ isOpen, setIsOpen, items, displayItemNumbering }) => {
             className="fixed inset-y-0 right-0 z-[2000] w-full md:w-[35vw] bg-[#0A0A0A] text-white p-6 md:p-10 flex flex-col shadow-2xl no-scrollbar"
           >
             <div className="flex justify-between items-center mb-5">
-              <img src={logo} alt="MB Prime" className="h-10 md:h-12 w-auto" />
+              <img src={logo} alt="MB Prime" className="h-10 md:h-12 w-auto" loading="lazy" />
               <button onClick={() => setIsOpen(false)} className="p-2 hover:bg-white/10 rounded-full transition-colors">
                 <X size={24} className="text-secondary" />
               </button>

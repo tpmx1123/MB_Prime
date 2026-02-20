@@ -45,6 +45,7 @@ const Commitments = () => {
                 src="https://res.cloudinary.com/durbtkhbz/image/upload/v1770810715/wechoose_oofro5_n3ctx0.png" 
                 alt="MB Prime Luxury Development" 
                 className="w-full h-full min-h-[200px] object-cover hover:scale-105 transition-transform duration-1000"
+                loading="lazy"
               />    
             </div>
           </Motion.div>
