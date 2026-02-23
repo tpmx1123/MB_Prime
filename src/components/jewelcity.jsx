@@ -110,7 +110,7 @@ const JewelCity = () => {
             muted
             playsInline
             preload={shouldLoadHeroVideo ? 'metadata' : 'none'}
-            poster="https://res.cloudinary.com/dgmrbxuvb/video/upload/so_0,q_auto,f_auto,w_1200/v1771062732/mb_prime_villas_kgthud.jpg"
+            poster="https://res.cloudinary.com/dgmrbxuvb/video/upload/so_0,q_auto,f_auto,w_1200/v1771062732/mb_prime_villas_kgthud.jpg" 
             className="w-full h-full object-cover"
           >
             {shouldLoadHeroVideo && (

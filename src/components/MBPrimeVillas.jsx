@@ -141,12 +141,12 @@ const MBPrimeVillas = () => {
                  muted
                  playsInline
                  preload={shouldLoadHeroVideo ? 'metadata' : 'none'}
-                 poster="https://res.cloudinary.com/dgmrbxuvb/video/upload/so_0,q_auto,f_auto,w_1200/v1771064084/mb_prime_enclave_o69n0k.jpg"
+                 poster="https://res.cloudinary.com/dgmrbxuvb/video/upload/so_0,q_auto,f_auto,w_1200/v1771062732/mb_prime_villas_kgthud.jpg"
                  className="w-full h-full object-cover"
                >
                  {shouldLoadHeroVideo && (
                    <source
-                     src="https://res.cloudinary.com/dgmrbxuvb/video/upload/q_auto,f_auto/v1771064084/mb_prime_enclave_o69n0k.mp4"
+                     src="https://res.cloudinary.com/dgmrbxuvb/video/upload/v1771062732/mb_prime_villas_kgthud.mp4"
                      type="video/mp4"
                    />
                  )}
