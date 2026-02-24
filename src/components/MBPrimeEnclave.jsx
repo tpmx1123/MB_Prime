@@ -131,122 +131,108 @@ const MBPrimeEnclave = () => {
 
       {/* Full-bleed hero – 3D depth, separate-website feel */}
       {/* Full-bleed hero – Inspired by ASBL Spectra */}
-     <section ref={heroVideoRef} className="relative h-screen w-full overflow-hidden">
-             {/* Background Image */}
-             <div className="absolute inset-0 z-0">
-               {/* Video Background – lazy loaded */}
-               <video
-                 autoPlay
-                 loop
-                 muted
-                 playsInline
-                 preload={shouldLoadHeroVideo ? 'metadata' : 'none'}
-                 poster="https://res.cloudinary.com/dgmrbxuvb/video/upload/so_0,q_auto,f_auto,w_1200/v1771064084/mb_prime_enclave_o69n0k.jpg"
-                 className="w-full h-full object-cover"
-               >
-                 {shouldLoadHeroVideo && (
-                   <source
-                     src="https://res.cloudinary.com/dgmrbxuvb/video/upload/q_auto,f_auto/v1771064084/mb_prime_enclave_o69n0k.mp4"
-                     type="video/mp4"
-                   />
-                 )}
-                 Your browser does not support the video tag.
-               </video>
-     
-               {/* Gradient Overlay for text readability */}
-               <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent" />
-     
-             </div>
-             {/* Content Container */}
-             <div className="relative z-10 container h-full flex flex-col justify-center px-6 md:px-12">
-               <motion.div
-                 className="max-w-3xl ml-0 lg:ml-12 mt-10"
-                 initial={{ opacity: 0, x: -30 }}
-                 animate={{ opacity: 1, x: 0 }}
-                 transition={{ duration: 0.8, delay: 0.2 }}
-               >
-                 {project.heroImageTag && (
-                   <p className="text-[#8B4512] text-xs md:text-sm font-serif font-semibold tracking-wider mb-3 bg-white/90 backdrop-blur-sm inline-block px-3 py-1.5 rounded">
-                     {project.heroImageTag}
-                   </p>
-                 )}
-                 {/* Tagline */}
-                 <p className="text-white/80 text-xs md:text-sm font-sans font-bold tracking-[0.2em] mb-4 uppercase">
-                   {project.tagline || 'LIVE IN LUXURY'}
-                 </p>
-     
-                 {/* Main Title */}
-                 <h1 className="text-3xl md:text-5xl lg:text-6xl font-sans font-bold text-white leading-tight mb-4">
-                   {project.name}
-                 </h1>
-     
-                 {/* Subtitle */}
-                 <p className="text-lg md:text-xl text-white/90 font-sans font-light mb-2">
-                   {project.subtitle || 'Experience the pinnacle of modern living.'}
-                 </p>
-     
-                 {/* Configurations / Highlights Inline */}
-                 <p className="text-white/70 text-xs md:text-sm font-sans mb-10">
-                   {project.configurations || 'Luxury Configurations Available'}
-                 </p>
-     
-                 {/* Stats Grid */}
-                 <div className="flex gap-12 mb-10 border-l-2 border-secondary pl-6">
-                   <div>
-                     <p className="text-white/60 text-xs font-sans uppercase tracking-wider mb-1">SPREAD ACROSS</p>
-                     <p className="text-white text-2xl md:text-3xl font-sans font-medium">
-                       {project.acres || 'TBA'}
-                     </p>
-                   </div>
-     
-                 </div>
-     
-                 {/* Brochure Button – opens EnquiryPopup; after form submit downloads brochure if brochureLink is set */}
-                 <motion.button
-                   whileHover={{ scale: 1.05 }}
-                   whileTap={{ scale: 0.95 }}
-                   onClick={() => {
-                     const brochure = project?.brochureLink && project.brochureLink !== '#' ? project.brochureLink : null;
-                     window.dispatchEvent(new CustomEvent('open-enquiry-popup', {
-                       detail: {
-                         brochure: brochure || null,
-                         autoDownloadAfterSubmit: Boolean(brochure),
-                         downloadFileName: brochure ? `${(project?.name || 'MB_Prime').replace(/\s+/g, '_')}_Brochure.pdf` : 'Brochure.pdf',
-                         formType: brochure ? 'brochure' : 'enquiry',
-                       },
-                     }));
-                   }}
-                   className="bg-white text-primary px-6 py-3 rounded-full font-sans font-bold flex items-center gap-2 hover:bg-secondary hover:text-primary transition-colors text-sm"
-                 >
-                   <Download size={18} />
-                   Brochure
-                 </motion.button>
-               </motion.div>
-             </div>
-     
-             {/* VMRDA-RERA Approved Badge */}
-             <AnimatePresence>
-               {showBadge && (
-                 <motion.div
-                   initial={{ x: 100, opacity: 0 }}
-                   animate={{ x: 0, opacity: 1 }}
-                   exit={{ x: 100, opacity: 0, transition: { duration: 0.8 } }}
-                   transition={{ delay: 1, duration: 0.8, ease: "easeOut" }}
-                   className="absolute bottom-10 right-6 md:right-10 z-20 flex items-center justify-center w-22 h-22 md:w-27 md:h-27 bg-white/95 backdrop-blur-md rounded-full shadow-lg border-2 border-secondary"
-                 >
-                   <div className="flex flex-col items-center justify-center p-1 ml-2">
-                     <div className="flex items-center justify-center ">
-                       <img src="https://res.cloudinary.com/dgmrbxuvb/image/upload/v1771238479/Vmrda_logo_eddawf.png" alt="VMRDA" className="w-8 h-8 md:w-9 md:h-9 object-contain" loading="lazy" />
-                       <img src="https://res.cloudinary.com/dgmrbxuvb/image/upload/v1771238635/rerawithout_bg_irz1u4.png" alt="RERA" className="w-10 h-10 md:w-15 md:h-15 object-contain" loading="lazy" />
-                     </div>
-                     <p className="text-[7px] md:text-[9px] font-sans font-bold text-secondary uppercase tracking-wider">
-                       APPROVED
-                     </p>
-                   </div>
-                 </motion.div>
-               )}
-             </AnimatePresence>
-           </section>
+      <section ref={heroVideoRef} className="relative h-screen w-full overflow-hidden flex items-center">
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0">
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload={shouldLoadHeroVideo ? 'metadata' : 'none'}
+            poster="https://res.cloudinary.com/dgmrbxuvb/video/upload/so_0,q_auto,f_auto,w_1200/v1771064084/mb_prime_enclave_o69n0k.jpg"
+            className="w-full h-full object-cover"
+          >
+            {shouldLoadHeroVideo && (
+              <source
+                src="https://res.cloudinary.com/dgmrbxuvb/video/upload/q_auto,f_auto/v1771064084/mb_prime_enclave_o69n0k.mp4"
+                type="video/mp4"
+              />
+            )}
+            Your browser does not support the video tag.
+          </video>
+          {/* Gradient Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent" />
+        </div>
+
+        {/* Content Container */}
+        <div className="project-hero-content relative z-10 container mx-auto h-full flex flex-col justify-center px-6 md:px-12">
+          <motion.div
+            className="max-w-3xl ml-0 lg:ml-12 mt-10 landscape:mt-16 landscape:scale-[0.85] landscape:origin-left md:landscape:scale-100 md:landscape:mt-10"
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
+            {project.heroImageTag && (
+              <p className="text-[#8B4512] text-xs md:text-sm font-serif font-semibold tracking-wider mb-3 bg-white/90 backdrop-blur-sm inline-block px-3 py-1.5 rounded landscape:mb-2">
+                {project.heroImageTag}
+              </p>
+            )}
+            <p className="text-white/80 text-xs md:text-sm font-sans font-bold tracking-[0.2em] mb-4 uppercase landscape:mb-2">
+              {project.tagline || 'LIVE IN LUXURY'}
+            </p>
+            <h1 className="text-3xl md:text-5xl lg:text-6xl font-sans font-bold text-white leading-tight mb-4 landscape:text-3xl landscape:mb-2 md:landscape:text-5xl lg:landscape:text-6xl">
+              {project.name}
+            </h1>
+            <p className="text-lg md:text-xl text-white/90 font-sans font-light mb-2 landscape:text-base landscape:mb-1">
+              {project.subtitle || 'Experience the pinnacle of modern living.'}
+            </p>
+            <p className="text-white/70 text-xs md:text-sm font-sans mb-10 landscape:mb-6 md:landscape:mb-10">
+              {project.configurations || 'Luxury Configurations Available'}
+            </p>
+            <div className="flex gap-12 mb-10 border-l-2 border-secondary pl-6 landscape:mb-6 md:landscape:mb-10">
+              <div>
+                <p className="text-white/60 text-xs font-sans uppercase tracking-wider mb-1">SPREAD ACROSS</p>
+                <p className="text-white text-2xl md:text-3xl font-sans font-medium">
+                  {project.acres || 'TBA'}
+                </p>
+              </div>
+            </div>
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => {
+                const brochure = project?.brochureLink && project.brochureLink !== '#' ? project.brochureLink : null;
+                window.dispatchEvent(new CustomEvent('open-enquiry-popup', {
+                  detail: {
+                    brochure: brochure || null,
+                    autoDownloadAfterSubmit: Boolean(brochure),
+                    downloadFileName: brochure ? `${(project?.name || 'MB_Prime').replace(/\s+/g, '_')}_Brochure.pdf` : 'Brochure.pdf',
+                    formType: brochure ? 'brochure' : 'enquiry',
+                  },
+                }));
+              }}
+              className="bg-white text-primary px-6 py-3 rounded-full font-sans font-bold flex items-center gap-2 hover:bg-secondary hover:text-primary transition-colors text-sm shadow-xl"
+            >
+              <Download size={18} />
+              Brochure
+            </motion.button>
+          </motion.div>
+        </div>
+
+        {/* VMRDA-RERA Approved Badge */}
+        <AnimatePresence>
+          {showBadge && (
+            <motion.div
+              initial={{ x: 100, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              exit={{ x: 100, opacity: 0 }}
+              transition={{ delay: 1, duration: 0.8 }}
+              className="absolute bottom-10 right-6 md:right-10 z-20 flex items-center justify-center w-22 h-22 md:w-27 md:h-27 bg-white/95 backdrop-blur-md rounded-full shadow-lg border-2 border-secondary landscape:scale-75 landscape:bottom-4 md:landscape:scale-100 md:landscape:bottom-10"
+            >
+              <div className="flex flex-col items-center justify-center p-1 ml-2">
+                <div className="flex items-center justify-center">
+                  <img src="https://res.cloudinary.com/dgmrbxuvb/image/upload/v1771238479/Vmrda_logo_eddawf.png" alt="VMRDA" className="w-8 h-8 md:w-9 md:h-9 object-contain" loading="lazy" />
+                  <img src="https://res.cloudinary.com/dgmrbxuvb/image/upload/v1771238635/rerawithout_bg_irz1u4.png" alt="RERA" className="w-10 h-10 md:w-15 md:h-15 object-contain" loading="lazy" />
+                </div>
+                <p className="text-[7px] md:text-[9px] font-sans font-bold text-secondary uppercase tracking-wider">
+                  APPROVED
+                </p>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </section>
 
       {/* Content block – clean, editorial */}
       <section className="py-16 md:py-24 bg-bg-light">
@@ -257,6 +243,7 @@ const MBPrimeEnclave = () => {
 
           {/* Plots Section */}
           
+{/* Plots section & Villa zoom modal (commented out)
 <div id="plots" className="scroll-mt-32 mb-20">
   {project.villaTypes && (
     <motion.section
@@ -264,7 +251,7 @@ const MBPrimeEnclave = () => {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
     >
-      {/* Header & Tabs */}
+      {/* Header & Tabs * /}
       <div className="flex flex-col items-center justify-center mb-16">
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
@@ -314,7 +301,7 @@ const MBPrimeEnclave = () => {
         </motion.div>
       </div>
 
-      {/* Gallery and Content Container */}
+      {/* Gallery and Content Container * /}
       <div className="flex items-center justify-center gap-2 md:gap-8 md:-mt-0 -mt-7">
         <button
           onClick={() => setActivePlotTab(prev => (prev === 0 ? project.villaTypes.length - 1 : prev - 1))}
@@ -325,7 +312,7 @@ const MBPrimeEnclave = () => {
 
         <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center justify-items-center w-full max-w-6xl">
           
-          {/* Left: Amazon-style Gallery */}
+          {/* Left: Amazon-style Gallery * /}
           <div className="flex flex-col gap-6 w-full items-center">
             <motion.div
               key={`${currentVilla.id}-${selectedImgIndex}`}
@@ -354,7 +341,7 @@ const MBPrimeEnclave = () => {
               </div>
             </motion.div>
 
-            {/* Thumbnails Row */}
+            {/* Thumbnails Row * /}
             <div className="flex gap-3 justify-center flex-wrap">
               {villaImages.map((img, idx) => (
                 <button
@@ -374,7 +361,7 @@ const MBPrimeEnclave = () => {
             </div>
           </div>
 
-          {/* Right: Vertically Centered Details */}
+          {/* Right: Vertically Centered Details * /}
           <motion.div
             key={`${currentVilla.id}-details`}
             initial={{ opacity: 0, x: 20 }}
@@ -425,7 +412,7 @@ const MBPrimeEnclave = () => {
     </motion.section>
   )}
 
-  {/* Villa Image Zoom Modal */}
+  {/* Villa Image Zoom Modal * /}
   <AnimatePresence>
     {isImgZoomed && (
       <motion.div
@@ -465,6 +452,7 @@ const MBPrimeEnclave = () => {
     )}
   </AnimatePresence>
 </div>
+*/}
 
           {/* Layout Section */}
           <div id="layout" className="scroll-mt-24 mb-20 bg-secondary/10 rounded-3xl">
@@ -837,9 +825,7 @@ const MBPrimeEnclave = () => {
                     className="relative text-center"
                   >
 
-                    <h2 className="text-xl md:text-2xl font-sans font-bold text-secondary tracking-[0.2em] uppercase mb-2">
-                      20<span className="md:text-3xl text-xl">+</span>
-                    </h2>
+                   
                     <h3 className="text-2xl md:text-5xl font-sans font-extrabold text-primary tracking-tight">
                       High Level Amenities
                     </h3>
@@ -989,7 +975,7 @@ const MBPrimeEnclave = () => {
 
 
           <motion.div
-            className="mt-14 mx-auto max-w-5xl bg-[#6366f1] rounded-lg p-6 md:p-10 flex flex-col md:flex-row items-center justify-between gap-6 md:gap-16 shadow-2xl  overflow-hidden group"
+            className="mt-14 mx-auto max-w-5xl bg-secondary rounded-lg p-6 md:p-10 flex flex-col md:flex-row items-center justify-between gap-6 md:gap-16 shadow-2xl overflow-hidden group"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -1002,7 +988,7 @@ const MBPrimeEnclave = () => {
 
             <button
               onClick={() => window.dispatchEvent(new CustomEvent('open-enquiry-popup', { detail: { formType: 'enquiry' } }))}
-              className="inline-flex items-center gap-2 px-4 py-3 bg-white text-[#6366f1] font-sans font-bold rounded-full transition-all duration-300 hover:bg-slate-50 hover:scale-105 shadow-lg z-10"
+              className="inline-flex items-center gap-2 px-4 py-3 bg-white text-secondary font-sans font-bold rounded-full transition-all duration-300 hover:bg-white hover:text-primary hover:scale-105 hover:shadow-xl hover:shadow-secondary/25 shadow-lg z-10"
             >
               Connect with Us <ArrowRight size={20} />
             </button>

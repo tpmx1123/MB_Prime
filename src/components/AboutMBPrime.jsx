@@ -1,14 +1,13 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion as Motion } from 'framer-motion';
 
 const AboutMBPrime = ({ asPage = false } = {}) => {
   const content = (
-    <motion.div
+    <Motion.div
       className="max-w-2xl mx-auto text-center"
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-    >
+      viewport={{ once: true }}>
       <h2 className="text-xl md:text-2xl font-sans font-bold text-yellow-500 mb-6">
         About MB Prime
       </h2>
@@ -19,9 +18,8 @@ const AboutMBPrime = ({ asPage = false } = {}) => {
       "Every project starts with the same question: will this be worth it for the family that buys here — ten years from now? That question shapes everything: the land we choose, the infrastructure we build, and the timelines we commit to."
       "We grow deliberately. Not because we can't move faster — but because the right project, done right, is worth more than three projects done quickly.
       </p>
-    </motion.div>
+    </Motion.div>
   );
-
   if (asPage) {
     return (
       <div id="about" className="min-h-screen relative pt-2 pb-16">
@@ -33,10 +31,7 @@ const AboutMBPrime = ({ asPage = false } = {}) => {
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat',
-            opacity: 0.3
-          }}
-        />
-        
+            opacity: 0.3 }} />
         <div className="relative z-10  min-h-screen pt-24 pb-16">
           <div className="container py-16 md:py-20">
             {content}
@@ -56,15 +51,11 @@ const AboutMBPrime = ({ asPage = false } = {}) => {
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
-          opacity: 0.3
-        }}
-      />
-      
+          opacity: 0.3 }} />
       <div className="relative z-10 ">
         <div className="container">{content}</div>
       </div>
     </section>
   );
 };
-
 export default AboutMBPrime;

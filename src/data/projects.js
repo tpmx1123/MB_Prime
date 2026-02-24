@@ -104,7 +104,7 @@ export const projects = [
         title: 'Children\'s Park & Seating',
         desc: 'Special parks for children with comfortable rest benches.',
         icon: 'Smile',
-        image: 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1771224658/children_s_park_enclave_vhsdhu.jpg'
+        image: 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1771926343/Gemini_Generated_Image_s47ry0s47ry0s47r_oeilga.png'
       },
       {
         title: 'Jogging Tracks',
@@ -116,13 +116,13 @@ export const projects = [
         title: 'Cricket Ground',
         desc: 'Dedicated cricket play area for sports enthusiasts.',
         icon: 'Trophy',
-        image: 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1771227055/cricket_l6vr3n.jpg'
+        image: 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1771926609/MBP_PARK8_hafitk.jpg'
       },
       {
         title: 'Amphitheater',
         desc: 'Open-air amphitheater for community events and gatherings.',
         icon: 'Music',
-        image: 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1771227055/amphitheater_algnsc.jpg'
+        image: 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1771925495/MBP_PARK6.jpg_y8op8a.jpg'
       },
 
       {

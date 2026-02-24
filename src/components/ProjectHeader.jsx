@@ -27,29 +27,29 @@ const ProjectHeader = ({ project }) => {
     ];
 
     return (
-        <header className="absolute top-0 left-0 w-full z-[1000] py-4 md:py-6 bg-transparent">
+        <header className="project-header absolute top-0 left-0 w-full z-[1000] py-4 md:py-6 bg-transparent">
             <div className="container flex justify-between items-center">
                 {/* Left: Project Logo or Name */}
-                <div className="flex items-center ">
-                    <Link to="/" className="text-white/80 hover:text-white transition-colors mr-2">
+                <div className="project-header-left flex items-center min-w-0 flex-1">
+                    <Link to="/" className="text-white/80 hover:text-white transition-colors mr-2 shrink-0">
                         <ArrowLeft size={22} />
                     </Link>
                     {project.logo ? (
                         <img
                             src={project.logo}
                             alt={`${project.name} Logo`}
-                            className="h-12 md:h-18 w-auto object-contain"
+                            className="h-12 md:h-18 w-auto object-contain max-h-10 md:max-h-none"
                             loading="lazy"
                         />
                     ) : (
-                        <h2 className="text-2xl font-bold text-white font-sans tracking-wide">
+                        <h2 className="project-header-title text-2xl font-bold text-white font-sans tracking-wide truncate">
                             {project.name}
                         </h2>
                     )}
                 </div>
 
                 {/* Desktop Navigation */}
-                <nav className="hidden md:flex items-center gap-8">
+                <nav className="desktop-nav hidden md:flex items-center gap-8 shrink-0">
                     <Link
                         to="/"
                         className="text-white/90 font-sans font-medium text-sm uppercase tracking-wider hover:text-secondary transition-colors"
@@ -90,7 +90,7 @@ const ProjectHeader = ({ project }) => {
 
                 {/* Mobile Menu Button - Simple implementation for now */}
                 <button
-                    className="md:hidden text-white"
+                    className="mobile-menu-btn md:hidden text-white shrink-0 p-2"
                     onClick={() => setIsOpen(!isOpen)}
                 >
                     <div className="space-y-1">

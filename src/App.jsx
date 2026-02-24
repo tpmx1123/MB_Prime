@@ -27,26 +27,38 @@ const AdminBlogs = lazy(() => import('./components/admin/AdminBlogs'));
 const AdminBlogEdit = lazy(() => import('./components/admin/AdminBlogEdit'));
 
 /**
- * Handles smooth scrolling to hash anchors or top of page on route change
+ * Handles smooth scrolling to hash anchors or top of page on route change.
+ * When navigating to /#contact from another page, waits for the lazy-loaded
+ * contact section to be in the DOM before scrolling.
  */
 const ScrollToTop = () => {
   const { pathname, hash } = useLocation();
 
   useEffect(() => {
-    const scrollToElement = () => {
-      if (hash) {
-        const element = document.getElementById(hash.substring(1));
+    if (hash) {
+      const id = hash.replace(/^#/, '');
+      const scrollToElement = () => {
+        const element = document.getElementById(id);
         if (element) {
           element.scrollIntoView({ behavior: 'smooth' });
+          return true;
         }
-      } else {
-        window.scrollTo(0, 0);
-      }
-    };
+        return false;
+      };
 
-    scrollToElement();
-    const timer = setTimeout(scrollToElement, 100);
-    return () => clearTimeout(timer);
+      if (scrollToElement()) return;
+      const interval = setInterval(() => {
+        if (scrollToElement()) clearInterval(interval);
+      }, 100);
+      const timeout = setTimeout(() => clearInterval(interval), 2500);
+      return () => {
+        clearInterval(interval);
+        clearTimeout(timeout);
+      };
+    }
+
+    window.scrollTo(0, 0);
+    return undefined;
   }, [pathname, hash]);
 
   return null;

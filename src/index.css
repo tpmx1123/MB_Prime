@@ -178,3 +178,43 @@ html.lenis {
   background-color: #c9a227;
   color: #0a0a0a;
 }
+
+/* Mobile landscape: prevent hero and header overlap (portrait mobile + desktop unchanged) */
+@media (max-height: 500px) and (orientation: landscape) {
+  .project-header .desktop-nav {
+    display: none !important;
+  }
+  .project-header .mobile-menu-btn {
+    display: flex !important;
+  }
+  .project-header .project-header-title {
+    font-size: 1rem;
+    line-height: 1.2;
+  }
+  .project-header .project-header-left img {
+    max-height: 2rem;
+  }
+  .project-hero-content {
+    padding-top: 2.5rem;
+    justify-content: flex-start;
+  }
+  .project-hero-content h1 {
+    font-size: 1.5rem !important;
+    line-height: 1.25;
+    margin-bottom: 0.5rem;
+  }
+  .project-hero-content .max-w-3xl,
+  .project-hero-content .max-w-2xl {
+    margin-top: 0;
+  }
+  .project-hero-content p.text-xs,
+  .project-hero-content p.text-sm {
+    margin-bottom: 0.25rem;
+  }
+  .project-hero-content .mb-10 {
+    margin-bottom: 0.5rem;
+  }
+  .project-hero-content .mb-4 {
+    margin-bottom: 0.25rem;
+  }
+}

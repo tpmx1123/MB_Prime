@@ -100,17 +100,16 @@ const JewelCity = () => {
 
       {/* Full-bleed hero – 3D depth, separate-website feel */}
       {/* Full-bleed hero – Inspired by ASBL Spectra */}
-      <section ref={heroVideoRef} className="relative h-screen w-full overflow-hidden">
+      <section ref={heroVideoRef} className="relative h-screen w-full overflow-hidden flex items-center">
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
-          {/* Video Background – lazy loaded */}
           <video
             autoPlay
             loop
             muted
             playsInline
             preload={shouldLoadHeroVideo ? 'metadata' : 'none'}
-            poster="https://res.cloudinary.com/dgmrbxuvb/video/upload/so_0,q_auto,f_auto,w_1200/v1771062732/mb_prime_villas_kgthud.jpg" 
+            poster="https://res.cloudinary.com/dgmrbxuvb/video/upload/so_0,q_auto,f_auto,w_1200/v1771062732/mb_prime_villas_kgthud.jpg"
             className="w-full h-full object-cover"
           >
             {shouldLoadHeroVideo && (
@@ -121,59 +120,43 @@ const JewelCity = () => {
             )}
             Your browser does not support the video tag.
           </video>
-
-          {/* Gradient Overlay for text readability */}
+          {/* Gradient Overlay */}
           <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent" />
-
         </div>
+
         {/* Content Container */}
-        <div className="relative z-10 container h-full flex flex-col justify-center px-6 md:px-12">
-
-
-
+        <div className="project-hero-content relative z-10 container mx-auto h-full flex flex-col justify-center px-6 md:px-12">
           <motion.div
-            className="max-w-3xl ml-0 lg:ml-12 mt-10"
+            className="max-w-3xl ml-0 lg:ml-12 mt-10 landscape:mt-16 landscape:scale-[0.85] landscape:origin-left md:landscape:scale-100 md:landscape:mt-10"
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             {project.heroImageTag && (
-              <p className="text-[#8B4512] text-xs md:text-sm font-serif font-semibold tracking-wider mb-3 bg-white/90 backdrop-blur-sm inline-block px-3 py-1.5 rounded">
+              <p className="text-[#8B4512] text-xs md:text-sm font-serif font-semibold tracking-wider mb-3 bg-white/90 backdrop-blur-sm inline-block px-3 py-1.5 rounded landscape:mb-2">
                 {project.heroImageTag}
               </p>
             )}
-            {/* Tagline */}
-            <p className="text-white/80 text-xs md:text-sm font-sans font-bold tracking-[0.2em] mb-4 uppercase">
+            <p className="text-white/80 text-xs md:text-sm font-sans font-bold tracking-[0.2em] mb-4 uppercase landscape:mb-2">
               {project.tagline || 'LIVE IN LUXURY'}
             </p>
-
-            {/* Main Title */}
-            <h1 className="text-3xl md:text-5xl lg:text-6xl font-sans font-bold text-white leading-tight mb-4">
+            <h1 className="text-3xl md:text-5xl lg:text-6xl font-sans font-bold text-white leading-tight mb-4 landscape:text-3xl landscape:mb-2 md:landscape:text-5xl lg:landscape:text-6xl">
               {project.name}
             </h1>
-
-            {/* Subtitle */}
-            <p className="text-lg md:text-xl text-white/90 font-sans font-light mb-2">
+            <p className="text-lg md:text-xl text-white/90 font-sans font-light mb-2 landscape:text-base landscape:mb-1">
               {project.subtitle || 'Experience the pinnacle of modern living.'}
             </p>
-
-            {/* Configurations / Highlights Inline */}
-            <p className="text-white/70 text-xs md:text-sm font-sans mb-10">
+            <p className="text-white/70 text-xs md:text-sm font-sans mb-10 landscape:mb-6 md:landscape:mb-10">
               {project.configurations || 'Luxury Configurations Available'}
             </p>
-
-            {/* Stats Grid */}
-            <div className="flex gap-12 mb-10 border-l-2 border-secondary pl-6">
+            <div className="flex gap-12 mb-10 border-l-2 border-secondary pl-6 landscape:mb-6 md:landscape:mb-10">
               <div>
                 <p className="text-white/60 text-xs font-sans uppercase tracking-wider mb-1">SPREAD ACROSS</p>
                 <p className="text-white text-2xl md:text-3xl font-sans font-medium">
                   {project.acres || 'TBA'}
                 </p>
               </div>
-
             </div>
-
-            {/* Brochure Button – opens EnquiryPopup; after form submit downloads brochure if brochureLink is set */}
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -188,12 +171,11 @@ const JewelCity = () => {
                   },
                 }));
               }}
-              className="bg-white text-primary px-6 py-3 rounded-full font-sans font-bold flex items-center gap-2 hover:bg-secondary hover:text-primary transition-colors text-sm"
+              className="bg-white text-primary px-6 py-3 rounded-full font-sans font-bold flex items-center gap-2 hover:bg-secondary hover:text-primary transition-colors text-sm shadow-xl"
             >
               <Download size={18} />
               Brochure
             </motion.button>
-
           </motion.div>
         </div>
       </section>
