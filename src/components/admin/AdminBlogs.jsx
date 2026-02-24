@@ -50,25 +50,30 @@ const AdminBlogs = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50">
-      <header className="bg-white border-b border-slate-200 sticky top-0 z-10">
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <h1 className="text-xl font-serif font-bold text-primary">Admin – Blogs</h1>
-          <div className="flex items-center gap-2">
+    <div className="min-h-screen bg-slate-100">
+      <div className="h-1 bg-gradient-to-r from-primary via-secondary to-primary" />
+      <header className="bg-white border-b border-slate-200 sticky top-0 z-10 shadow-sm">
+        <div className="container mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-3">
+          <h1 className="text-xl font-serif font-bold text-slate-800 flex items-center gap-2">
+            <span className="text-primary">Admin</span>
+            <span className="text-slate-400">·</span>
+            <span>Blogs</span>
+          </h1>
+          <div className="flex items-center gap-1">
             <Link
               to="/admin"
-              className="flex items-center gap-2 px-4 py-2 text-slate-600 hover:text-primary hover:bg-slate-100 rounded-lg transition-colors"
+              className="flex items-center gap-2 px-3 py-2 text-slate-600 hover:text-primary hover:bg-slate-100 rounded-lg transition-colors text-sm font-medium"
             >
               <Home size={18} /> Dashboard
             </Link>
             <button
               onClick={load}
               disabled={loading}
-              className="flex items-center gap-2 px-4 py-2 text-slate-600 hover:text-primary hover:bg-slate-100 rounded-lg transition-colors disabled:opacity-70"
+              className="flex items-center gap-2 px-3 py-2 text-slate-600 hover:text-primary hover:bg-slate-100 rounded-lg transition-colors disabled:opacity-70 text-sm font-medium"
             >
               <RefreshCw size={18} className={loading ? 'animate-spin' : ''} /> Refresh
             </button>
-            <button onClick={handleLogout} className="flex items-center gap-2 px-4 py-2 text-slate-600 hover:text-primary hover:bg-slate-100 rounded-lg transition-colors">
+            <button onClick={handleLogout} className="flex items-center gap-2 px-3 py-2 text-slate-600 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors text-sm font-medium">
               Logout
             </button>
           </div>
@@ -80,33 +85,45 @@ const AdminBlogs = () => {
           <h2 className="text-2xl font-sans font-bold text-slate-800">Blog posts</h2>
           <Link
             to="/admin/blogs/new"
-            className="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors w-fit"
+            className="flex items-center gap-2 px-4 py-2.5 bg-primary text-white rounded-xl hover:bg-primary/90 transition-colors w-fit font-medium shadow-sm"
           >
             <Plus size={18} /> Add blog
           </Link>
         </div>
 
         {error && (
-          <p className="text-red-500 bg-red-50 border border-red-200 rounded-lg p-3 mb-6">{error}</p>
+          <p className="text-red-600 bg-red-50 border border-red-200 rounded-xl p-4 mb-6 font-medium">{error}</p>
         )}
 
         {loading ? (
-          <p className="text-slate-500">Loading blogs…</p>
+          <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-16 text-center">
+            <div className="w-10 h-10 border-2 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+            <p className="text-slate-500 font-medium">Loading blogs…</p>
+          </div>
         ) : list.length === 0 ? (
-          <p className="text-slate-500">No blogs yet. Click “Add blog” to create one.</p>
+          <div className="bg-white rounded-2xl border border-slate-200 border-dashed shadow-sm p-12 text-center text-slate-500">
+            <p className="font-medium">No blogs yet.</p>
+            <p className="text-sm mt-1">Click “Add blog” to create your first post.</p>
+            <Link
+              to="/admin/blogs/new"
+              className="inline-flex items-center gap-2 mt-4 px-4 py-2 bg-primary text-white rounded-xl hover:bg-primary/90 font-medium"
+            >
+              <Plus size={18} /> Add blog
+            </Link>
+          </div>
         ) : (
-          <div className="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm">
-            <ul className="divide-y divide-slate-200">
+          <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
+            <ul className="divide-y divide-slate-100">
               {list.map((blog) => (
-                <li key={blog.id} className="flex items-center justify-between gap-4 px-4 py-3 hover:bg-slate-50">
+                <li key={blog.id} className="flex items-center justify-between gap-4 px-5 py-4 hover:bg-slate-50/80 transition-colors">
                   <div className="min-w-0 flex-1">
                     <p className="font-semibold text-slate-800 truncate">{blog.title}</p>
-                    <p className="text-xs text-slate-500">{blog.slug} · {blog.date}</p>
+                    <p className="text-xs text-slate-500 mt-0.5">{blog.slug} · {blog.date}</p>
                   </div>
-                  <div className="flex items-center gap-2 shrink-0">
+                  <div className="flex items-center gap-1 shrink-0">
                     <Link
                       to={`/admin/blogs/edit/${blog.id}`}
-                      className="p-2 text-slate-500 hover:text-primary hover:bg-slate-100 rounded-lg transition-colors"
+                      className="p-2.5 text-slate-500 hover:text-primary hover:bg-slate-100 rounded-xl transition-colors"
                       aria-label="Edit"
                     >
                       <Pencil size={18} />
@@ -114,7 +131,7 @@ const AdminBlogs = () => {
                     <button
                       type="button"
                       onClick={() => handleDelete(blog.id, blog.title)}
-                      className="p-2 text-slate-500 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                      className="p-2.5 text-slate-500 hover:text-red-600 hover:bg-red-50 rounded-xl transition-colors"
                       aria-label="Delete"
                     >
                       <Trash2 size={18} />

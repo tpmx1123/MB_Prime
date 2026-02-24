@@ -89,7 +89,7 @@ const AdminResetPassword = () => {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="w-full max-w-md bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden"
+        className="w-full max-w-md bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden"
       >
         <div className="h-1.5 bg-gradient-to-r from-primary via-secondary to-primary" />
         <div className="p-8 md:p-10">
@@ -113,7 +113,7 @@ const AdminResetPassword = () => {
                 required
                 minLength={6}
                 autoComplete="new-password"
-                className="w-full pl-11 pr-11 py-3 bg-white border border-slate-300 rounded-xl focus:border-[#0a0a0a] outline-none text-slate-800 placeholder:text-slate-400"
+                className="w-full pl-11 pr-11 py-3 bg-white border border-slate-200 rounded-xl focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all text-slate-800 placeholder:text-slate-400"
               />
               <button
                 type="button"
@@ -136,7 +136,7 @@ const AdminResetPassword = () => {
                 required
                 minLength={6}
                 autoComplete="new-password"
-                className="w-full pl-11 pr-4 py-3 bg-white border border-slate-300 rounded-xl focus:border-[#0a0a0a] outline-none text-slate-800 placeholder:text-slate-400"
+                className="w-full pl-11 pr-4 py-3 bg-white border border-slate-200 rounded-xl focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all text-slate-800 placeholder:text-slate-400"
               />
             </div>
             <motion.button
@@ -144,7 +144,7 @@ const AdminResetPassword = () => {
               disabled={loading}
               whileHover={{ scale: 1.01 }}
               whileTap={{ scale: 0.99 }}
-              className="w-full py-3.5 bg-primary text-white font-bold rounded-xl disabled:opacity-70"
+              className="w-full py-3.5 bg-primary text-white font-bold rounded-xl disabled:opacity-70 shadow-sm hover:bg-primary/90 transition-colors"
             >
               {loading ? 'Resetting...' : 'Reset password'}
             </motion.button>

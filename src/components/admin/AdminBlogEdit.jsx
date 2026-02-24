@@ -110,33 +110,39 @@ const AdminBlogEdit = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
-        <p className="text-slate-500">Loading blog…</p>
+      <div className="min-h-screen bg-slate-100 flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-10 h-10 border-2 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+          <p className="text-slate-500 font-medium">Loading blog…</p>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-slate-50">
-      <header className="bg-white border-b border-slate-200 sticky top-0 z-10">
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <h1 className="text-xl font-serif font-bold text-primary">
-            {isNew ? 'Add blog' : 'Edit blog'}
+    <div className="min-h-screen bg-slate-100">
+      <div className="h-1 bg-gradient-to-r from-primary via-secondary to-primary" />
+      <header className="bg-white border-b border-slate-200 sticky top-0 z-10 shadow-sm">
+        <div className="container mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-3">
+          <h1 className="text-xl font-serif font-bold text-slate-800 flex items-center gap-2">
+            <span className="text-primary">Admin</span>
+            <span className="text-slate-400">·</span>
+            <span>{isNew ? 'Add blog' : 'Edit blog'}</span>
           </h1>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1">
             <Link
               to="/admin/blogs"
-              className="flex items-center gap-2 px-4 py-2 text-slate-600 hover:text-primary hover:bg-slate-100 rounded-lg transition-colors"
+              className="flex items-center gap-2 px-3 py-2 text-slate-600 hover:text-primary hover:bg-slate-100 rounded-lg transition-colors text-sm font-medium"
             >
-              <ArrowLeft size={18} /> Back to list
+              <ArrowLeft size={18} /> Back
             </Link>
             <Link
               to="/admin"
-              className="flex items-center gap-2 px-4 py-2 text-slate-600 hover:text-primary hover:bg-slate-100 rounded-lg transition-colors"
+              className="flex items-center gap-2 px-3 py-2 text-slate-600 hover:text-primary hover:bg-slate-100 rounded-lg transition-colors text-sm font-medium"
             >
               <Home size={18} /> Dashboard
             </Link>
-            <button onClick={handleLogout} className="flex items-center gap-2 px-4 py-2 text-slate-600 hover:text-primary hover:bg-slate-100 rounded-lg transition-colors">
+            <button onClick={handleLogout} className="flex items-center gap-2 px-3 py-2 text-slate-600 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors text-sm font-medium">
               Logout
             </button>
           </div>
@@ -145,10 +151,12 @@ const AdminBlogEdit = () => {
 
       <main className="container mx-auto px-4 py-8 max-w-4xl">
         {error && (
-          <p className="text-red-500 bg-red-50 border border-red-200 rounded-lg p-3 mb-6">{error}</p>
+          <p className="text-red-600 bg-red-50 border border-red-200 rounded-xl p-4 mb-6 font-medium">{error}</p>
         )}
 
-        <form onSubmit={handleSubmit} className="space-y-6 bg-white rounded-xl border border-slate-200 p-6 md:p-8 shadow-sm">
+        <form onSubmit={handleSubmit} className="space-y-6 bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
+          <div className="h-1 bg-gradient-to-r from-primary via-secondary to-primary" />
+          <div className="p-6 md:p-8 space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label className="block text-xs font-medium text-slate-500 mb-1">Title *</label>
@@ -157,7 +165,7 @@ const AdminBlogEdit = () => {
                 value={form.title}
                 onChange={(e) => setForm((f) => ({ ...f, title: e.target.value, slug: f.slug || slugify(e.target.value) }))}
                 required
-                className="w-full px-4 py-2 border border-slate-200 rounded-lg text-slate-800 focus:border-primary outline-none"
+                className="w-full px-4 py-2.5 border border-slate-200 rounded-xl text-slate-800 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-shadow"
                 placeholder="Blog title"
               />
             </div>
@@ -167,7 +175,7 @@ const AdminBlogEdit = () => {
                 type="text"
                 value={form.slug}
                 onChange={(e) => setForm((f) => ({ ...f, slug: e.target.value }))}
-                className="w-full px-4 py-2 border border-slate-200 rounded-lg text-slate-800 focus:border-primary outline-none"
+                className="w-full px-4 py-2.5 border border-slate-200 rounded-xl text-slate-800 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-shadow"
                 placeholder="url-slug"
               />
             </div>
@@ -179,7 +187,7 @@ const AdminBlogEdit = () => {
                 type="text"
                 value={form.category}
                 onChange={(e) => setForm((f) => ({ ...f, category: e.target.value }))}
-                className="w-full px-4 py-2 border border-slate-200 rounded-lg text-slate-800 focus:border-primary outline-none"
+                className="w-full px-4 py-2.5 border border-slate-200 rounded-xl text-slate-800 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-shadow"
                 placeholder="e.g. Real Estate"
               />
             </div>
@@ -189,7 +197,7 @@ const AdminBlogEdit = () => {
                 type="text"
                 value={form.author}
                 onChange={(e) => setForm((f) => ({ ...f, author: e.target.value }))}
-                className="w-full px-4 py-2 border border-slate-200 rounded-lg text-slate-800 focus:border-primary outline-none"
+                className="w-full px-4 py-2.5 border border-slate-200 rounded-xl text-slate-800 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-shadow"
                 placeholder="ASBL"
               />
             </div>
@@ -200,7 +208,7 @@ const AdminBlogEdit = () => {
               value={form.excerpt}
               onChange={(e) => setForm((f) => ({ ...f, excerpt: e.target.value }))}
               rows={3}
-              className="w-full px-4 py-2 border border-slate-200 rounded-lg text-slate-800 focus:border-primary outline-none"
+              className="w-full px-4 py-2.5 border border-slate-200 rounded-xl text-slate-800 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-shadow"
               placeholder="Brief summary for cards and SEO"
             />
           </div>
@@ -224,7 +232,7 @@ const AdminBlogEdit = () => {
               type="url"
               value={form.image}
               onChange={(e) => setForm((f) => ({ ...f, image: e.target.value }))}
-              className="w-full px-4 py-2 border border-slate-200 rounded-lg text-slate-800 focus:border-primary outline-none"
+              className="w-full px-4 py-2.5 border border-slate-200 rounded-xl text-slate-800 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-shadow"
               placeholder="https://..."
             />
           </div>
@@ -234,24 +242,25 @@ const AdminBlogEdit = () => {
               type="url"
               value={form.carouselImage}
               onChange={(e) => setForm((f) => ({ ...f, carouselImage: e.target.value }))}
-              className="w-full px-4 py-2 border border-slate-200 rounded-lg text-slate-800 focus:border-primary outline-none"
+              className="w-full px-4 py-2.5 border border-slate-200 rounded-xl text-slate-800 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-shadow"
               placeholder="Leave empty to use main image"
             />
           </div>
-          <div className="flex gap-2 pt-4">
+          <div className="flex gap-3 pt-4">
             <Link
               to="/admin/blogs"
-              className="flex-1 py-2.5 border border-slate-200 text-slate-600 rounded-lg hover:bg-slate-50 transition-colors text-center"
+              className="flex-1 py-2.5 border border-slate-200 text-slate-600 rounded-xl hover:bg-slate-50 transition-colors text-center font-medium"
             >
               Cancel
             </Link>
             <button
               type="submit"
               disabled={saving}
-              className="flex-1 py-2.5 bg-primary text-white font-bold rounded-lg hover:bg-primary/90 disabled:opacity-70 transition-colors"
+              className="flex-1 py-2.5 bg-primary text-white font-bold rounded-xl hover:bg-primary/90 disabled:opacity-70 transition-colors shadow-sm"
             >
               {saving ? 'Saving…' : isNew ? 'Create blog' : 'Update blog'}
             </button>
+          </div>
           </div>
         </form>
       </main>

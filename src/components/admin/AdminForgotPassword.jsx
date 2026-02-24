@@ -55,7 +55,7 @@ const AdminForgotPassword = () => {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="w-full max-w-md bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden"
+        className="w-full max-w-md bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden"
       >
         <div className="h-1.5 bg-gradient-to-r from-primary via-secondary to-primary" />
         <div className="p-8 md:p-10">
@@ -79,7 +79,7 @@ const AdminForgotPassword = () => {
                 placeholder="Username"
                 required
                 autoComplete="username"
-                className="w-full pl-11 pr-4 py-3 bg-white border border-slate-300 rounded-xl focus:border-[#0a0a0a] outline-none transition-colors text-slate-800 placeholder:text-slate-400"
+                className="w-full pl-11 pr-4 py-3 bg-white border border-slate-200 rounded-xl focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all text-slate-800 placeholder:text-slate-400"
                 aria-label="Username"
               />
             </div>
@@ -88,7 +88,7 @@ const AdminForgotPassword = () => {
               disabled={loading}
               whileHover={{ scale: 1.01 }}
               whileTap={{ scale: 0.99 }}
-              className="w-full py-3.5 bg-primary text-white font-bold rounded-xl flex items-center justify-center gap-2 disabled:opacity-70"
+              className="w-full py-3.5 bg-primary text-white font-bold rounded-xl flex items-center justify-center gap-2 disabled:opacity-70 shadow-sm hover:bg-primary/90 transition-colors"
             >
               {loading ? 'Sending...' : 'Send reset link'}
             </motion.button>

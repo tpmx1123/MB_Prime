@@ -62,7 +62,7 @@ export const projects = [
     logo: null,
     locationMap: 'https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3792.6244768817246!2d83.399245!3d18.088931!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMTjCsDA1JzIwLjIiTiA4M8KwMjMnNTcuMyJF!5e0!3m2!1sen!2sin!4v1771135120420!5m2!1sen!2sin',
     favicon: 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1771063124/sklmlogo_c2trtg_wk10v3_cztpx0.ico', // MB Prime Villas favicon
-    masterPlan: 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1771068556/Gemini_Generated_Image_wx0r97wx0r97wx0r_g1tdty.png',
+    masterPlan: 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1771907997/Gemini_Generated_Image_bvknucbvknucbvkn-Picsart-AiImageEnhancer_lcggb2.png',
     overview: 'MB Prime Enclave represents a modern residential approach for Vizianagaram—balancing urban convenience with community-focused planning.',
     highlights: [
       'Structural: R.C.C framed structure',
@@ -92,10 +92,10 @@ export const projects = [
       ],
       [
         ' Wide Internal Roads',
-        ' Gated Community Layout',
+        ' Tree-Lined Avenues',
         ' Planned Plotting',
         ' Perimeter Fencing',
-        ' Tree-Lined Avenues',
+        'Gated Community Layout', 
       ]
     ],
     amenities: [
