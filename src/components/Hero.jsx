@@ -140,7 +140,7 @@ const Hero = () => {
           {/* Headline */}
           <h1 className="font-sans font-extrabold text-center mb-4 w-full">
             <span className="block text-4xl text-secondary leading-tight mb-1">Elevating Life,</span>
-            <span className="block text-3xl text-primary leading-tight">One Home at a Time</span>
+            <span className="block text-2xl text-primary leading-tight">One Home at a Time</span>
           </h1>
 
           {/* Description */}
