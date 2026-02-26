@@ -124,7 +124,7 @@ const Hero = () => {
       <div className="relative z-20 w-full flex flex-col items-center pb-8 md:hidden">
         
         {/* Full-width image with a smooth sweeping bottom curve */}
-        <div className="relative w-full h-[58vh] min-h-[400px] rounded-bl-[35%] overflow-hidden shadow-sm mb-10">
+        <div className="relative w-full h-[58vh] min-h-[400px] rounded-bl-[35%] overflow-hidden shadow-sm mb-5">
           <img
             src={HERO_MOBILE_IMAGE}
             alt="MB Prime Villas"
@@ -144,7 +144,7 @@ const Hero = () => {
           </h1>
 
           {/* Description */}
-          <p className="text-base text-gray-500 text-center max-w-[320px] mb-8 leading-relaxed font-medium">
+          <p className="text-base text-gray-500 text-center max-w-[320px] mb-4 leading-relaxed font-medium">
             At <strong className="text-gray-800">MB PRIME PROJECTS</strong>, we combine expertise and innovation to create landmarks of elegance.
           </p>
 
