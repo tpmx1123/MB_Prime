@@ -107,8 +107,8 @@ const FeaturedProjectsHome = () => {
         </div>
 
         {/* Carousel Implementation */}
-        <div className="projects-carousel relative">
-          <Swiper {...swiperOptions} ref={swiperRef}>
+        <div className="projects-carousel relative flex flex-col">
+          <Swiper {...swiperOptions} ref={swiperRef} className="w-full">
             {projects.map((project) => (
               <SwiperSlide key={project.slug}>
                 <ProjectCard project={project} />
@@ -116,19 +116,21 @@ const FeaturedProjectsHome = () => {
             ))}
           </Swiper>
 
-          {/* Navigation Buttons */}
-          <button
-            onClick={handlePrev}
-            className="swiper-button-prev-custom absolute right-20 -top-10 -translate-y-1/2 z-10 bg-white/90 text-primary p-3 rounded-full shadow-lg hover:bg-secondary hover:text-white transition-all duration-300"
-          >
-            <ChevronLeft size={24} />
-          </button>
-          <button
-            onClick={handleNext}
-            className="swiper-button-next-custom absolute right-4 -top-10 -translate-y-1/2 z-10 bg-white/90 text-primary p-3 rounded-full shadow-lg hover:bg-secondary hover:text-white transition-all duration-300"
-          >
-            <ChevronRight size={24} />
-          </button>
+          {/* Navigation Buttons – mobile: below cards (in flow); desktop: top right (absolute) */}
+          <div className="flex justify-center gap-3 py-4 z-10 md:absolute md:left-auto md:right-0 md:top-0 md:bottom-auto md:py-0 md:block">
+            <button
+              onClick={handlePrev}
+              className="swiper-button-prev-custom bg-white/90 text-primary p-3 rounded-full shadow-lg hover:bg-secondary hover:text-white transition-all duration-300 md:absolute md:right-20 md:-top-10 md:-translate-y-1/2"
+            >
+              <ChevronLeft size={24} />
+            </button>
+            <button
+              onClick={handleNext}
+              className="swiper-button-next-custom bg-white/90 text-primary p-3 rounded-full shadow-lg hover:bg-secondary hover:text-white transition-all duration-300 md:absolute md:right-4 md:-top-10 md:-translate-y-1/2"
+            >
+              <ChevronRight size={24} />
+            </button>
+          </div>
         </div>
       </div>
       {/* Same height for all slides */}

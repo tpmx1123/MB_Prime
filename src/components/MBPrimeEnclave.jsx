@@ -592,97 +592,6 @@ const MBPrimeEnclave = () => {
                 </motion.div>
               </div>
 
-              {/* <div className="relative w-full pb-10 md:-mt-0 -mt-10">
-                <div className="max-w-7xl mx-auto px-4 py-20 relative">
-                  <motion.div
-                    initial={{ width: 0 }}
-                    whileInView={{ width: 'calc(100% - 60px)' }}
-                    transition={{ duration: 1.5, ease: "easeInOut" }}
-                    className="absolute top-[215px] left-[30px] h-[2px] border-b-2 border-dashed border-slate-400/40 hidden md:block"
-                  />
-
-                  <div className="hidden" />
-
-                  <div className="flex flex-row md:flex-row overflow-x-auto md:overflow-visible justify-start md:justify-between items-start relative z-10 w-full gap-4 md:gap-0 px-4 md:px-0 scroll-smooth snap-x snap-mandatory no-scrollbar pb-4">
-                    {project.locationDistances?.map((loc, idx) => (
-                      <motion.div
-                        key={idx}
-                        variants={{
-                          hidden: { opacity: 0, y: 20 },
-                          visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
-                        }}
-                        className="flex flex-col items-center group relative min-w-[100px] md:min-w-0 md:flex-1 snap-center"
-                      >
-                        <div className="h-14 md:h-20 flex flex-col justify-end mb-2 md:mb-4">
-                          <div className="flex items-baseline gap-1">
-                            <span className="text-2xl md:text-4xl lg:text-6xl font-sans font-extrabold text-[#5B6BF9]/40 group-hover:text-[#5B6BF9] transition-all duration-700 cursor-default">
-                              {loc.time}
-                            </span>
-                            <div className="flex flex-col">
-                              <span className="text-[10px] lg:text-xs uppercase tracking-widest font-black text-slate-600">
-                                {loc.unit}
-                              </span>
-                              <span className="text-[8px] lg:text-[10px] uppercase font-bold text-slate-500 -mt-1">
-                                from
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div className="relative h-12 md:h-24 w-full flex flex-col items-center">
-                          <motion.div
-                            whileHover={{ y: -5 }}
-                            className="z-20 mb-2"
-                          >
-                            <MapPin size={24} className="text-slate-700 group-hover:text-[#5B6BF9] transition-all duration-500 w-5 h-5 md:w-6 md:h-6" fill="currentColor" />
-                          </motion.div>
-
-                          <div className="w-[2px] h-full bg-gradient-to-t from-[#5B6BF9] to-slate-200/50 opacity-60 group-hover:opacity-100 transition-opacity duration-500" />
-
-                          <div className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-3 h-3 rounded-full border-[3px] border-white bg-[#5B6BF9] shadow-md z-30 transform scale-0 group-hover:scale-100 transition-transform duration-300" />
-                        </div>
-
-                        <div className="mt-4 md:mt-8 text-center px-1 w-full flex justify-center">
-                          <p className="text-primary font-sans font-bold text-[9px] md:text-[11px] lg:text-sm tracking-tight leading-relaxed group-hover:text-[#5B6BF9] transition-colors duration-300 max-w-[100px] lg:max-w-none">
-                            {loc.label}
-                          </p>
-                        </div>
-
-                        {loc.type === 'airport' && (
-                          <div className="absolute top-[215px] left-[50%] w-[120px] h-[1px] pointer-events-none overflow-visible">
-                            <svg className="w-full h-full overflow-visible" viewBox="0 0 100 100" fill="none">
-                              <motion.path
-                                initial={{ pathLength: 0, opacity: 0 }}
-                                whileInView={{ pathLength: 1, opacity: 1 }}
-                                transition={{ duration: 1.5, delay: 0.8 }}
-                                d="M0 0C30 0 70 -20 90 -80"
-                                stroke="#5B6BF9"
-                                strokeWidth="2.5"
-                                strokeDasharray="5 5"
-                                strokeLinecap="round"
-                              />
-                              <motion.g
-                                initial={{ opacity: 0, scale: 0 }}
-                                whileInView={{ opacity: 1, scale: 1 }}
-                                transition={{ delay: 2.2, duration: 0.5 }}
-                                className="origin-center"
-                                style={{ transform: 'translate(90px, -80px) rotate(-45deg)' }}
-                              >
-                                <Plane
-                                  size={24}
-                                  className="text-[#5B6BF9] drop-shadow-[0_0_15px_rgba(91,107,249,0.3)]"
-                                />
-                              </motion.g>
-                            </svg>
-                          </div>
-                        )}
-                      </motion.div>
-                    ))}
-                  </div>
-                </div>
-              </div> */}
-
-
               <div className="relative w-full pb-10">
                 <div className="max-w-7xl mx-auto px-4 py-12 md:py-20 relative">
                   {/* DESKTOP: Horizontal Timeline Line (Ash Line) */}
@@ -714,11 +623,11 @@ const MBPrimeEnclave = () => {
                         {/* 1. Time Indicator (Fixed width on mobile to align with the gutter) */}
                         <div className="w-[70px] md:w-full flex flex-col items-end md:items-center pr-4 md:pr-0 md:mb-4">
                           <div className="flex items-baseline gap-1">
-                            <span className="text-3xl md:text-5xl lg:text-6xl font-sans font-extrabold text-[#5B6BF9]/40 group-hover:text-[#5B6BF9] transition-all duration-700 cursor-default">
+                            <span className="text-3xl md:text-5xl lg:text-6xl font-sans font-extrabold text-purple-400 group-hover:text-purple-600 transition-all duration-700 cursor-default">
                               {loc.time}
                             </span>
                             <div className="flex flex-col">
-                              <span className="text-[9px] md:text-[10px] lg:text-xs uppercase tracking-widest font-black text-slate-400">
+                              <span className="text-[9px] md:text-[10px] lg:text-xs uppercase tracking-widest font-black text-purple-400">
                                 {loc.unit}
                               </span>
                             </div>
@@ -729,24 +638,24 @@ const MBPrimeEnclave = () => {
                         <div className="relative z-10 flex items-center justify-center w-8 md:w-full md:h-24">
                           <motion.div
                             whileHover={{ y: -5 }}
-                            className="bg-white rounded-full p-2 md:p-3 border-2 border-slate-100 shadow-sm group-hover:border-[#5B6BF9] transition-all duration-500"
+                            className="bg-white rounded-full p-2 md:p-3 border-2 border-slate-100 shadow-sm group-hover:border-purple-400 transition-all duration-500"
                           >
                             {(() => {
                               const IconComponent = iconMap[loc.icon] || MapPin;
-                              return <IconComponent size={20} className="text-slate-700 group-hover:text-[#5B6BF9] md:w-6 md:h-6" strokeWidth={1.5} />;
+                              return <IconComponent size={20} className="text-purple-400 group-hover:text-purple-600 md:w-6 md:h-6" strokeWidth={1.5} />;
                             })()}
                           </motion.div>
 
                           {/* Desktop-only vertical stem connecting to horizontal line */}
-                          <div className="hidden md:block absolute bottom-0 w-[2px] h-12 bg-gradient-to-t from-[#5B6BF9] to-slate-200/50 opacity-60 group-hover:opacity-100 transition-opacity" />
+                          <div className="hidden md:block absolute bottom-0 w-[2px] h-12 bg-gradient-to-t from-purple-400 to-purple-200/50 opacity-60 group-hover:opacity-100 transition-opacity" />
 
                           {/* Desktop-only intersection dot */}
-                          <div className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-3 h-3 rounded-full border-[3px] border-white bg-[#5B6BF9] shadow-md z-30 transform scale-0 group-hover:scale-100 transition-transform duration-300 hidden md:block" />
+                          <div className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-3 h-3 rounded-full border-[3px] border-white bg-purple-400 shadow-md z-30 transform scale-0 group-hover:scale-100 transition-transform duration-300 hidden md:block" />
                         </div>
 
                         {/* 3. Location Label (Right-aligned on mobile) */}
                         <div className="flex-1 pl-4 md:pl-0 md:mt-8 md:text-center">
-                          <p className="text-primary font-sans font-bold text-sm lg:text-base tracking-tight leading-snug group-hover:text-[#5B6BF9] transition-colors duration-300">
+                          <p className="text-primary font-sans font-bold text-sm lg:text-base tracking-tight leading-snug group-hover:text-purple-600 transition-colors duration-300">
                             {loc.label}
                           </p>
                         </div>
@@ -771,7 +680,7 @@ const MBPrimeEnclave = () => {
                                 transition={{ delay: 2.2, duration: 0.5 }}
                                 style={{ transform: 'translate(90px, -80px) rotate(-45deg)' }}
                               >
-                                <Plane size={24} className="text-[#5B6BF9]" />
+                                <Plane size={24} className="text-purple-400" />
                               </motion.g>
                             </svg>
                           </div>

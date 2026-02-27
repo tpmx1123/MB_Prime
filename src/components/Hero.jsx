@@ -124,7 +124,7 @@ const Hero = () => {
       <div className="relative z-20 w-full flex flex-col items-center pb-8 md:hidden">
         
         {/* Full-width image with a smooth sweeping bottom curve */}
-        <div className="relative w-full h-[58vh] min-h-[400px] rounded-bl-[35%] overflow-hidden shadow-sm mb-5">
+        <div className="relative w-full h-[68vh] min-h-[400px] rounded-bl-[30%] overflow-hidden shadow-sm mb-10">
           <img
             src={HERO_MOBILE_IMAGE}
             alt="MB Prime Villas"
@@ -138,24 +138,18 @@ const Hero = () => {
         {/* Text and Button Wrapper */}
         <div className="px-6 flex flex-col items-center w-full">
           {/* Headline */}
-          <h1 className="font-sans font-extrabold text-center mb-4 w-full">
+          <h1 className="font-sans font-extrabold text-left mb-4 w-full">
             <span className="block text-4xl text-secondary leading-tight mb-1">Elevating Life,</span>
             <span className="block text-2xl text-primary leading-tight">One Home at a Time</span>
           </h1>
 
           {/* Description */}
-          <p className="text-base text-gray-500 text-center max-w-[320px] mb-4 leading-relaxed font-medium">
+          <p className="text-base text-gray-500 text-left  mb-4 leading-relaxed font-medium">
             At <strong className="text-gray-800">MB PRIME PROJECTS</strong>, we combine expertise and innovation to create landmarks of elegance.
           </p>
 
           {/* CTA */}
-          <button
-            type="button"
-            onClick={openEnquiry}
-            className="w-full max-w-[340px] py-4 bg-secondary text-white hover:bg-secondary-light font-bold text-lg uppercase tracking-wider rounded-full shadow-lg transition-transform active:scale-[0.98]"
-          >
-            Enquire Now
-          </button>
+          
         </div>
       </div>
     </section>
