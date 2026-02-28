@@ -1,7 +1,7 @@
 // Shared project images for hover effect (user-provided Cloudinary URLs)
 export const PROJECT_IMAGE_A = 'https://res.cloudinary.com/durbtkhbz/image/upload/v1770638196/EA-1-7-scaled.jpg_opvxht.webp';
 export const PROJECT_IMAGE_B = 'https://res.cloudinary.com/durbtkhbz/image/upload/v1770802746/cf5d2f057cf4017_f4cvnw.jpg';
-export const Prime_Encalve_Image = 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1772252792/MBP_O1.jpg_vdg28i.jpg';
+export const Prime_Encalve_Image = 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1772253051/Gemini_Generated_Image_ppcztwppcztwppcz_adpb0t.png';
 export const Prime_Encalve_Image_Hover = 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1772252199/MBP_CH2.jpg_b3oqlv.jpg';
 export const Prime_Villas_Image = 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1771392310/Original02_nzerw3.png';
 export const Prime_Villas_Image_Hover = 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1771392312/Original03_mgkcxm.png';

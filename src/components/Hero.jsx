@@ -155,7 +155,7 @@ const Hero = () => {
     {/* CTA Button */}
     <button
       onClick={openEnquiry}
-      className="w-full py-4 bg-[#D4AF37] text-white font-bold rounded-sm uppercase tracking-[0.2em] text-sm shadow-lg active:scale-95 transition-transform rounded-2xl"
+      className="w-full py-4 bg-[#D4AF37] text-white font-bold rounded-4xl uppercase tracking-[0.2em] text-sm shadow-lg active:scale-95 transition-transform"
     >
       Enquire Now
     </button>
