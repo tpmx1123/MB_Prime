@@ -24,8 +24,8 @@ const Footer = () => {
                             "Exceptional Living by Design." Redefining luxury through thoughtful planning and premium developments.
                         </p>
                         <div className="flex gap-4 md:gap-5">
-                            <a href="#" className="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center text-white/40 hover:text-secondary hover:border-secondary transition-all"><Facebook size={14} /></a>
-                            <a href="#" className="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center text-white/40 hover:text-secondary hover:border-secondary transition-all"><Instagram size={14} /></a>
+                            <a href="https://www.facebook.com/profile.php?id=61573569854625" target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center text-white/40 hover:text-secondary hover:border-secondary transition-all"><Facebook size={14} /></a>
+                            <a href="https://www.instagram.com/mbprimeprojects/" target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center text-white/40 hover:text-secondary hover:border-secondary transition-all"><Instagram size={14} /></a>
                             <a href="#" className="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center text-white/40 hover:text-secondary hover:border-secondary transition-all"><Twitter size={14} /></a>
                             <a href="#" className="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center text-white/40 hover:text-secondary hover:border-secondary transition-all"><Linkedin size={14} /></a>
                         </div>

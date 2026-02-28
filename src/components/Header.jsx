@@ -1,8 +1,10 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Phone } from 'lucide-react';
-import logo from '../assets/mb.png'
+import logo from '../assets/mb.png';
 import StaggeredMenu from './StaggeredMenu';
+
+const LOGO_MOBILE = 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1772254710/MB_Black_Logo_xncpod.png';
 
 const Header = () => {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -32,10 +34,11 @@ const Header = () => {
   return (
     <header className="absolute top-0 left-0 w-full z-[1000] py-6 bg-transparent">
       <div className="container flex justify-between items-center">
-        {/* Left: logo */}
+        {/* Left: logo – mobile: black logo; desktop: default logo */}
         <div className="flex items-center gap-4 md:gap-6">
           <Link to="/" className="cursor-pointer flex items-center">
-            <img src={logo} alt="MB Prime Logo" className="md:h-18 h-12 w-auto object-contain" loading="lazy" />
+            <img src={LOGO_MOBILE} alt="MB Prime Logo" className="h-12 w-auto object-contain md:hidden" loading="lazy" />
+            <img src={logo} alt="MB Prime Logo" className="hidden md:block md:h-18 h-12 w-auto object-contain" loading="lazy" />
           </Link>
         </div>
 

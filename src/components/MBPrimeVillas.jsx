@@ -585,7 +585,7 @@ const MBPrimeVillas = () => {
                 >
                   <div className="flex items-start gap-4 justify-between w-full mb-6 mt-10">
                     <div className="flex items-center gap-3">
-                      <MapPin className="text-secondary shrink-0" size={32} />
+                      <MapPin className="shrink-0" size={32} style={{ color: '#c9a227' }} />
                       <h2 className="text-2xl md:text-3xl font-sans font-bold text-primary tracking-tight">
                         Location Highlights
                       </h2>
@@ -596,7 +596,7 @@ const MBPrimeVillas = () => {
                       hidden: { width: 0 },
                       visible: { width: '100%', transition: { delay: 0.3, duration: 0.8 } }
                     }}
-                    className="absolute -bottom-2 left-0 h-1 bg-gradient-to-r from-secondary/60 to-transparent rounded-full"
+                    className="absolute -bottom-4 left-0 h-1.5 bg-gradient-to-r from-secondary/60 via-secondary to-transparent rounded-full"
                   />
                 </motion.div>
               </div>
@@ -635,11 +635,11 @@ const MBPrimeVillas = () => {
                         {/* 1. Time Indicator (Fixed width on mobile to align with the gutter) */}
                         <div className="w-[70px] md:w-full flex flex-col items-end md:items-center pr-4 md:pr-0 md:mb-4">
                           <div className="flex items-baseline gap-1">
-                            <span className="text-3xl md:text-5xl lg:text-6xl font-sans font-semibold text-purple-400 group-hover:text-purple-600 transition-all duration-700 cursor-default">
+                            <span className="text-3xl md:text-5xl lg:text-6xl font-sans font-semibold transition-all duration-700 cursor-default" style={{ color: '#801C4E' }}>
                               {loc.time}
                             </span>
                             <div className="flex flex-col">
-                              <span className="text-[9px] md:text-[10px] lg:text-xs uppercase tracking-widest font-black text-purple-400">
+                              <span className="text-[9px] md:text-[10px] lg:text-xs uppercase tracking-widest font-black" style={{ color: '#801C4E' }}>
                                 {loc.unit}
                               </span>
                             </div>
@@ -650,24 +650,24 @@ const MBPrimeVillas = () => {
                         <div className="relative z-10 flex items-center justify-center w-8 md:w-full md:h-24">
                           <motion.div
                             whileHover={{ y: -5 }}
-                            className="bg-white rounded-full p-2 md:p-3 border-2 border-slate-100 shadow-sm group-hover:border-purple-400 transition-all duration-500"
+                            className="bg-white rounded-full p-2 md:p-3 border-2 border-slate-100 shadow-sm transition-all duration-500 group-hover:border-[#801C4E]"
                           >
                             {(() => {
                               const IconComponent = iconMap[loc.icon] || MapPin;
-                              return <IconComponent size={20} className="text-purple-400 group-hover:text-purple-600 md:w-6 md:h-6" strokeWidth={1.5} />;
+                              return <IconComponent size={20} className="md:w-6 md:h-6" style={{ color: '#801C4E' }} strokeWidth={1.5} />;
                             })()}
                           </motion.div>
 
                           {/* Desktop-only vertical stem connecting to horizontal line */}
-                          <div className="hidden md:block absolute bottom-0 w-[2px] h-12 bg-gradient-to-t from-purple-400 to-purple-200/50 opacity-60 group-hover:opacity-100 transition-opacity" />
+                          <div className="hidden md:block absolute bottom-0 w-[2px] h-12 opacity-60 group-hover:opacity-100 transition-opacity" style={{ background: 'linear-gradient(to top, #801C4E, rgba(128,28,78,0.5))' }} />
 
                           {/* Desktop-only intersection dot */}
-                          <div className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-3 h-3 rounded-full border-[3px] border-white bg-purple-400 shadow-md z-30 transform scale-0 group-hover:scale-100 transition-transform duration-300 hidden md:block" />
+                          <div className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-3 h-3 rounded-full border-[3px] border-white shadow-md z-30 transform scale-0 group-hover:scale-100 transition-transform duration-300 hidden md:block" style={{ backgroundColor: '#801C4E' }} />
                         </div>
 
                         {/* 3. Location Label (Right-aligned on mobile) */}
                         <div className="flex-1 pl-4 md:pl-0 md:mt-8 md:text-center">
-                          <p className="text-primary font-sans font-bold text-sm lg:text-base tracking-tight leading-snug group-hover:text-purple-600 transition-colors duration-300">
+                          <p className="text-primary font-sans font-bold text-sm lg:text-base tracking-tight leading-snug transition-colors duration-300 group-hover:text-[#801C4E]">
                             {loc.label}
                           </p>
                         </div>
@@ -692,7 +692,7 @@ const MBPrimeVillas = () => {
                                 transition={{ delay: 2.2, duration: 0.5 }}
                                 style={{ transform: 'translate(90px, -80px) rotate(-45deg)' }}
                               >
-                                <Plane size={24} className="text-purple-400" />
+                                <Plane size={24} style={{ color: '#801C4E' }} />
                               </motion.g>
                             </svg>
                           </div>

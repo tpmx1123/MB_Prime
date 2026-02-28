@@ -1,6 +1,16 @@
 // Shared project images for hover effect (user-provided Cloudinary URLs)
 export const PROJECT_IMAGE_A = 'https://res.cloudinary.com/durbtkhbz/image/upload/v1770638196/EA-1-7-scaled.jpg_opvxht.webp';
 export const PROJECT_IMAGE_B = 'https://res.cloudinary.com/durbtkhbz/image/upload/v1770802746/cf5d2f057cf4017_f4cvnw.jpg';
+export const Prime_Encalve_Image = 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1772252792/MBP_O1.jpg_vdg28i.jpg';
+export const Prime_Encalve_Image_Hover = 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1772252199/MBP_CH2.jpg_b3oqlv.jpg';
+export const Prime_Villas_Image = 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1771392310/Original02_nzerw3.png';
+export const Prime_Villas_Image_Hover = 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1771392312/Original03_mgkcxm.png';
+export const Prime_jel_Image = 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1772253482/Gemini_Generated_Image_bg41wqbg41wqbg41_urg9up.png';
+export const Prime_jel_Image_Hover = 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1772253637/Gemini_Generated_Image_qjjk4qqjjk4qqjjk_byr0kf.png';
+export const ai_gen_serenity_villas_Image = 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1772254481/Gemini_Generated_Image_wkelgtwkelgtwkel_tuau5s.png';
+export const ai_gen_serenity_villas_Image_Hover = 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1772254481/Gemini_Generated_Image_dqgbljdqgbljdqgb_ncbozu.png';
+export const capital_west_Image = 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1772254147/Gemini_Generated_Image_skilttskilttskil_hbes61.png';
+export const capital_west_Image_Hover = 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1772254145/Gemini_Generated_Image_lz7sazlz7sazlz7s_sh8se6.png';
 import villaBrochure from '../assets/MB Prime Brochure_P.pdf';
 import enclaveBrochure from '../assets/EnclaveBrochure.pdf';
 // Order: 1. Vijayawada, 2. MB Prime Enclave, 3. MB Prime Villas, 4. Capital West, 5. AI Gen Villas
@@ -18,8 +28,8 @@ export const projects = [
     location: 'Vijayawada',
     type: 'Residential Development',
     status: 'Under Planning',
-    image: PROJECT_IMAGE_A,
-    imageHover: PROJECT_IMAGE_B,
+    image: Prime_jel_Image,
+    imageHover: Prime_jel_Image_Hover,
     logo: null,
     masterPlan: null,
     locationMap: null,
@@ -57,8 +67,8 @@ export const projects = [
     location: 'Vizianagaram',
     type: 'Residential Development',
     status: 'Lister Development (30% GDV)',
-    image: PROJECT_IMAGE_B,
-    imageHover: PROJECT_IMAGE_A,
+    image: Prime_Encalve_Image,
+    imageHover: Prime_Encalve_Image_Hover,
     logo: null,
     locationMap: 'https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3792.6244768817246!2d83.399245!3d18.088931!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMTjCsDA1JzIwLjIiTiA4M8KwMjMnNTcuMyJF!5e0!3m2!1sen!2sin!4v1771135120420!5m2!1sen!2sin',
     favicon: 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1771063124/sklmlogo_c2trtg_wk10v3_cztpx0.ico', // MB Prime Villas favicon
@@ -144,10 +154,10 @@ export const projects = [
         image: 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1771227055/clean_water_bybu1t.jpg'
       },
       {
-        title: 'Lush Greenery',
-        desc: 'Green plants and landscaping on all four sides.',
-        icon: 'Trees',
-        image: 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1771227056/greenery_pijtcg.jpg'
+        title: 'Club House',
+        desc: 'Club House with all the amenities for the residents.',
+        icon: 'Home',
+        image: 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1772252199/MBP_CH2.jpg_b3oqlv.jpg'
       },
       {
         title: '24/7 Security',
@@ -172,8 +182,8 @@ export const projects = [
     location: 'Srikakulam',
     type: 'Plotted Villa Development',
     status: 'Phase 1 Completed | Phase 2 Ongoing',
-    image: PROJECT_IMAGE_A,
-    imageHover: PROJECT_IMAGE_B,
+    image: Prime_Villas_Image,
+    imageHover: Prime_Villas_Image_Hover,
     logo: 'https://res.cloudinary.com/durbtkhbz/image/upload/v1770526685/sklmlogo_c2trtg.png',
     favicon: 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1771063124/sklmlogo_c2trtg_wk10v3_cztpx0.ico',
     masterPlan: 'https://res.cloudinary.com/dcrdkvt2q/image/upload/v1770968591/villas_plots_jpg.jpg_hovhc9.jpg',
@@ -388,8 +398,8 @@ export const projects = [
     location: 'vijayawada',
     type: 'Residential Development',
     status: 'Under Planning',
-    image: PROJECT_IMAGE_A,
-    imageHover: PROJECT_IMAGE_B,
+    image: capital_west_Image,
+    imageHover: capital_west_Image_Hover,
     logo: null,
     masterPlan: null,
     locationMap: null,
@@ -427,8 +437,8 @@ export const projects = [
     location: 'Amaravati',
     type: 'Residential Development',
     status: 'Under Planning',
-    image: PROJECT_IMAGE_B,
-    imageHover: PROJECT_IMAGE_A,
+    image: ai_gen_serenity_villas_Image,
+    imageHover: ai_gen_serenity_villas_Image_Hover,
     logo: null,
     masterPlan: null,
     locationMap: null,

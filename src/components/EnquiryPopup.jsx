@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, User, Mail, Phone, MessageSquare, ArrowRight, Loader2 } from 'lucide-react';
 import { submitFormSubmission } from '../services/api';
+
+const MOBILE_BREAKPOINT = 768;
+const HERO_PAST_RATIO = 0.95; // show sticky after scrolling 95% of viewport (past hero)
 
 const EnquiryPopup = () => {
     const [isVisible, setIsVisible] = useState(false);
@@ -13,6 +17,29 @@ const EnquiryPopup = () => {
     const [formType, setFormType] = useState('enquiry'); // 'brochure' | 'enquiry' (default)
     const [submitError, setSubmitError] = useState(null);
     const [submitting, setSubmitting] = useState(false);
+    const location = useLocation();
+
+    // On mobile home: hide sticky "Enquire Now" while in hero; show after scrolling to next section
+    const [showStickyTrigger, setShowStickyTrigger] = useState(true);
+    useEffect(() => {
+        const updateSticky = () => {
+            const isMobile = typeof window !== 'undefined' && window.innerWidth < MOBILE_BREAKPOINT;
+            const isHome = location.pathname === '/';
+            const pastHero = typeof window !== 'undefined' && window.scrollY >= window.innerHeight * HERO_PAST_RATIO;
+            if (isHome && isMobile) {
+                setShowStickyTrigger(pastHero);
+            } else {
+                setShowStickyTrigger(true);
+            }
+        };
+        updateSticky();
+        window.addEventListener('scroll', updateSticky, { passive: true });
+        window.addEventListener('resize', updateSticky);
+        return () => {
+            window.removeEventListener('scroll', updateSticky);
+            window.removeEventListener('resize', updateSticky);
+        };
+    }, [location.pathname]);
 
     // Listen for the custom event. Brochure button → formType brochure; Enquire Now → enquiry (default).
     useEffect(() => {
@@ -109,14 +136,14 @@ const EnquiryPopup = () => {
 
     return (
         <>
-            {/* Professional Sidebar Trigger – Enquire form */}
+            {/* Professional Sidebar Trigger – Enquire form (hidden in hero on mobile, sticky after scroll) */}
             <button
                 onClick={() => {
                     setFormType('enquiry');
                     setSubmitError(null);
                     setIsVisible(true);
                 }}
-                className="fixed right-0 top-1/2 z-[9990] -translate-y-1/2 bg-primary text-white font-bold text-[10px] md:text-xs py-3 px-3 rounded-r-2xl shadow-2xl hover:bg-secondary hover:text-primary transition-all duration-500 uppercase tracking-[0.2em] [writing-mode:vertical-lr] rotate-180 flex items-center gap-2 border-l border-white/10"
+                className={`fixed right-0 top-1/2 z-[9990] -translate-y-1/2 bg-primary text-white font-bold text-[10px] md:text-xs py-3 px-3 rounded-r-2xl shadow-2xl hover:bg-secondary hover:text-primary transition-all duration-500 uppercase tracking-[0.2em] [writing-mode:vertical-lr] rotate-180 flex items-center gap-2 border-l border-white/10 ${!showStickyTrigger ? 'hidden md:flex' : ''}`}
             >
                 <span className="mb-2">Enquire Now</span>
             </button>
