@@ -50,7 +50,7 @@ const Hero = () => {
       style={{ perspective: '1200px' }}
     >
       {/* Desktop: Background Video Layer – lazy loaded */}
-      <motion.div className="absolute inset-0 z-0 overflow-hidden hidden md:block" style={{ y }}>
+      <motion.div className="absolute inset-0 z-0 overflow-hidden hidden md:block bg-white" style={{ y }}>
         <video
           autoPlay
           loop
@@ -58,7 +58,7 @@ const Hero = () => {
           playsInline
           preload={shouldLoadVideo ? 'metadata' : 'none'}
           poster={HERO_VIDEO_POSTER}
-          className="absolute inset-0 w-full h-[120%] object-cover scale-110"
+          className="absolute inset-0 w-full h-full object-cover scale-110"
         >
           {shouldLoadVideo && (
             <source src={HERO_VIDEO_SRC} type="video/mp4" />
