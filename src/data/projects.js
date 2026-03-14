@@ -72,7 +72,7 @@ export const projects = [
     logo: null,
     locationMap: 'https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3792.6244768817246!2d83.399245!3d18.088931!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMTjCsDA1JzIwLjIiTiA4M8KwMjMnNTcuMyJF!5e0!3m2!1sen!2sin!4v1771135120420!5m2!1sen!2sin',
     favicon: 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1771063124/sklmlogo_c2trtg_wk10v3_cztpx0.ico', // MB Prime Villas favicon
-    masterPlan: 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1771907997/Gemini_Generated_Image_bvknucbvknucbvkn-Picsart-AiImageEnhancer_lcggb2.png',
+    masterPlan: 'https://res.cloudinary.com/durbtkhbz/image/upload/v1773502654/Gemini_Generated_Image_bvknucbvknucbvkn-Picsart-AiImageEnhancer-removebg-preview_wooajr.png',
     overview: 'MB Prime Enclave represents a modern residential approach for Vizianagaram—balancing urban convenience with community-focused planning.',
     highlights: [
       'Structural: R.C.C framed structure',
@@ -114,7 +114,7 @@ export const projects = [
         title: 'Children\'s Park & Seating',
         desc: 'Special parks for children with comfortable rest benches.',
         icon: 'Smile',
-        image: 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1771926343/Gemini_Generated_Image_s47ry0s47ry0s47r_oeilga.png'
+        image: 'https://res.cloudinary.com/durbtkhbz/image/upload/v1773499575/Gemini_Generated_Image_s47ry0s47ry0s47r_bgo2fd.png'
       },
       {
         title: 'Jogging Tracks',
@@ -126,13 +126,13 @@ export const projects = [
         title: 'Cricket Ground',
         desc: 'Dedicated cricket play area for sports enthusiasts.',
         icon: 'Trophy',
-        image: 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1771926609/MBP_PARK8_hafitk.jpg'
+        image: 'https://res.cloudinary.com/durbtkhbz/image/upload/v1773499574/MBP_PARK8_egwsxo.jpg'
       },
       {
         title: 'Amphitheater',
         desc: 'Open-air amphitheater for community events and gatherings.',
         icon: 'Music',
-        image: 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1771925495/MBP_PARK6.jpg_y8op8a.jpg'
+        image: 'https://res.cloudinary.com/durbtkhbz/image/upload/v1773499575/MBP_PARK6.jpg_tpphln.jpg'
       },
 
       {
@@ -337,10 +337,10 @@ export const projects = [
         tag1:'North Face - GF',
         tag2:'North Face - FF',
         tag3:'North Face - SF',
-        image: 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1771392310/Original02_nzerw3.png',
-        image1: 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1771312600/TRIPLEX_NORTH_FACE_50_X_36_GF_squxzr.jpg',
-        image2: 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1771312601/TRIPLEX_NORTH_FACE_50_X_36_FF_hcvvla.jpg',
-        image3: 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1771312601/TRIPLEX_NORTH_FACE_50_X_36_SF_sajuim.jpg',
+        image: 'https://res.cloudinary.com/durbtkhbz/image/upload/v1770882555/plot1_ikla4a.png',
+        image1: 'https://res.cloudinary.com/durbtkhbz/image/upload/v1773500408/TRIPLEX_NORTH_FACE_50_X_36_GF_balv5q.jpg',
+        image2: 'https://res.cloudinary.com/durbtkhbz/image/upload/v1773500411/TRIPLEX_NORTH_FACE_50_X_36_FF_wkvsah.jpg',
+        image3: 'https://res.cloudinary.com/durbtkhbz/image/upload/v1773500393/TRIPLEX_NORTH_FACE_50_X_36_SF_on6ywb.jpg',
         color: 'bg-[#982B56]' // Deep Magenta/Red from image
       },
       {
@@ -354,9 +354,9 @@ export const projects = [
         tag: 'Duplex Villa - South Face',
         tag1:'South Face - GF',
         tag2:'South Face - FF',
-        image: 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1771392309/Original01_snapvp.png',
-        image1: 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1771312600/DUPLEX_SOUTH_FACE_40_x36_GF_idxvwq.jpg',
-        image2: 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1771312600/DUPLEX_SOUTH_FACE_40_x36_FF_srobau.jpg',
+        image: 'https://res.cloudinary.com/durbtkhbz/image/upload/v1770882631/plot3_jzl1fn.png',
+        image1: 'https://res.cloudinary.com/durbtkhbz/image/upload/v1773500395/DUPLEX_SOUTH_FACE_40_x36_GF_agxu9t.jpg',
+        image2: 'https://res.cloudinary.com/durbtkhbz/image/upload/v1773500396/DUPLEX_SOUTH_FACE_40_x36_FF_yd91ly.jpg',
         color: 'bg-[#76A847]' // Green from image
       },
       {
@@ -370,9 +370,9 @@ export const projects = [
         tag: 'Duplex Villa - North Face',
         tag1:'North Face - GF',
         tag2:'North Face - FF',
-        image: 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1771392312/Original03_mgkcxm.png',
-        image1: 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1771312600/DUPLEX_NORTH_FACE_50_x36_GF_jdkulu.jpg',
-        image2: 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1771312600/DUPLEX_NORTH_FACE_50_x36_FF_s91kz9.jpg',
+        image: 'https://res.cloudinary.com/durbtkhbz/image/upload/v1770882554/plot2_sn5bq0.png',
+        image1: 'https://res.cloudinary.com/durbtkhbz/image/upload/v1773491786/DUPLEX_NORTH_FACE_50_x36_GF_gvkrub.jpg',
+        image2: 'https://res.cloudinary.com/durbtkhbz/image/upload/v1773491778/DUPLEX_NORTH_FACE_50_x36_FF_ptp8ik.jpg',
         color: 'bg-[#B5A445]' // Gold/Yellow from image
       }
     ],

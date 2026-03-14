@@ -233,8 +233,8 @@ const MBPrimeVillas = () => {
       >
         <div className="flex flex-col items-center justify-center p-1 ml-2">
           <div className="flex items-center justify-center">
-            <img src="https://res.cloudinary.com/dgmrbxuvb/image/upload/v1771238479/Vmrda_logo_eddawf.png" alt="VMRDA" className="w-8 h-8 md:w-9 md:h-9 object-contain" />
-            <img src="https://res.cloudinary.com/dgmrbxuvb/image/upload/v1771238635/rerawithout_bg_irz1u4.png" alt="RERA" className="w-10 h-10 md:w-15 md:h-15 object-contain" />
+            <img src="https://res.cloudinary.com/durbtkhbz/image/upload/v1773502370/cropped_circle_image_1_sizsan.png" alt="VMRDA" className="w-8 h-8 md:w-9 md:h-9 object-contain" />
+            <img src="https://res.cloudinary.com/durbtkhbz/image/upload/v1773502371/cropped_circle_image_dcrq7j.png" alt="RERA" className="w-10 h-10 md:w-15 md:h-15 object-contain" />
           </div>
           <p className="text-[7px] md:text-[9px] font-sans font-bold text-secondary uppercase tracking-wider">
             APPROVED
