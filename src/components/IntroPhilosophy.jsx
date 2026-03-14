@@ -51,21 +51,21 @@ const IntroPhilosophy = () => {
           </Motion.div>
 
           {/* LEFT: Content - Full width on mobile (centered), half on desktop */}
-          <div className="w-full lg:w-1/2 order-1 lg:order-2 flex flex-col justify-center text-center items-center lg:text-left lg:items-start">
+          <div className="w-full lg:w-1/2 order-1 lg:order-2 flex flex-col justify-center text-center  lg:text-left lg:items-start">
             <Motion.header 
               className="mb-3 sm:mb-6 lg:mb-8"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
             >
-              <span className="inline-block text-secondary font-sans font-bold text-sm sm:text-xs uppercase tracking-[0.3em] sm:tracking-[0.4em] mb-2 sm:mb-4">
+              <span className="inline-block text-secondary font-sans font-bold text-base uppercase tracking-[0.3em] sm:tracking-[0.4em] mb-2 sm:mb-4 ">
                 Our Philosophy
               </span>
-              <h2 className="text-2xl sm:text-2xl md:text-4xl lg:text-6xl font-serif text-primary leading-tight mb-2 sm:mb-4 lg:mb-8">
+              <h2 className="text-2xl sm:text-2xl md:text-4xl lg:text-6xl font-serif text-primary leading-tight mb-2 sm:mb-4 lg:mb-8 text-left">
                 Exceptional <br />
                 <span className="italic font-light text-primary/70">Living by Design</span>
               </h2>
-              <div className="w-16 sm:w-20 lg:w-24 h-0.5 sm:h-1 bg-secondary/40 rounded-full mx-auto lg:mx-0" />
+              <div className="w-16 sm:w-20 lg:w-24 h-0.5 sm:h-1 bg-secondary/40  rounded-full mx-auto lg:mx-0" />
             </Motion.header>
 
             <div className="space-y-4 sm:space-y-6 lg:space-y-8 max-w-none sm:max-w-xl lg:max-w-md">

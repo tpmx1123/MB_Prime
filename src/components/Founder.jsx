@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 
 const FOUNDER_IMAGE =
-  'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1771054701/mbprime_ravibabu_adjxfk.png';
+  'https://res.cloudinary.com/durbtkhbz/image/upload/v1773491654/AI_Generated_Image_2026-02-14_iw1ffu.png';
 
 const Founder = () => {
   return (

@@ -7,7 +7,7 @@ const MotionDiv = motion.div;
 
 const HERO_VIDEO_SRC = 'https://res.cloudinary.com/durbtkhbz/video/upload/q_auto,f_auto/v1770631455/Generate_Car_Driving_Video2_oxqsho.mp4';
 const HERO_VIDEO_POSTER = 'https://res.cloudinary.com/durbtkhbz/video/upload/so_0,q_auto,f_auto,w_1200/v1770631455/Generate_Car_Driving_Video2_oxqsho.jpg';
-const HERO_MOBILE_IMAGE = 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1771392312/Original03_mgkcxm.png';
+const HERO_MOBILE_IMAGE = 'https://res.cloudinary.com/durbtkhbz/image/upload/v1773491965/download_2_gf57as.jpg';
 
 const Hero = () => {
   const ref = useRef(null);

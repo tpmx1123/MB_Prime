@@ -488,8 +488,8 @@ const MBPrimeEnclave = () => {
               >
                 {/* Left Side: Highlights */}
                 <div className="flex flex-col gap-4 md:pl-16 md:-mt-0 -mt-8 md:mb-0 mb-4">
-                  <div className="relative inline-block px-6 py-2 md:px-10 md:py-3 bg-secondary rounded-r-full backdrop-blur-sm mb-6 -ml-1 self-start ">
-                    <h2 className="text-xl md:text-3xl font-sans font-bold text-primary tracking-tight">
+                  <div className="relative inline-block px-6 py-2 md:px-10 md:py-3 bg-[#801C4E] rounded-r-full backdrop-blur-sm mb-6 -ml-1 self-start ">
+                    <h2 className="text-xl md:text-3xl font-sans font-bold text-white tracking-tight">
                       Master Layout
                     </h2>
                     <motion.div
@@ -510,7 +510,7 @@ const MBPrimeEnclave = () => {
                         }}
                         className="flex items-start gap-2 md:gap-3 group cursor-default"
                       >
-                        <div className="mt-1.5 md:mt-2 w-1 md:w-1.5 h-1 md:h-1.5 rounded-full bg-secondary shrink-0 group-hover:scale-125 transition-transform duration-300" />
+                        <div className="mt-1.5 md:mt-2 w-1 md:w-1.5 h-1 md:h-1.5 rounded-full bg-[#801C4E] shrink-0 group-hover:scale-125 transition-transform duration-300" />
                         <span className="text-primary/80 group-hover:text-primary font-sans text-[11px] md:text-base font-medium tracking-tight transition-colors duration-300 leading-relaxed">
                           {item}
                         </span>
@@ -884,7 +884,7 @@ const MBPrimeEnclave = () => {
 
 
           <motion.div
-            className="mt-14 mx-auto max-w-5xl bg-secondary rounded-lg p-6 md:p-10 flex flex-col md:flex-row items-center justify-between gap-6 md:gap-16 shadow-2xl overflow-hidden group"
+            className="mt-14 mx-auto max-w-5xl bg-[#801C4E] rounded-lg p-6 md:p-10 flex flex-col md:flex-row items-center justify-between gap-6 md:gap-16 shadow-2xl overflow-hidden group"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -897,7 +897,7 @@ const MBPrimeEnclave = () => {
 
             <button
               onClick={() => window.dispatchEvent(new CustomEvent('open-enquiry-popup', { detail: { formType: 'enquiry' } }))}
-              className="inline-flex items-center gap-2 px-4 py-3 bg-white text-secondary font-sans font-bold rounded-full transition-all duration-300 hover:bg-white hover:text-primary hover:scale-105 hover:shadow-xl hover:shadow-secondary/25 shadow-lg z-10"
+              className="inline-flex items-center gap-2 px-4 py-3 bg-white text-[#801C4E] font-sans font-bold rounded-full transition-all duration-300 hover:bg-white hover:text-primary hover:scale-105 hover:shadow-xl hover:shadow-secondary/25 shadow-lg z-10"
             >
               Connect with Us <ArrowRight size={20} />
             </button>

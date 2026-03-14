@@ -37,7 +37,7 @@ const Location = () => {
                         transition={{ duration: 0.8 }}
                     >
                         <img 
-                            src="https://res.cloudinary.com/dgmrbxuvb/image/upload/v1771063695/MB_Map_e9a6vx.png" 
+                            src="https://res.cloudinary.com/durbtkhbz/image/upload/v1773493084/customer-service-cute-guy-grey-suit-with-computer-headset-looking-up-smiling.jpg_lunimw.jpg" 
                             alt="MB Prime Locations Map" 
                             className="w-full max-w-[600px] h-auto object-contain "
                             loading="lazy"

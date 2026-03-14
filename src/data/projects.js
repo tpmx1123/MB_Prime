@@ -1,16 +1,16 @@
 // Shared project images for hover effect (user-provided Cloudinary URLs)
 export const PROJECT_IMAGE_A = 'https://res.cloudinary.com/durbtkhbz/image/upload/v1770638196/EA-1-7-scaled.jpg_opvxht.webp';
 export const PROJECT_IMAGE_B = 'https://res.cloudinary.com/durbtkhbz/image/upload/v1770802746/cf5d2f057cf4017_f4cvnw.jpg';
-export const Prime_Encalve_Image = 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1772253051/Gemini_Generated_Image_ppcztwppcztwppcz_adpb0t.png';
-export const Prime_Encalve_Image_Hover = 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1772252199/MBP_CH2.jpg_b3oqlv.jpg';
-export const Prime_Villas_Image = 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1771392310/Original02_nzerw3.png';
-export const Prime_Villas_Image_Hover = 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1771392312/Original03_mgkcxm.png';
-export const Prime_jel_Image = 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1772253482/Gemini_Generated_Image_bg41wqbg41wqbg41_urg9up.png';
-export const Prime_jel_Image_Hover = 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1772253637/Gemini_Generated_Image_qjjk4qqjjk4qqjjk_byr0kf.png';
-export const ai_gen_serenity_villas_Image = 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1772254481/Gemini_Generated_Image_wkelgtwkelgtwkel_tuau5s.png';
-export const ai_gen_serenity_villas_Image_Hover = 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1772254481/Gemini_Generated_Image_dqgbljdqgbljdqgb_ncbozu.png';
-export const capital_west_Image = 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1772254147/Gemini_Generated_Image_skilttskilttskil_hbes61.png';
-export const capital_west_Image_Hover = 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1772254145/Gemini_Generated_Image_lz7sazlz7sazlz7s_sh8se6.png';
+export const Prime_Encalve_Image = 'https://res.cloudinary.com/durbtkhbz/image/upload/v1773490836/Gemini_Generated_Image_bg41wqbg41wqbg41_hzy9he.png';
+export const Prime_Encalve_Image_Hover = 'https://res.cloudinary.com/durbtkhbz/image/upload/v1773490836/Gemini_Generated_Image_bg41wqbg41wqbg41_hzy9he.png';
+export const Prime_Villas_Image = 'https://res.cloudinary.com/durbtkhbz/image/upload/v1773490837/MBP_O1.jpg_b3ljno.jpg';
+export const Prime_Villas_Image_Hover = 'https://res.cloudinary.com/durbtkhbz/image/upload/v1773490837/MBP_O1.jpg_b3ljno.jpg';
+export const Prime_jel_Image = 'https://res.cloudinary.com/durbtkhbz/image/upload/v1773490838/Gemini_Generated_Image_dqgbljdqgbljdqgb_cpyf8w.png';
+export const Prime_jel_Image_Hover = 'https://res.cloudinary.com/durbtkhbz/image/upload/v1773490838/Gemini_Generated_Image_dqgbljdqgbljdqgb_cpyf8w.png';
+export const ai_gen_serenity_villas_Image = 'https://res.cloudinary.com/durbtkhbz/image/upload/v1773490840/Gemini_Generated_Image_skilttskilttskil_rhgqm0.png';
+export const ai_gen_serenity_villas_Image_Hover = 'https://res.cloudinary.com/durbtkhbz/image/upload/v1773490840/Gemini_Generated_Image_skilttskilttskil_rhgqm0.png';
+export const capital_west_Image = 'https://res.cloudinary.com/durbtkhbz/image/upload/v1773490841/Gemini_Generated_Image_lz7sazlz7sazlz7s_z6b6nb.png';
+export const capital_west_Image_Hover = 'https://res.cloudinary.com/durbtkhbz/image/upload/v1773490841/Gemini_Generated_Image_lz7sazlz7sazlz7s_z6b6nb.png';
 import villaBrochure from '../assets/MB Prime Brochure_P.pdf';
 import enclaveBrochure from '../assets/EnclaveBrochure.pdf';
 // Order: 1. Vijayawada, 2. MB Prime Enclave, 3. MB Prime Villas, 4. Capital West, 5. AI Gen Villas

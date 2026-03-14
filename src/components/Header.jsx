@@ -4,7 +4,7 @@ import { Phone } from 'lucide-react';
 import logo from '../assets/mb.png';
 import StaggeredMenu from './StaggeredMenu';
 
-const LOGO_MOBILE = 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1772254710/MB_Black_Logo_xncpod.png';
+const LOGO_MOBILE = 'https://res.cloudinary.com/durbtkhbz/image/upload/v1773492165/mb_smwjsa.png';
 
 const Header = () => {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -38,7 +38,7 @@ const Header = () => {
         <div className="flex items-center gap-4 md:gap-6">
           <Link to="/" className="cursor-pointer flex items-center">
             <img src={LOGO_MOBILE} alt="MB Prime Logo" className="h-12 w-auto object-contain md:hidden" loading="lazy" />
-            <img src={logo} alt="MB Prime Logo" className="hidden md:block md:h-18 h-12 w-auto object-contain" loading="lazy" />
+            <img src={'https://res.cloudinary.com/durbtkhbz/image/upload/v1773492165/mb_smwjsa.png'} alt="MB Prime Logo" className="hidden md:block md:h-18 h-12 w-auto object-contain" loading="lazy" />
           </Link>
         </div>
 

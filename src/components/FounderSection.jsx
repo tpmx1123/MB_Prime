@@ -65,7 +65,7 @@ const FounderSection = () => {
               
              <div className="relative z-10 rounded-[1rem] md:rounded-[2rem] overflow-hidden border-[4px] md:border-[8px] border-white bg-white shadow-lg md:shadow-xl">
         <img 
-    src="https://res.cloudinary.com/dgmrbxuvb/image/upload/v1771054701/mbprime_ravibabu_adjxfk.png" 
+    src="https://res.cloudinary.com/durbtkhbz/image/upload/v1773491654/AI_Generated_Image_2026-02-14_iw1ffu.png" 
     alt="Mr. Maganti Ravi Babu" 
     className="w-full h-[150px] md:h-[350px] object-cover object-top transition-all duration-1000 ease-in-out scale-100 group-hover:scale-105"
     loading="lazy"
