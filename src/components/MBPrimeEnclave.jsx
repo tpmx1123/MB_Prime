@@ -222,8 +222,8 @@ const MBPrimeEnclave = () => {
             >
               <div className="flex flex-col items-center justify-center p-1 ml-2">
                 <div className="flex items-center justify-center">
-                  <img src="https://res.cloudinary.com/durbtkhbz/image/upload/v1773502370/cropped_circle_image_1_sizsan.png" alt="VMRDA" className="w-8 h-8 md:w-9 md:h-9 object-contain" loading="lazy" />
-                  <img src="https://res.cloudinary.com/durbtkhbz/image/upload/v1773502371/cropped_circle_image_dcrq7j.png" alt="RERA" className="w-10 h-10 md:w-15 md:h-15 object-contain" loading="lazy" />
+                  <img src="https://res.cloudinary.com/durbtkhbz/image/upload/v1773635228/WhatsApp_Image_2026-03-16_at_9.35.31_AM_xfgyvz.jpg" alt="VMRDA" className="w-8 h-8 md:w-9 md:h-9 object-contain" loading="lazy" />
+                  <img src="https://res.cloudinary.com/durbtkhbz/image/upload/v1773635344/WhatsApp_Image_2026-03-16_at_9.35.31_AM__1_-removebg-preview_dxsghp.png" alt="RERA" className="w-10 h-10 md:w-15 md:h-15 object-contain" loading="lazy" />
                 </div>
                 <p className="text-[7px] md:text-[9px] font-sans font-bold text-secondary uppercase tracking-wider">
                   APPROVED

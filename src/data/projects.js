@@ -1,10 +1,10 @@
 // Shared project images for hover effect (user-provided Cloudinary URLs)
 export const PROJECT_IMAGE_A = 'https://res.cloudinary.com/durbtkhbz/image/upload/v1770638196/EA-1-7-scaled.jpg_opvxht.webp';
 export const PROJECT_IMAGE_B = 'https://res.cloudinary.com/durbtkhbz/image/upload/v1770802746/cf5d2f057cf4017_f4cvnw.jpg';
-export const Prime_Encalve_Image = 'https://res.cloudinary.com/durbtkhbz/image/upload/v1773490836/Gemini_Generated_Image_bg41wqbg41wqbg41_hzy9he.png';
-export const Prime_Encalve_Image_Hover = 'https://res.cloudinary.com/durbtkhbz/image/upload/v1773490836/Gemini_Generated_Image_bg41wqbg41wqbg41_hzy9he.png';
-export const Prime_Villas_Image = 'https://res.cloudinary.com/durbtkhbz/image/upload/v1773490837/MBP_O1.jpg_b3ljno.jpg';
-export const Prime_Villas_Image_Hover = 'https://res.cloudinary.com/durbtkhbz/image/upload/v1773490837/MBP_O1.jpg_b3ljno.jpg';
+export const Prime_Encalve_Image = 'https://res.cloudinary.com/durbtkhbz/image/upload/v1773490837/MBP_O1.jpg_b3ljno.jpg';
+export const Prime_Encalve_Image_Hover = 'https://res.cloudinary.com/durbtkhbz/image/upload/v1773490837/MBP_O1.jpg_b3ljno.jpg';
+export const Prime_Villas_Image = 'https://res.cloudinary.com/durbtkhbz/image/upload/v1773637027/WhatsApp_Image_2026-03-14_at_5.58.21_PM_2_s3pnqg.jpg';
+export const Prime_Villas_Image_Hover = 'https://res.cloudinary.com/durbtkhbz/image/upload/v1773637027/WhatsApp_Image_2026-03-14_at_5.58.21_PM_1_wcvpoo.jpg';
 export const Prime_jel_Image = 'https://res.cloudinary.com/durbtkhbz/image/upload/v1773490838/Gemini_Generated_Image_dqgbljdqgbljdqgb_cpyf8w.png';
 export const Prime_jel_Image_Hover = 'https://res.cloudinary.com/durbtkhbz/image/upload/v1773490838/Gemini_Generated_Image_dqgbljdqgbljdqgb_cpyf8w.png';
 export const ai_gen_serenity_villas_Image = 'https://res.cloudinary.com/durbtkhbz/image/upload/v1773490840/Gemini_Generated_Image_skilttskilttskil_rhgqm0.png';
@@ -120,13 +120,13 @@ export const projects = [
         title: 'Jogging Tracks',
         desc: 'Dedicated tracks for morning and evening walks.',
         icon: 'Footprints',
-        image: 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1771225829/jogging_pmr9bs.jpg'
+        image: 'https://res.cloudinary.com/durbtkhbz/image/upload/v1773635227/WhatsApp_Image_2026-03-16_at_9.35.58_AM_1_u8ugja.jpg'
       },
       {
         title: 'Cricket Ground',
         desc: 'Dedicated cricket play area for sports enthusiasts.',
         icon: 'Trophy',
-        image: 'https://res.cloudinary.com/durbtkhbz/image/upload/v1773499574/MBP_PARK8_egwsxo.jpg'
+        image: 'https://res.cloudinary.com/durbtkhbz/image/upload/v1773635227/WhatsApp_Image_2026-03-16_at_9.35.57_AM_1_ts6mtj.jpg'
       },
       {
         title: 'Amphitheater',
@@ -139,31 +139,31 @@ export const projects = [
         title: 'Underground Infrastructure',
         desc: 'Modern underground drainage and electric cabling system.',
         icon: 'Zap',
-        image: 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1771227055/drain_dukiqm.jpg'
+        image: 'https://res.cloudinary.com/durbtkhbz/image/upload/v1773635227/WhatsApp_Image_2026-03-16_at_9.35.57_AM_2_ltlmly.jpg'
       },
       {
         title: 'Wide Roads & Lighting',
         desc: '40ft main roads with central dividers and street lights.',
         icon: 'MapPin',
-        image: 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1771227056/road_lightling_tzel97.jpg'
+        image: 'https://res.cloudinary.com/durbtkhbz/image/upload/v1773635227/WhatsApp_Image_2026-03-16_at_9.35.58_AM_2_kgwfrx.jpg'
       },
       {
         title: 'Clean Drinking Water',
         desc: 'Reliable supply of clean drinking water.',
         icon: 'Droplets',
-        image: 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1771227055/clean_water_bybu1t.jpg'
+        image: 'https://res.cloudinary.com/durbtkhbz/image/upload/v1773635227/WhatsApp_Image_2026-03-16_at_9.35.57_AM_ciyt1d.jpg'
       },
       {
         title: 'Club House',
         desc: 'Club House with all the amenities for the residents.',
         icon: 'Home',
-        image: 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1772252199/MBP_CH2.jpg_b3oqlv.jpg'
+        image: 'https://res.cloudinary.com/durbtkhbz/image/upload/v1773636721/MBP_CH2.jpg_1_muchih.jpg'
       },
       {
         title: '24/7 Security',
         desc: '24/7 gate security with security guards & solar fencing.',
         icon: 'Check',
-        image: 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1771237189/security_ledwwh.jpg'
+        image: 'https://res.cloudinary.com/durbtkhbz/image/upload/v1773635226/WhatsApp_Image_2026-03-16_at_9.35.58_AM_3_rk2evq.jpg'
       },
 
     ],
@@ -237,7 +237,7 @@ export const projects = [
         title: 'Volleyball Courts',
         desc: 'For Competitive & Casual Play',
         icon: 'Target',
-        image: 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1771232397/volley_ball_xp1fss.jpg'
+        image: 'https://res.cloudinary.com/durbtkhbz/image/upload/v1773635228/WhatsApp_Image_2026-03-16_at_9.34.49_AM_1_puheic.jpg'
       },
       {
         title: 'Basketball Court',
@@ -309,19 +309,19 @@ export const projects = [
         title: 'Designed Landscaping',
         desc: 'With Manicured Lawns',
         icon: 'Leaf',
-        image: 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1771235363/lawn_s3ny1k.jpg'
+        image: 'https://res.cloudinary.com/durbtkhbz/image/upload/v1773635228/WhatsApp_Image_2026-03-16_at_9.34.49_AM_kaokf2.jpg'
       },
       {
         title: '100% Vasthu',
         desc: 'Designed for Harmony',
         icon: 'Compass',
-        image: 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1771235552/kalasam_uhhsib.jpg'
+        image: 'https://res.cloudinary.com/durbtkhbz/image/upload/v1773635228/WhatsApp_Image_2026-03-16_at_9.34.48_AM_1_fxferm.jpg'
       },
       {
         title: 'Underground Drainage & Electricity',
         desc: 'Advanced underground sewage & modern cabling.',
         icon: 'Zap',
-        image: 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1771236752/drain_y4nc6r.jpg'
+        image: 'https://res.cloudinary.com/durbtkhbz/image/upload/v1773635228/WhatsApp_Image_2026-03-16_at_9.34.48_AM_navtsz.jpg'
       }
     ],
     villaTypes: [
@@ -337,7 +337,7 @@ export const projects = [
         tag1:'North Face - GF',
         tag2:'North Face - FF',
         tag3:'North Face - SF',
-        image: 'https://res.cloudinary.com/durbtkhbz/image/upload/v1770882555/plot1_ikla4a.png',
+        image: 'https://res.cloudinary.com/durbtkhbz/image/upload/v1773637027/WhatsApp_Image_2026-03-14_at_5.58.21_PM_2_s3pnqg.jpg',
         image1: 'https://res.cloudinary.com/durbtkhbz/image/upload/v1773500408/TRIPLEX_NORTH_FACE_50_X_36_GF_balv5q.jpg',
         image2: 'https://res.cloudinary.com/durbtkhbz/image/upload/v1773500411/TRIPLEX_NORTH_FACE_50_X_36_FF_wkvsah.jpg',
         image3: 'https://res.cloudinary.com/durbtkhbz/image/upload/v1773500393/TRIPLEX_NORTH_FACE_50_X_36_SF_on6ywb.jpg',
@@ -354,7 +354,7 @@ export const projects = [
         tag: 'Duplex Villa - South Face',
         tag1:'South Face - GF',
         tag2:'South Face - FF',
-        image: 'https://res.cloudinary.com/durbtkhbz/image/upload/v1770882631/plot3_jzl1fn.png',
+        image: 'https://res.cloudinary.com/durbtkhbz/image/upload/v1773637027/WhatsApp_Image_2026-03-14_at_5.58.21_PM_1_wcvpoo.jpg',
         image1: 'https://res.cloudinary.com/durbtkhbz/image/upload/v1773500395/DUPLEX_SOUTH_FACE_40_x36_GF_agxu9t.jpg',
         image2: 'https://res.cloudinary.com/durbtkhbz/image/upload/v1773500396/DUPLEX_SOUTH_FACE_40_x36_FF_yd91ly.jpg',
         color: 'bg-[#76A847]' // Green from image
@@ -370,7 +370,7 @@ export const projects = [
         tag: 'Duplex Villa - North Face',
         tag1:'North Face - GF',
         tag2:'North Face - FF',
-        image: 'https://res.cloudinary.com/durbtkhbz/image/upload/v1770882554/plot2_sn5bq0.png',
+        image: 'https://res.cloudinary.com/durbtkhbz/image/upload/v1773637132/WhatsApp_Image_2026-03-14_at_5.58.21_PM_3_hkdrtk.jpg',
         image1: 'https://res.cloudinary.com/durbtkhbz/image/upload/v1773491786/DUPLEX_NORTH_FACE_50_x36_GF_gvkrub.jpg',
         image2: 'https://res.cloudinary.com/durbtkhbz/image/upload/v1773491778/DUPLEX_NORTH_FACE_50_x36_FF_ptp8ik.jpg',
         color: 'bg-[#B5A445]' // Gold/Yellow from image
