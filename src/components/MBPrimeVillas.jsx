@@ -1,15 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link, useParams, Navigate } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-  Check, MapPin, Layout, ClipboardList, ChevronLeft, ChevronRight, Download, Plane,
-  Footprints, Trophy, Target, Zap, Smile, Trees, Music, Home, Waves, Users, Sunrise, Droplets, Leaf, Compass,
-  Info, X, ZoomIn, ZoomOut, ArrowRight, ChevronDown, ChevronUp, Stethoscope, GraduationCap, Train, Bus
+  Check, MapPin, Download, Plane, Footprints, Trophy, Target, Zap, Smile, Trees, Music, Home, Waves,
+  Users, Sunrise, Droplets, Leaf, Compass, Info, X, ZoomIn, ZoomOut, ArrowRight, ChevronDown, ChevronUp,
+  Stethoscope, GraduationCap, Train, Bus, Sparkles, Dices, ChevronLeft, ChevronRight, ClipboardList
 } from 'lucide-react';
 import { projects, getProjectBySlug } from '../data/projects';
 import ProjectHeader from './ProjectHeader';
 import { updateFavicon, updatePageTitle } from '../utils/favicon';
 import { useLazyVideo } from '../hooks/useLazyVideo';
+
 const iconMap = {
   Footprints, Trophy, Target, Zap, Smile, Trees, Music, Home, Waves, Users, Sunrise, Droplets, Leaf, Compass, Check,
   Hospital: Stethoscope, School: GraduationCap, Train, Bus, Plane, MapPin
@@ -19,25 +20,26 @@ const MBPrimeVillas = () => {
   const project = getProjectBySlug('MB-Prime-Villas');
   const { ref: heroVideoRef, shouldLoad: shouldLoadHeroVideo } = useLazyVideo({ rootMargin: '100px' });
   const [showBadge, setShowBadge] = useState(true);
-  
-    useEffect(() => {
-      const timer = setTimeout(() => {
-        setShowBadge(false);
-      }, 8000); // Hide after 20 seconds
-      return () => clearTimeout(timer);
-    }, []);
-  // 1. STATE DECLARATIONS (Must come first)
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowBadge(false);
+    }, 8000); // Hide badge after 8 seconds
+    return () => clearTimeout(timer);
+  }, []);
+
+  // State Declarations
   const [startIndex, setStartIndex] = useState(0);
   const [activePlotTab, setActivePlotTab] = useState(0);
   const [isLayoutZoomed, setIsLayoutZoomed] = useState(false);
   const [zoomLevel, setZoomLevel] = useState(1);
   const [showAllAmenities, setShowAllAmenities] = useState(false);
-  
+
   // New States for Amazon-style Gallery
   const [selectedImgIndex, setSelectedImgIndex] = useState(0);
   const [isImgZoomed, setIsImgZoomed] = useState(false);
 
-  // 2. DEPENDENT CONSTANTS (Safely access state here)
+  // Dependent Constants
   const currentVilla = project?.villaTypes?.[activePlotTab];
   const villaImages = currentVilla ? [
     currentVilla.image,
@@ -52,18 +54,18 @@ const MBPrimeVillas = () => {
   const allOtherProjects = projects.filter(p => p.slug !== 'MB-Prime-Villas');
   const visibleProjects = allOtherProjects.slice(startIndex, startIndex + 4);
 
-  // 3. REFS
+  // Refs
   const tabsRef = useRef([]);
   const tabsContainerRef = useRef(null);
 
-  // 4. EFFECTS
+  // Effects
   useEffect(() => {
     updateFavicon(project?.favicon);
     updatePageTitle(project?.name);
 
     return () => {
-      updateFavicon(); 
-      updatePageTitle(); 
+      updateFavicon();
+      updatePageTitle();
     };
   }, [project]);
 
@@ -96,7 +98,7 @@ const MBPrimeVillas = () => {
     if (!isLayoutZoomed && !isImgZoomed) setZoomLevel(1);
   }, [isLayoutZoomed, isImgZoomed]);
 
-  // 5. HANDLERS
+  // Handlers
   const nextProjects = () => {
     if (startIndex + 4 < allOtherProjects.length) {
       setStartIndex(prev => prev + 1);
@@ -125,343 +127,338 @@ const MBPrimeVillas = () => {
   };
 
   if (!project) return <Navigate to="/projects" replace />;
+
   return (
     <>
       <ProjectHeader project={project} />
 
-      {/* Full-bleed hero – 3D depth, separate-website feel */}
       {/* Full-bleed hero – Inspired by ASBL Spectra */}
       <section ref={heroVideoRef} className="relative h-screen w-full overflow-hidden flex items-center">
-  {/* Background Image */}
-  <div className="absolute inset-0 z-0">
-    <video
-      autoPlay
-      loop
-      muted
-      playsInline
-      preload={shouldLoadHeroVideo ? 'metadata' : 'none'}
-      poster="https://res.cloudinary.com/durbtkhbz/image/upload/v1770525312/sklmlayout_apnxnc.png"
-      className="w-full h-full object-cover"
-    >
-      {shouldLoadHeroVideo && (
-        <source
-          src="https://res.cloudinary.com/dgmrbxuvb/video/upload/v1771062732/mb_prime_villas_kgthud.mp4"
-          type="video/mp4"
-        />
-      )}
-      Your browser does not support the video tag.
-    </video>
-
-    {/* Gradient Overlay */}
-    <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent" />
-  </div>
-
-  {/* Content Container */}
-  <div className="project-hero-content relative z-10 container mx-auto h-full flex flex-col justify-center px-6 md:px-12">
-    <motion.div
-      /* landscape:scale-[0.85] and landscape:origin-left ensure the 
-         content doesn't overflow vertically on short screens 
-      */
-      className="max-w-3xl ml-0 lg:ml-12 mt-10 landscape:mt-16 landscape:scale-[0.85] landscape:origin-left md:landscape:scale-100 md:landscape:mt-10"
-      initial={{ opacity: 0, x: -30 }}
-      animate={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.8, delay: 0.2 }}
-    >
-      {project.heroImageTag && (
-        <p className="text-[#8B4512] text-xs md:text-sm font-serif font-semibold tracking-wider mb-3 bg-white/90 backdrop-blur-sm inline-block px-3 py-1.5 rounded landscape:mb-2">
-          {project.heroImageTag}
-        </p>
-      )}
-      
-      <p className="text-white/80 text-xs md:text-sm font-sans font-bold tracking-[0.2em] mb-4 uppercase landscape:mb-2">
-        {project.tagline || 'LIVE IN LUXURY'}
-      </p>
-
-      <h1 className="text-3xl md:text-5xl lg:text-6xl font-sans font-bold text-white leading-tight mb-4 landscape:text-3xl landscape:mb-2 md:landscape:text-5xl lg:landscape:text-6xl">
-        {project.name}
-      </h1>
-
-      <p className="text-lg md:text-xl text-white/90 font-sans font-light mb-2 landscape:text-base landscape:mb-1">
-        {project.subtitle || 'Experience the pinnacle of modern living.'}
-      </p>
-
-      <p className="text-white/70 text-xs md:text-sm font-sans mb-10 landscape:mb-6 md:landscape:mb-10">
-        {project.configurations || 'Luxury Configurations Available'}
-      </p>
-
-      <div className="flex gap-12 mb-10 border-l-2 border-secondary pl-6 landscape:mb-6 md:landscape:mb-10">
-        <div>
-          <p className="text-white/60 text-xs font-sans uppercase tracking-wider mb-1">SPREAD ACROSS</p>
-          <p className="text-white text-2xl md:text-3xl font-sans font-medium">
-            {project.acres || 'TBA'}
-          </p>
-        </div>
-      </div>
-
-      <motion.button
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-        onClick={() => {
-          const brochure = project?.brochureLink && project.brochureLink !== '#' ? project.brochureLink : null;
-          window.dispatchEvent(new CustomEvent('open-enquiry-popup', {
-            detail: {
-              brochure: brochure || null,
-              autoDownloadAfterSubmit: Boolean(brochure),
-              downloadFileName: brochure ? `${(project?.name || 'MB_Prime').replace(/\s+/g, '_')}_Brochure.pdf` : 'Brochure.pdf',
-              formType: brochure ? 'brochure' : 'enquiry',
-            },
-          }));
-        }}
-        className="bg-white text-primary px-6 py-3 rounded-full font-sans font-bold flex items-center gap-2 hover:bg-secondary hover:text-primary transition-colors text-sm shadow-xl"
-      >
-        <Download size={18} />
-        Brochure
-      </motion.button>
-    </motion.div>
-  </div>
-
-  {/* VMRDA-RERA Approved Badge */}
-  <AnimatePresence>
-    {showBadge && (
-      <motion.div
-        initial={{ x: 100, opacity: 0 }}
-        animate={{ x: 0, opacity: 1 }}
-        exit={{ x: 100, opacity: 0 }}
-        transition={{ delay: 1, duration: 0.8 }}
-        /* landscape:scale-75 shrinks the badge so it doesn't crowd the text */
-        className="absolute bottom-10 right-6 md:right-10 z-20 flex items-center justify-center w-22 h-22 md:w-27 md:h-27 bg-white/95 backdrop-blur-md rounded-full shadow-lg border-2 border-secondary landscape:scale-75 landscape:bottom-4 md:landscape:scale-100 md:landscape:bottom-10"
-      >
-        <div className="flex flex-col items-center justify-center p-1 ml-2">
-          <div className="flex items-center justify-center">
-            <img src="https://res.cloudinary.com/durbtkhbz/image/upload/v1773635228/WhatsApp_Image_2026-03-16_at_9.35.31_AM_xfgyvz.jpg" alt="VMRDA" className="w-8 h-8 md:w-9 md:h-9 object-contain" />
-            <img src="https://res.cloudinary.com/durbtkhbz/image/upload/v1773635344/WhatsApp_Image_2026-03-16_at_9.35.31_AM__1_-removebg-preview_dxsghp.png" alt="RERA" className="w-10 h-10 md:w-15 md:h-15 object-contain" />
-          </div>
-          <p className="text-[7px] md:text-[9px] font-sans font-bold text-secondary uppercase tracking-wider">
-            APPROVED
-          </p>
-        </div>
-      </motion.div>
-    )}
-  </AnimatePresence>
-</section>
-
-      {/* Content block – clean, editorial */}
-      <section className="py-16 md:py-24 bg-bg-light">
-        <div className="container  mx-auto">
-
-
-
-
-          {/* Plots Section */}
-          
-<div id="plots" className="scroll-mt-32 mb-20">
-  {project.villaTypes && (
-    <motion.section
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-    >
-      {/* Header & Tabs */}
-      <div className="flex flex-col items-center justify-center mb-16">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.6 }}
-          className="relative mb-12"
-        >
-          <h2 className="text-2xl md:text-4xl font-sans font-bold text-primary tracking-tight">
-            Villa Configurations
-          </h2>
-          <motion.div
-            initial={{ width: 0 }}
-            whileInView={{ width: '100%' }}
-            transition={{ delay: 0.5, duration: 0.8 }}
-            className="absolute -bottom-2 left-0 h-1 bg-gradient-to-r from-secondary/60 to-transparent rounded-full"
-          />
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3, duration: 0.6 }}
-          ref={tabsContainerRef}
-          className="flex p-1 bg-slate-100 rounded-xl w-full md:w-fit overflow-x-auto border border-slate-200/50 shadow-sm no-scrollbar scroll-smooth md:-mt-0 -mt-5"
-        >
-          <div className="flex min-w-max md:min-w-0">
-            {project.villaTypes.map((type, index) => (
-              <button
-                key={type.id}
-                ref={el => tabsRef.current[index] = el}
-                onClick={() => setActivePlotTab(index)}
-                className={`relative px-3 md:px-8 py-2.5 rounded-lg font-sans font-bold text-[10px] md:text-xs uppercase tracking-wide transition-colors duration-300 whitespace-nowrap ${activePlotTab === index ? 'text-secondary' : 'text-slate-400 hover:text-slate-600'}`}
-              >
-                {activePlotTab === index && (
-                  <motion.div
-                    layoutId="activePlotTabBackgroundHeader"
-                    className="absolute inset-0 bg-white rounded-lg shadow-sm"
-                    transition={{ type: "spring", bounce: 0.15, duration: 0.5 }}
-                  />
-                )}
-                <span className="relative z-10">
-                  {type.type} {type.direction && <span className="ml-1 opacity-60 text-[10px]">({type.direction})</span>}
-                </span>
-              </button>
-            ))}
-          </div>
-        </motion.div>
-      </div>
-
-      {/* Gallery and Content Container */}
-      <div className="flex items-center justify-center gap-2 md:gap-8 md:-mt-0 -mt-7">
-        <button
-          onClick={() => setActivePlotTab(prev => (prev === 0 ? project.villaTypes.length - 1 : prev - 1))}
-          className="p-2 md:p-3 rounded-full bg-slate-50 text-slate-400 hover:bg-secondary hover:text-white transition-all shadow-sm z-10"
-        >
-          <ChevronLeft size={24} />
-        </button>
-
-        <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center justify-items-center w-full max-w-6xl">
-          
-          {/* Left: Amazon-style Gallery */}
-          <div className="flex flex-col gap-6 w-full items-center">
-            <motion.div
-              key={`${currentVilla.id}-${selectedImgIndex}`}
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              className="relative w-full max-w-[350px] aspect-[3/3] overflow-hidden rounded-2xl shadow-xl group cursor-zoom-in"
-              onClick={() => setIsImgZoomed(true)}
-            >
-              <img
-                src={villaImages[selectedImgIndex]}
-                alt={currentVilla.type}
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                loading="lazy"
+        <div className="absolute inset-0 z-0 overflow-hidden">
+          {shouldLoadHeroVideo ? (
+            <div className="relative w-full h-full scale-125">
+              <iframe
+                src="https://www.youtube.com/embed/Kohsq4Ydb5o?autoplay=1&mute=1&loop=1&playlist=Kohsq4Ydb5o&controls=0&modestbranding=1&playsinline=1&rel=0&showinfo=0&iv_load_policy=3&disablekb=1&fs=0"
+                title="MB Prime Villas Hero Video"
+                className="absolute top-1/2 left-1/2 w-[100vw] h-[56.25vw] min-h-[100vh] min-w-[177.77vh] -translate-x-1/2 -translate-y-1/2"
+                frameBorder="0"
+                allow="autoplay; fullscreen; encrypted-media"
+                style={{ pointerEvents: 'none' }}
               />
-              {villaImageTags[selectedImgIndex] && (
-                <div className="absolute top-3 left-0 right-0 flex justify-center pointer-events-none">
-                  <span className="text-[10px] md:text-xs font-serif font-semibold text-[#8B4512] uppercase tracking-wider bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded shadow-sm">
-                    {villaImageTags[selectedImgIndex]}
-                  </span>
-                </div>
-              )}
-              <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                <div className="bg-white/90 p-2 rounded-full shadow-lg">
-                  <ZoomIn size={20} className="text-primary" />
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Thumbnails Row */}
-            <div className="flex gap-3 justify-center flex-wrap">
-              {villaImages.map((img, idx) => (
-                <button
-                  key={idx}
-                  onClick={() => setSelectedImgIndex(idx)}
-                  className={`flex flex-col items-center gap-1 w-16 md:w-20 rounded-xl overflow-hidden border-2 transition-all shadow-sm 
-                    ${selectedImgIndex === idx ? 'border-secondary scale-105 ring-2 ring-secondary/20' : 'border-transparent opacity-70 hover:opacity-100'}`}
-                >
-                  <img src={img} className="w-full h-14 md:h-16 object-cover" alt={villaImageTags[idx] || 'thumbnail'} loading="lazy" />
-                  {villaImageTags[idx] && (
-                    <span className="text-[8px] md:text-[9px] font-sans font-medium text-primary px-1 text-center leading-tight line-clamp-2">
-                      {villaImageTags[idx]}
-                    </span>
-                  )}
-                </button>
-              ))}
             </div>
-          </div>
+          ) : (
+            <img
+              src="https://res.cloudinary.com/durbtkhbz/image/upload/v1773503065/MBP_SITE_PLAN.jpg_l2etut.jpg"
+              alt="MB Prime Villas Hero"
+              className="w-full h-full object-cover"
+              loading="lazy"
+            />
+          )}
 
-          {/* Right: Vertically Centered Details */}
+          {/* Gradient Overlay to ensure text readability */}
+          <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/20 to-transparent" />
+        </div>
+
+        {/* Content Container */}
+        <div className="project-hero-content relative z-10 container mx-auto h-full flex flex-col justify-center px-6 md:px-12">
           <motion.div
-            key={`${currentVilla.id}-details`}
-            initial={{ opacity: 0, x: 20 }}
+            className="max-w-3xl ml-0 lg:ml-12 mt-10 landscape:mt-16 landscape:scale-[0.85] landscape:origin-left md:landscape:scale-100 md:landscape:mt-10"
+            initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
-            className="flex flex-col justify-center text-center md:text-left w-full h-full"
+            transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <h3 className="md:text-3xl text-2xl font-sans font-bold text-primary md:mb-6 mb-2">
-              {currentVilla.type}
-            </h3>
-            
-            <div className="flex flex-wrap gap-4 mb-8 text-sm font-sans text-slate-500 justify-center md:justify-start">
-              <span className="bg-white px-4 py-2 rounded-lg border border-slate-100 shadow-sm">
-                Size: <strong className="text-slate-800">{currentVilla.size}</strong>
-              </span>
-              {currentVilla.direction && (
-                <span className="bg-white px-4 py-2 rounded-lg border border-slate-100 shadow-sm">
-                  Direction: <strong className="text-slate-800">{currentVilla.direction}</strong>
-                </span>
-              )}
-            </div>
+            {project.heroImageTag && (
+              <p className="text-[#8B4512] text-xs md:text-sm font-serif font-semibold tracking-wider mb-3 bg-white/90 backdrop-blur-sm inline-block px-3 py-1.5 rounded landscape:mb-2">
+                {project.heroImageTag}
+              </p>
+            )}
 
-            <p className="text-slate-600 font-sans leading-relaxed mb-8 md:text-lg text-sm">
-              {currentVilla.description}
+            <p className="text-white/80 text-xs md:text-sm font-sans font-bold tracking-[0.2em] mb-4 uppercase landscape:mb-2">
+              {project.tagline || 'LIVE IN LUXURY'}
             </p>
 
-            <div className="grid grid-cols-2 gap-8 pt-8 border-t border-slate-100">
+            <h1 className="text-3xl md:text-5xl lg:text-6xl font-sans font-bold text-white leading-tight mb-4 landscape:text-3xl landscape:mb-2 md:landscape:text-5xl lg:landscape:text-6xl">
+              {project.name}
+            </h1>
+
+            <p className="text-lg md:text-xl text-white/90 font-sans font-light mb-2 landscape:text-base landscape:mb-1">
+              {project.subtitle || 'Experience the pinnacle of modern living.'}
+            </p>
+
+            <p className="text-white/70 text-xs md:text-sm font-sans mb-10 landscape:mb-6 md:landscape:mb-10">
+              {project.configurations || 'Luxury Configurations Available'}
+            </p>
+
+            <div className="flex gap-12 mb-10 border-l-2 border-secondary pl-6 landscape:mb-6 md:landscape:mb-10">
               <div>
-                <p className="md:text-sm text-[10px] uppercase tracking-widest font-bold text-slate-400 mb-1">Plot Area</p>
-                <div className="h-0.5 w-8 bg-indigo-400 rounded-full mb-3 mx-auto md:mx-0"></div>
-                <p className="md:text-2xl text-lg font-sans font-bold text-primary">{currentVilla.area}</p>
-              </div>
-              <div>
-                <p className="md:text-sm text-[10px] uppercase tracking-widest font-bold text-slate-400 mb-1">Built Up Area</p>
-                <div className="h-0.5 w-8 bg-indigo-400 rounded-full mb-3 mx-auto md:mx-0"></div>
-                <p className="md:text-2xl text-lg font-sans font-bold text-primary">{currentVilla.builtUp}</p>
+                <p className="text-white/60 text-xs font-sans uppercase tracking-wider mb-1">SPREAD ACROSS</p>
+                <p className="text-white text-2xl md:text-3xl font-sans font-medium">
+                  {project.acres || 'TBA'}
+                </p>
               </div>
             </div>
+
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => {
+                const brochure = project?.brochureLink && project.brochureLink !== '#' ? project.brochureLink : null;
+                window.dispatchEvent(new CustomEvent('open-enquiry-popup', {
+                  detail: {
+                    brochure: brochure || null,
+                    autoDownloadAfterSubmit: Boolean(brochure),
+                    downloadFileName: brochure ? `${(project?.name || 'MB_Prime').replace(/\s+/g, '_')}_Brochure.pdf` : 'Brochure.pdf',
+                    formType: brochure ? 'brochure' : 'enquiry',
+                  },
+                }));
+              }}
+              className="bg-white text-primary px-6 py-3 rounded-full font-sans font-bold flex items-center gap-2 hover:bg-secondary hover:text-primary transition-colors text-sm shadow-xl"
+            >
+              <Download size={18} />
+              Brochure
+            </motion.button>
           </motion.div>
         </div>
 
-        <button
-          onClick={() => setActivePlotTab(prev => (prev === project.villaTypes.length - 1 ? 0 : prev + 1))}
-          className="p-2 md:p-3 rounded-full bg-slate-50 text-slate-400 hover:bg-secondary hover:text-white transition-all shadow-sm z-10"
-        >
-          <ChevronRight size={24} />
-        </button>
-      </div>
-    </motion.section>
-  )}
-
-  {/* Villa Image Zoom Modal */}
-  <AnimatePresence>
-    {isImgZoomed && (
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        onClick={() => setIsImgZoomed(false)}
-        className="fixed inset-0 z-[110] flex items-center justify-center bg-black/95 backdrop-blur-md p-4"
-      >
-        <motion.div
-          initial={{ scale: 0.9 }}
-          animate={{ scale: 1 }}
-          className="relative max-w-6xl w-full flex flex-col items-center"
-          onClick={e => e.stopPropagation()}
-        >
-          <img 
-            src={villaImages[selectedImgIndex]} 
-            alt={villaImageTags[selectedImgIndex] || 'Villa Detail'} 
-            className="max-h-[85vh] w-auto rounded-lg shadow-2xl"
-            loading="lazy"
-          />
-          {villaImageTags[selectedImgIndex] && (
-            <div className="absolute top-4 left-1/2 -translate-x-1/2 pointer-events-none">
-              <span className="text-sm font-serif font-semibold text-[#8B4512] uppercase tracking-wider bg-white/95 backdrop-blur-sm px-4 py-2 rounded shadow-lg">
-                {villaImageTags[selectedImgIndex]}
-              </span>
-            </div>
+        {/* VMRDA-RERA Approved Badge */}
+        <AnimatePresence>
+          {showBadge && (
+            <motion.div
+              initial={{ x: 100, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              exit={{ x: 100, opacity: 0 }}
+              transition={{ delay: 1, duration: 0.8 }}
+              className="absolute bottom-10 right-6 md:right-10 z-20 flex items-center justify-center w-22 h-22 md:w-27 md:h-27 bg-white/95 backdrop-blur-md rounded-full shadow-lg border-2 border-secondary landscape:scale-75 landscape:bottom-4 md:landscape:scale-100 md:landscape:bottom-10"
+            >
+              <div className="flex flex-col items-center justify-center p-1 ml-2">
+                <div className="flex items-center justify-center">
+                  <img src="https://res.cloudinary.com/durbtkhbz/image/upload/v1773635228/WhatsApp_Image_2026-03-16_at_9.35.31_AM_xfgyvz.jpg" alt="VMRDA" className="w-8 h-8 md:w-9 md:h-9 object-contain" />
+                  <img src="https://res.cloudinary.com/durbtkhbz/image/upload/v1773635344/WhatsApp_Image_2026-03-16_at_9.35.31_AM__1_-removebg-preview_dxsghp.png" alt="RERA" className="w-10 h-10 md:w-15 md:h-15 object-contain" />
+                </div>
+                <p className="text-[7px] md:text-[9px] font-sans font-bold text-secondary uppercase tracking-wider">
+                  APPROVED
+                </p>
+              </div>
+            </motion.div>
           )}
-          <button 
-            onClick={() => setIsImgZoomed(false)}
-            className="absolute -top-12 right-0 text-white hover:text-secondary transition-colors"
-          >
-            <X size={32} />
-          </button>
-        </motion.div>
-      </motion.div>
-    )}
-  </AnimatePresence>
-</div>
+        </AnimatePresence>
+      </section>
+
+      {/* Content block – clean, editorial */}
+      <section className="py-16 md:py-24 bg-bg-light">
+        <div className="container mx-auto">
+
+          {/* Plots Section */}
+          <div id="plots" className="scroll-mt-32 mb-20">
+            {project.villaTypes && (
+              <motion.section
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+              >
+                {/* Header & Tabs */}
+                <div className="flex flex-col items-center justify-center mb-16">
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.6 }}
+                    className="relative mb-12"
+                  >
+                    <h2 className="text-2xl md:text-4xl font-sans font-bold text-primary tracking-tight">
+                      Villa Configurations
+                    </h2>
+                    <motion.div
+                      initial={{ width: 0 }}
+                      whileInView={{ width: '100%' }}
+                      transition={{ delay: 0.5, duration: 0.8 }}
+                      className="absolute -bottom-2 left-0 h-1 bg-gradient-to-r from-secondary/60 to-transparent rounded-full"
+                    />
+                  </motion.div>
+
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.3, duration: 0.6 }}
+                    ref={tabsContainerRef}
+                    className="flex p-1 bg-slate-100 rounded-xl w-full md:w-fit overflow-x-auto border border-slate-200/50 shadow-sm no-scrollbar scroll-smooth md:-mt-0 -mt-5"
+                  >
+                    <div className="flex min-w-max md:min-w-0">
+                      {project.villaTypes.map((type, index) => (
+                        <button
+                          key={type.id}
+                          ref={el => tabsRef.current[index] = el}
+                          onClick={() => setActivePlotTab(index)}
+                          className={`relative px-3 md:px-8 py-2.5 rounded-lg font-sans font-bold text-[10px] md:text-xs uppercase tracking-wide transition-colors duration-300 whitespace-nowrap ${activePlotTab === index ? 'text-secondary' : 'text-slate-400 hover:text-slate-600'}`}
+                        >
+                          {activePlotTab === index && (
+                            <motion.div
+                              layoutId="activePlotTabBackgroundHeader"
+                              className="absolute inset-0 bg-white rounded-lg shadow-sm"
+                              transition={{ type: "spring", bounce: 0.15, duration: 0.5 }}
+                            />
+                          )}
+                          <span className="relative z-10">
+                            {type.type} {type.direction && <span className="ml-1 opacity-60 text-[10px]">({type.direction})</span>}
+                          </span>
+                        </button>
+                      ))}
+                    </div>
+                  </motion.div>
+                </div>
+
+                {/* Gallery and Content Container */}
+                <div className="flex items-center justify-center gap-2 md:gap-8 md:-mt-0 -mt-7">
+                  <button
+                    onClick={() => setActivePlotTab(prev => (prev === 0 ? project.villaTypes.length - 1 : prev - 1))}
+                    className="p-2 md:p-3 rounded-full bg-slate-50 text-slate-400 hover:bg-secondary hover:text-white transition-all shadow-sm z-10"
+                  >
+                    <ChevronLeft size={24} />
+                  </button>
+
+                  <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center justify-items-center w-full max-w-6xl">
+
+                    {/* Left: Amazon-style Gallery */}
+                    <div className="flex flex-col gap-6 w-full items-center">
+                      <motion.div
+                        key={`${currentVilla.id}-${selectedImgIndex}`}
+                        initial={{ opacity: 0, scale: 0.95 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        className="relative w-full max-w-[350px] aspect-[3/3] overflow-hidden rounded-2xl shadow-xl group cursor-zoom-in"
+                        onClick={() => setIsImgZoomed(true)}
+                      >
+                        <img
+                          src={villaImages[selectedImgIndex]}
+                          alt={currentVilla.type}
+                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                          loading="lazy"
+                        />
+                        {villaImageTags[selectedImgIndex] && (
+                          <div className="absolute top-3 left-0 right-0 flex justify-center pointer-events-none">
+                            <span className="text-[10px] md:text-xs font-serif font-semibold text-[#8B4512] uppercase tracking-wider bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded shadow-sm">
+                              {villaImageTags[selectedImgIndex]}
+                            </span>
+                          </div>
+                        )}
+                        <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                          <div className="bg-white/90 p-2 rounded-full shadow-lg">
+                            <ZoomIn size={20} className="text-primary" />
+                          </div>
+                        </div>
+                      </motion.div>
+
+                      {/* Thumbnails Row */}
+                      <div className="flex gap-3 justify-center flex-wrap">
+                        {villaImages.map((img, idx) => (
+                          <button
+                            key={idx}
+                            onClick={() => setSelectedImgIndex(idx)}
+                            className={`flex flex-col items-center gap-1 w-16 md:w-20 rounded-xl overflow-hidden border-2 transition-all shadow-sm 
+                        ${selectedImgIndex === idx ? 'border-secondary scale-105 ring-2 ring-secondary/20' : 'border-transparent opacity-70 hover:opacity-100'}`}
+                          >
+                            <img src={img} className="w-full h-14 md:h-16 object-cover" alt={villaImageTags[idx] || 'thumbnail'} loading="lazy" />
+                            {villaImageTags[idx] && (
+                              <span className="text-[8px] md:text-[9px] font-sans font-medium text-primary px-1 text-center leading-tight line-clamp-2">
+                                {villaImageTags[idx]}
+                              </span>
+                            )}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Right: Vertically Centered Details */}
+                    <motion.div
+                      key={`${currentVilla.id}-details`}
+                      initial={{ opacity: 0, x: 20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      className="flex flex-col justify-center text-center md:text-left w-full h-full"
+                    >
+                      <h3 className="md:text-3xl text-2xl font-sans font-bold text-primary md:mb-6 mb-2">
+                        {currentVilla.type}
+                      </h3>
+
+                      <div className="flex flex-wrap gap-4 mb-8 text-sm font-sans text-slate-500 justify-center md:justify-start">
+                        <span className="bg-white px-4 py-2 rounded-lg border border-slate-100 shadow-sm">
+                          Size: <strong className="text-slate-800">{currentVilla.size}</strong>
+                        </span>
+                        {currentVilla.direction && (
+                          <span className="bg-white px-4 py-2 rounded-lg border border-slate-100 shadow-sm">
+                            Direction: <strong className="text-slate-800">{currentVilla.direction}</strong>
+                          </span>
+                        )}
+                      </div>
+
+                      <p className="text-slate-600 font-sans leading-relaxed mb-8 md:text-lg text-sm">
+                        {currentVilla.description}
+                      </p>
+
+                      <div className="grid grid-cols-2 gap-8 pt-8 border-t border-slate-100">
+                        <div>
+                          <p className="md:text-sm text-[10px] uppercase tracking-widest font-bold text-slate-400 mb-1">Plot Area</p>
+                          <div className="h-0.5 w-8 bg-indigo-400 rounded-full mb-3 mx-auto md:mx-0"></div>
+                          <p className="md:text-2xl text-lg font-sans font-bold text-primary">{currentVilla.area}</p>
+                        </div>
+                        <div>
+                          <p className="md:text-sm text-[10px] uppercase tracking-widest font-bold text-slate-400 mb-1">Built Up Area</p>
+                          <div className="h-0.5 w-8 bg-indigo-400 rounded-full mb-3 mx-auto md:mx-0"></div>
+                          <p className="md:text-2xl text-lg font-sans font-bold text-primary">{currentVilla.builtUp}</p>
+                        </div>
+                      </div>
+                    </motion.div>
+                  </div>
+
+                  <button
+                    onClick={() => setActivePlotTab(prev => (prev === project.villaTypes.length - 1 ? 0 : prev + 1))}
+                    className="p-2 md:p-3 rounded-full bg-slate-50 text-slate-400 hover:bg-secondary hover:text-white transition-all shadow-sm z-10"
+                  >
+                    <ChevronRight size={24} />
+                  </button>
+                </div>
+              </motion.section>
+            )}
+
+            {/* Villa Image Zoom Modal */}
+            <AnimatePresence>
+              {isImgZoomed && (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  onClick={() => setIsImgZoomed(false)}
+                  className="fixed inset-0 z-[110] flex items-center justify-center bg-black/95 backdrop-blur-md p-4"
+                >
+                  <motion.div
+                    initial={{ scale: 0.9 }}
+                    animate={{ scale: 1 }}
+                    className="relative max-w-6xl w-full flex flex-col items-center"
+                    onClick={e => e.stopPropagation()}
+                  >
+                    <img
+                      src={villaImages[selectedImgIndex]}
+                      alt={villaImageTags[selectedImgIndex] || 'Villa Detail'}
+                      className="max-h-[85vh] w-auto rounded-lg shadow-2xl"
+                      loading="lazy"
+                    />
+                    {villaImageTags[selectedImgIndex] && (
+                      <div className="absolute top-4 left-1/2 -translate-x-1/2 pointer-events-none">
+                        <span className="text-sm font-serif font-semibold text-[#8B4512] uppercase tracking-wider bg-white/95 backdrop-blur-sm px-4 py-2 rounded shadow-lg">
+                          {villaImageTags[selectedImgIndex]}
+                        </span>
+                      </div>
+                    )}
+                    <button
+                      onClick={() => setIsImgZoomed(false)}
+                      className="absolute -top-12 right-0 text-white hover:text-secondary transition-colors"
+                    >
+                      <X size={32} />
+                    </button>
+                  </motion.div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+
+          
 
           {/* Layout Section */}
           <div id="layout" className="scroll-mt-24 mb-20 bg-secondary/10 rounded-3xl">
@@ -474,24 +471,14 @@ const MBPrimeVillas = () => {
                 visible: {
                   opacity: 1,
                   y: 0,
-                  transition: {
-                    duration: 0.8,
-                    staggerChildren: 0.2,
-                    ease: "easeOut"
-                  }
+                  transition: { duration: 0.8, staggerChildren: 0.2, ease: "easeOut" }
                 }
               }}
             >
-
-
               <motion.div
                 variants={{
                   hidden: { opacity: 0, y: 20 },
-                  visible: {
-                    opacity: 1,
-                    y: 0,
-                    transition: { staggerChildren: 0.1, delayChildren: 0.2 }
-                  }
+                  visible: { opacity: 1, y: 0, transition: { staggerChildren: 0.1, delayChildren: 0.2 } }
                 }}
                 className="max-w-6xl mx-auto grid md:grid-cols-2 items-center py-20 px-6 md:px-12 "
               >
@@ -534,7 +521,7 @@ const MBPrimeVillas = () => {
                     hidden: { opacity: 0, scale: 0.9, rotateY: 10 },
                     visible: { opacity: 1, scale: 1, rotateY: 0, transition: { duration: 1 } }
                   }}
-                  className="relative flex justify-center items-center perspective-1000"
+                  className="relative flex justify-center perspective-1000 overflow-hidden rounded-lg px-4"
                 >
                   <div
                     className="cursor-pointer group/image"
@@ -601,12 +588,9 @@ const MBPrimeVillas = () => {
                 </motion.div>
               </div>
 
-            
-
-
               <div className="relative w-full pb-10">
                 <div className="max-w-7xl mx-auto px-4 py-12 md:py-20 relative">
-                  {/* DESKTOP: Horizontal Timeline Line (Ash Line) */}
+                  {/* DESKTOP Timeline Line */}
                   <motion.div
                     initial={{ width: 0 }}
                     whileInView={{ width: 'calc(100% - 60px)' }}
@@ -614,7 +598,7 @@ const MBPrimeVillas = () => {
                     className="absolute top-[215px] left-[30px] h-[2px] border-b-2 border-dashed border-slate-300 hidden md:block"
                   />
 
-                  {/* MOBILE: Vertical Timeline Line (Positioned at the gutter between time and text) */}
+                  {/* MOBILE Timeline Line */}
                   <motion.div
                     initial={{ height: 0 }}
                     whileInView={{ height: '100%' }}
@@ -632,7 +616,7 @@ const MBPrimeVillas = () => {
                         }}
                         className="flex flex-row md:flex-col items-center md:items-center group relative w-full md:flex-1 min-w-0"
                       >
-                        {/* 1. Time Indicator (Fixed width on mobile to align with the gutter) */}
+                        {/* 1. Time Indicator */}
                         <div className="w-[70px] md:w-full flex flex-col items-end md:items-center pr-4 md:pr-0 md:mb-4">
                           <div className="flex items-baseline gap-1">
                             <span className="text-3xl md:text-5xl lg:text-6xl font-sans font-semibold transition-all duration-700 cursor-default" style={{ color: '#801C4E' }}>
@@ -646,7 +630,7 @@ const MBPrimeVillas = () => {
                           </div>
                         </div>
 
-                        {/* 2. Map Pin (Centered on the dashed line) */}
+                        {/* 2. Map Pin */}
                         <div className="relative z-10 flex items-center justify-center w-8 md:w-full md:h-24">
                           <motion.div
                             whileHover={{ y: -5 }}
@@ -657,22 +641,18 @@ const MBPrimeVillas = () => {
                               return <IconComponent size={20} className="md:w-6 md:h-6" style={{ color: '#801C4E' }} strokeWidth={1.5} />;
                             })()}
                           </motion.div>
-
-                          {/* Desktop-only vertical stem connecting to horizontal line */}
                           <div className="hidden md:block absolute bottom-0 w-[2px] h-12 opacity-60 group-hover:opacity-100 transition-opacity" style={{ background: 'linear-gradient(to top, #801C4E, rgba(128,28,78,0.5))' }} />
-
-                          {/* Desktop-only intersection dot */}
                           <div className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-3 h-3 rounded-full border-[3px] border-white shadow-md z-30 transform scale-0 group-hover:scale-100 transition-transform duration-300 hidden md:block" style={{ backgroundColor: '#801C4E' }} />
                         </div>
 
-                        {/* 3. Location Label (Right-aligned on mobile) */}
+                        {/* 3. Location Label */}
                         <div className="flex-1 pl-4 md:pl-0 md:mt-8 md:text-center">
                           <p className="text-primary font-sans font-bold text-sm lg:text-base tracking-tight leading-snug transition-colors duration-300 group-hover:text-[#801C4E]">
                             {loc.label}
                           </p>
                         </div>
 
-                        {/* Airport Curve SVG (Desktop Only) */}
+                        {/* Airport Curve (Desktop Only) */}
                         {loc.type === 'airport' && (
                           <div className="absolute top-[215px] left-[50%] w-[120px] h-[1px] pointer-events-none overflow-visible hidden md:block">
                             <svg className="w-full h-full overflow-visible" viewBox="0 0 100 100" fill="none">
@@ -702,12 +682,13 @@ const MBPrimeVillas = () => {
                   </div>
                 </div>
               </div>
+
               {/* Google Maps Embed */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.5 }}
-                className="max-w-7xl mx-auto px-4  mb-16"
+                className="max-w-7xl mx-auto px-4 mb-16"
               >
                 <div className="relative w-full h-[300px] lg:h-[450px] rounded-3xl overflow-hidden shadow-2xl border border-slate-200 group">
                   <iframe
@@ -724,12 +705,10 @@ const MBPrimeVillas = () => {
                   <div className="absolute inset-0 pointer-events-none border-2 border-white/20 rounded-3xl" />
                 </div>
               </motion.div>
-
-
             </motion.section>
           </div>
 
-          {/* Amenities / Specifications Section */}
+          {/* Amenities Section */}
           <div id="amenities" className="scroll-mt-38 mb-20">
             {project.amenities ? (
               <motion.section
@@ -738,14 +717,13 @@ const MBPrimeVillas = () => {
                 viewport={{ once: true }}
                 className="max-w-7xl mx-auto"
               >
-                <div className="flex flex-col items-center justify-center mb-16 mt-30">
+                <div className="flex flex-col items-center justify-center mb-16 mt-30 px-4 text-center">
                   <motion.div
                     initial={{ opacity: 0, scale: 0.95 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.6 }}
-                    className="relative text-center"
+                    className="relative"
                   >
-
                     <h2 className="text-xl md:text-2xl font-sans font-bold text-secondary tracking-[0.2em] uppercase mb-2">
                       20<span className="md:text-3xl text-xl">+</span>
                     </h2>
@@ -761,10 +739,9 @@ const MBPrimeVillas = () => {
                   </motion.div>
                 </div>
 
-                <div className="max-w-5xl mx-auto px-4">
+                <div className="max-w-5xl mx-auto px-4 overflow-hidden rounded-xl">
                   <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6">
                     {project.amenities.map((item, idx) => {
-                      const AmenityIcon = iconMap[item.icon] || Info;
                       return (
                         <motion.div
                           key={idx}
@@ -778,66 +755,38 @@ const MBPrimeVillas = () => {
                           }}
                           className={`relative aspect-[4/3] rounded-xl overflow-hidden group cursor-pointer shadow-md ${!showAllAmenities && idx >= 8 ? 'hidden md:block' : ''}`}
                         >
-                          {/* Background Image */}
                           <motion.img
                             src={item.image}
                             alt={item.title}
                             className="absolute inset-0 w-full h-full object-cover"
-                            variants={{
-                              hover: { scale: 1.08 }
-                            }}
+                            variants={{ hover: { scale: 1.08 } }}
                             transition={{ duration: 0.8, ease: "easeOut" }}
                           />
-
-                          {/* Initial State Overlay (Subtle Gradient for Readability) */}
                           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-100 group-hover:opacity-0 transition-opacity duration-300" />
-
-                          {/* Static Title (Bottom Left - fades on hover) */}
-                          <div className="absolute md:bottom-4 bottom-2 left-2 md:left-4 group-hover:opacity-0 transition-opacity duration-300">
+                          <div className="absolute md:bottom-4 bottom-2 left-2 md:left-4 group-hover:opacity-0 transition-opacity duration-300 pr-4">
                             <h4 className="md:text-base text-[10px] font-sans font-bold text-white tracking-tight drop-shadow-lg">
                               {item.title}
                             </h4>
                           </div>
-
-                          {/* Hover Overlay Content (ASBL Style) */}
                           <motion.div
                             initial={{ opacity: 0 }}
-                            variants={{
-                              hover: { opacity: 1 }
-                            }}
+                            variants={{ hover: { opacity: 1 } }}
                             transition={{ duration: 0.4 }}
-                            className="absolute inset-0 bg-black/60 flex flex-col justify-between p-6 backdrop-blur-[1px]"
+                            className="absolute inset-0 bg-black/60 flex flex-col justify-end p-6 backdrop-blur-[1px]"
                           >
-                            {/* Top Left: Text */}
                             <motion.div
                               initial={{ x: -20, opacity: 0 }}
-                              variants={{
-                                hover: { x: 0, opacity: 1 }
-                              }}
+                              variants={{ hover: { x: 0, opacity: 1 } }}
                               transition={{ delay: 0.05, duration: 0.3 }}
                               className="text-left"
                             >
-                              <h4 className="text-xl font-sans font-extrabold text-white mb-2 tracking-tight">
+                              <h4 className="text-lg md:text-xl font-sans font-extrabold text-white mb-2 tracking-tight">
                                 {item.title}
                               </h4>
                               <p className="text-xs font-sans font-medium text-white/90 leading-relaxed max-w-[180px]">
                                 {item.desc}
                               </p>
                             </motion.div>
-
-                            {/* Bottom Right: Icon */}
-                            {/* <motion.div
-                              initial={{ scale: 0, opacity: 0 }}
-                              variants={{
-                                hover: { scale: 1, opacity: 1 }
-                              }}
-                              transition={{ delay: 0.15, duration: 0.3 }}
-                              className="self-end"
-                            >
-                              <div className="p-3 bg-white/10 rounded-full backdrop-blur-sm border border-white/20 text-white group-hover:bg-secondary group-hover:border-secondary transition-all duration-300">
-                                <AmenityIcon size={24} strokeWidth={1.5} />
-                              </div>
-                            </motion.div> */}
                           </motion.div>
                         </motion.div>
                       );
@@ -861,6 +810,7 @@ const MBPrimeVillas = () => {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
+                className="max-w-7xl mx-auto px-4"
               >
                 <div className="flex items-center gap-3 mb-6 border-b border-primary/10 pb-4">
                   <ClipboardList className="text-secondary" size={24} />
@@ -884,6 +834,7 @@ const MBPrimeVillas = () => {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
+                className="max-w-7xl mx-auto px-4"
               >
                 <div className="flex items-center gap-3 mb-6 border-b border-primary/10 pb-4">
                   <ClipboardList className="text-secondary" size={24} />
@@ -894,39 +845,36 @@ const MBPrimeVillas = () => {
                 <p className="text-slate-500 font-sans italic">Detailed specifications to be announced.</p>
               </motion.section>
             )}
-          </div >
+          </div>
 
-
+          {/* Connect Call-to-Action */}
           <motion.div
-            className="mt-14 mx-auto max-w-5xl bg-[#801C4E] rounded-lg p-6 md:p-10 flex flex-col md:flex-row items-center justify-between gap-6 md:gap-16 shadow-2xl overflow-hidden group"
+            className="mt-14 mx-auto max-w-5xl bg-[#801C4E] rounded-lg p-6 md:p-10 flex flex-col md:flex-row items-center justify-between gap-6 md:gap-16 shadow-2xl overflow-hidden group px-8"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
             <div className="absolute top-0 right-0 bg-white/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 gap-10" />
-
             <h3 className="text-xl md:text-2xl font-sans font-bold text-white tracking-tight z-10 text-center md:text-left ">
               Are you interested in this Property?
             </h3>
-
             <button
               onClick={() => window.dispatchEvent(new CustomEvent('open-enquiry-popup', { detail: { formType: 'enquiry' } }))}
-              className="inline-flex items-center gap-2 px-4 py-3 bg-white text-[#801C4E] font-sans font-bold rounded-full transition-all duration-300 hover:bg-white hover:text-primary hover:scale-105 hover:shadow-xl hover:shadow-secondary/25 shadow-lg z-10"
+              className="inline-flex items-center gap-2 px-4 py-3 bg-white text-[#801C4E] font-sans font-bold rounded-full transition-all duration-300 hover:bg-white hover:text-primary hover:scale-105 hover:shadow-xl hover:shadow-secondary/25 shadow-lg z-10 whitespace-nowrap"
             >
               Connect with Us <ArrowRight size={20} />
             </button>
           </motion.div>
-        </div >
-      </section >
+        </div>
+      </section>
 
       {/* Other Projects Section */}
       <section id="other-projects" className="py-20 bg-white border-t border-slate-100 scroll-mt-24">
-        <div className="container">
-          <div className="flex items-center justify-between mb-10">
-            <h2 className="text-3xl font-sans text-slate-400">Other <span className="font-bold text-primary">Projects</span></h2>
-
+        <div className="container px-4">
+          <div className="flex items-center justify-between mb-10 gap-4">
+            <h2 className="text-2xl md:text-3xl font-sans text-slate-400">Other <span className="font-bold text-primary">Projects</span></h2>
             {allOtherProjects.length > 4 && (
-              <div className="flex gap-2">
+              <div className="flex gap-2 shrink-0">
                 <button
                   onClick={prevProjects}
                   disabled={startIndex === 0}
@@ -944,7 +892,6 @@ const MBPrimeVillas = () => {
               </div>
             )}
           </div>
-
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {visibleProjects.map((other) => (
               <Link
@@ -960,12 +907,10 @@ const MBPrimeVillas = () => {
                   loading="lazy"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent transition-opacity duration-300 group-hover:via-black/40" />
-
                 <div className="absolute bottom-0 left-0 w-full p-5 text-white transform transition-transform duration-300 group-hover:-translate-y-1">
-                  <h3 className="text-lg font-bold font-sans mb-1">{other.name}</h3>
-                  <p className="text-xs font-sans text-white/90 mb-1">{other.configurations}</p>
-                  <p className="text-[10px] font-sans text-white/70 mb-2 uppercase tracking-wide">{other.location}</p>
-
+                  <h3 className="text-lg font-bold font-sans mb-1 truncate">{other.name}</h3>
+                  <p className="text-xs font-sans text-white/90 mb-1 truncate">{other.configurations}</p>
+                  <p className="text-[10px] font-sans text-white/70 mb-2 uppercase tracking-wide truncate">{other.location}</p>
                   <div className="pt-3 border-t border-white/20 mt-2 flex justify-between items-center text-[10px] font-sans text-white/60">
                     <span>{other.handover}</span>
                     <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center gap-1 text-secondary">
@@ -1012,20 +957,18 @@ const MBPrimeVillas = () => {
               />
             </motion.div>
 
-            {/* Controls */}
+            {/* Close Button */}
             <motion.button
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.8 }}
-              onClick={(e) => {
-                e.stopPropagation();
-                setIsLayoutZoomed(false);
-              }}
+              onClick={(e) => { e.stopPropagation(); setIsLayoutZoomed(false); }}
               className="absolute top-4 right-4 md:top-8 md:right-8 p-3 text-white/70 hover:text-white bg-black/50 hover:bg-black/70 rounded-full transition-colors z-[120]"
             >
               <X size={24} />
             </motion.button>
 
+            {/* Zoom Controls */}
             <div className="absolute top-4 left-4 md:top-8 md:left-8 flex flex-col gap-2 z-[120]">
               <motion.button
                 initial={{ opacity: 0, x: -20 }}

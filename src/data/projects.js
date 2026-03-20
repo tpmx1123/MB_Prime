@@ -324,6 +324,12 @@ export const projects = [
         image: 'https://res.cloudinary.com/durbtkhbz/image/upload/v1773635228/WhatsApp_Image_2026-03-16_at_9.34.48_AM_navtsz.jpg'
       }
     ],
+    interiors: [
+      { id: 'pjc1', image: Prime_jel_Image, tag: 'MODERN LOBBY', span: 'col-span-12 md:col-span-6' },
+      { id: 'pjc2', image: PROJECT_IMAGE_A, tag: 'LIVING SPACE', span: 'col-span-12 md:col-span-3' },
+      { id: 'pjc3', image: PROJECT_IMAGE_B, tag: 'MASTER BEDROOM', span: 'col-span-12 md:col-span-3' },
+      { id: 'pjc4', image: Prime_jel_Image_Hover, tag: 'BALCONY VIEW', span: 'col-span-12' },
+    ],
     villaTypes: [
       {
         id: 'triplex',
@@ -337,11 +343,29 @@ export const projects = [
         tag1:'North Face - GF',
         tag2:'North Face - FF',
         tag3:'North Face - SF',
-        image: 'https://res.cloudinary.com/durbtkhbz/image/upload/v1773637027/WhatsApp_Image_2026-03-14_at_5.58.21_PM_2_s3pnqg.jpg',
+        image: 'https://res.cloudinary.com/durbtkhbz/image/upload/v1773998408/Gemini_Generated_Image_ui1arrui1arrui1a_snvesq.png',
         image1: 'https://res.cloudinary.com/durbtkhbz/image/upload/v1773500408/TRIPLEX_NORTH_FACE_50_X_36_GF_balv5q.jpg',
         image2: 'https://res.cloudinary.com/durbtkhbz/image/upload/v1773500411/TRIPLEX_NORTH_FACE_50_X_36_FF_wkvsah.jpg',
         image3: 'https://res.cloudinary.com/durbtkhbz/image/upload/v1773500393/TRIPLEX_NORTH_FACE_50_X_36_SF_on6ywb.jpg',
         color: 'bg-[#982B56]' // Deep Magenta/Red from image
+      },
+      {
+        id: 'triplex south',
+        type: 'Triplex Villa',
+        size: "36' x 50'",
+        direction: 'South',
+        area: '200 Sq. Yards',
+        builtUp: '3650 Sq. Ft',
+        description: 'A grand triplex villa designed for modern luxury living, offering spacious interiors, premium finishes, and three levels of unmatched comfort.',
+        tag: 'Triplex Villa - South Face',
+        tag1:'South Face - GF',
+        tag2:'South Face - FF',
+        tag3:'South Face - SF',
+        image: 'https://res.cloudinary.com/durbtkhbz/image/upload/v1773998408/Gemini_Generated_Image_ui1arrui1arrui1a_snvesq.png',
+        image1: 'https://res.cloudinary.com/durbtkhbz/image/upload/v1773999407/TRIPLEX_NORTH_FACE_50_X_36_GF_balv5q_lmc2su.jpg',
+        image2: 'https://res.cloudinary.com/durbtkhbz/image/upload/v1773999406/TRIPLEX_NORTH_FACE_50_X_36_FF_wkvsah_da42np.jpg',
+        image3: 'https://res.cloudinary.com/durbtkhbz/image/upload/v1773999405/TRIPLEX_NORTH_FACE_50_X_36_SF_on6ywb_ot6n2j.jpg',
+        color: 'bg-[#982B56]' 
       },
       {
         id: 'duplex-2100',
@@ -354,7 +378,7 @@ export const projects = [
         tag: 'Duplex Villa - South Face',
         tag1:'South Face - GF',
         tag2:'South Face - FF',
-        image: 'https://res.cloudinary.com/durbtkhbz/image/upload/v1773637027/WhatsApp_Image_2026-03-14_at_5.58.21_PM_1_wcvpoo.jpg',
+        image: 'https://res.cloudinary.com/durbtkhbz/image/upload/v1773998407/Gemini_Generated_Image_nkr82snkr82snkr8_k4ltnz.png',
         image1: 'https://res.cloudinary.com/durbtkhbz/image/upload/v1773500395/DUPLEX_SOUTH_FACE_40_x36_GF_agxu9t.jpg',
         image2: 'https://res.cloudinary.com/durbtkhbz/image/upload/v1773500396/DUPLEX_SOUTH_FACE_40_x36_FF_yd91ly.jpg',
         color: 'bg-[#76A847]' // Green from image
@@ -370,7 +394,7 @@ export const projects = [
         tag: 'Duplex Villa - North Face',
         tag1:'North Face - GF',
         tag2:'North Face - FF',
-        image: 'https://res.cloudinary.com/durbtkhbz/image/upload/v1773637132/WhatsApp_Image_2026-03-14_at_5.58.21_PM_3_hkdrtk.jpg',
+        image: 'https://res.cloudinary.com/durbtkhbz/image/upload/v1773998208/North_Duplex_36X60ft_m6u0fd.jpg',
         image1: 'https://res.cloudinary.com/durbtkhbz/image/upload/v1773491786/DUPLEX_NORTH_FACE_50_x36_GF_gvkrub.jpg',
         image2: 'https://res.cloudinary.com/durbtkhbz/image/upload/v1773491778/DUPLEX_NORTH_FACE_50_x36_FF_ptp8ik.jpg',
         color: 'bg-[#B5A445]' // Gold/Yellow from image

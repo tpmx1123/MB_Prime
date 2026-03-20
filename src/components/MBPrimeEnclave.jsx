@@ -131,29 +131,32 @@ const MBPrimeEnclave = () => {
 
       {/* Full-bleed hero – 3D depth, separate-website feel */}
       {/* Full-bleed hero – Inspired by ASBL Spectra */}
-      <section ref={heroVideoRef} className="relative h-screen w-full overflow-hidden flex items-center">
-        {/* Background Image */}
-        <div className="absolute inset-0 z-0">
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            preload={shouldLoadHeroVideo ? 'metadata' : 'none'}
-            poster="https://res.cloudinary.com/durbtkhbz/image/upload/v1773503065/MBP_SITE_PLAN.jpg_l2etut.jpg"
-            className="w-full h-full object-cover"
-          >
-            {shouldLoadHeroVideo && (
-              <source
-                src="https://res.cloudinary.com/dgmrbxuvb/video/upload/q_auto,f_auto/v1771064084/mb_prime_enclave_o69n0k.mp4"
-                type="video/mp4"
-              />
-            )}
-            Your browser does not support the video tag.
-          </video>
-          {/* Gradient Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent" />
-        </div>
+      <section ref={heroVideoRef} className="relative h-screen w-full  flex items-center">
+        {/* Background Video (YouTube embed) */}
+        <div className="absolute inset-0 z-0 overflow-hidden">
+  {shouldLoadHeroVideo ? (
+    <div className="relative w-full h-full scale-125"> 
+      {/* Scale 125 hides the slight YouTube UI elements at the edges */}
+      <iframe
+        src="https://www.youtube.com/embed/p2E1EuLAxTo?autoplay=1&mute=1&loop=1&playlist=p2E1EuLAxTo&controls=0&modestbranding=1&playsinline=1&rel=0&showinfo=0&iv_load_policy=3&disablekb=1&fs=0"
+        title="MB Prime Enclave Hero Video"
+        className="absolute top-1/2 left-1/2 w-[100vw] h-[56.25vw] min-h-[100vh] min-w-[177.77vh] -translate-x-1/2 -translate-y-1/2"
+        allow="autoplay; fullscreen"
+        style={{ pointerEvents: 'none' }}
+      />
+    </div>
+  ) : (
+    <img
+      src="https://res.cloudinary.com/durbtkhbz/image/upload/v1773503065/MBP_SITE_PLAN.jpg_l2etut.jpg"
+      alt="MB Prime Enclave Hero"
+      className="w-full h-full object-cover"
+      loading="lazy"
+    />
+  )}
+  
+  {/* Gradient Overlay */}
+  <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent" />
+</div>
 
         {/* Content Container */}
         <div className="project-hero-content relative z-10 container mx-auto h-full flex flex-col justify-center px-6 md:px-12">
