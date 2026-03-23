@@ -1,5 +1,5 @@
 import React, { useEffect, Suspense, lazy } from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation, Navigate } from 'react-router-dom';
 
 // Layout & UI (always loaded for shell)
 import Header from './components/Header';
@@ -19,6 +19,7 @@ const AboutMBPrime = lazy(() => import('./components/AboutMBPrime'));
 const Founder = lazy(() => import('./components/Founder'));
 const Blogs = lazy(() => import('./components/Blogs'));
 const BlogPost = lazy(() => import('./components/BlogPost'));
+const ContactUs = lazy(() => import('./pages/ContactUs'));
 const AdminLogin = lazy(() => import('./components/admin/AdminLogin'));
 const AdminForgotPassword = lazy(() => import('./components/admin/AdminForgotPassword'));
 const AdminResetPassword = lazy(() => import('./components/admin/AdminResetPassword'));
@@ -180,9 +181,14 @@ function App() {
               <Route path="/projects/Capital-West" element={<CapitalWest />} />
               <Route path="/projects/ai-gen-serenity-villas" element={<AIGenVillas />} />
               <Route path="/about" element={<AboutMBPrime asPage />} />
+              <Route path="/about-us" element={<AboutMBPrime asPage />} />
+              <Route path="/about-us/" element={<AboutMBPrime asPage />} />
               <Route path="/founder" element={<Founder />} />
+              <Route path="/contact-us" element={<ContactUs />} />
               <Route path="/blogs" element={<Blogs />} />
               <Route path="/blogs/:slug" element={<BlogPost />} />
+              {/* Fallback: redirect any wrong URL to home */}
+              <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
           </main>
           <FooterWrapper />

@@ -25,10 +25,10 @@ const Header = () => {
         { label: 'AI Gen Serenity Villas | Amaravati', link: '/projects/ai-gen-serenity-villas' },
       ],
     },
-    { label: 'About MB Prime', link: '/about' },
+    { label: 'About MB Prime', link: '/about-us/' },
     { label: 'Founder', link: '/founder' },
     { label: 'Blogs', link: '/blogs' },
-    { label: 'Contact', link: '/#contact' },
+    { label: 'Contact', link: '/contact-us' },
   ];
 
   return (
