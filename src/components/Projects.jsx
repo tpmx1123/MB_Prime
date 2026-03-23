@@ -1,30 +1,39 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { MapPin, ArrowUpRight } from 'lucide-react';
 import { projects } from '../data/projects';
 
-const ProjectImage = ({ project, isHovered }) => {
+const ProjectImage = ({ project, isHovered, shouldEagerLoad, enableHoverImage }) => {
   return (
     <div className="absolute inset-0">
       <img
         src={project.image}
         alt={project.name}
+        fetchPriority={shouldEagerLoad ? 'high' : 'auto'}
+        loading={shouldEagerLoad ? 'eager' : 'lazy'}
+        decoding="async"
         className={`absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-out ${isHovered ? 'opacity-0 scale-110' : 'opacity-100 scale-100'}`}
-        loading="lazy"
       />
-      <img
-        src={project.imageHover || project.image}
-        alt=""
-        className={`absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-out ${isHovered ? 'opacity-100 scale-105' : 'opacity-0 scale-110'}`}
-        loading="lazy"
-      />
+      {enableHoverImage && isHovered && project.imageHover && (
+        <img
+          src={project.imageHover}
+          alt=""
+          loading="lazy"
+          decoding="async"
+          className="absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-out opacity-100 scale-105"
+        />
+      )}
     </div>
   );
 };
 
 const Projects = () => {
   const [hoveredSlug, setHoveredSlug] = useState(null);
+  const isTouchDevice = useMemo(() => {
+    if (typeof window === 'undefined') return false;
+    return window.matchMedia('(hover: none), (pointer: coarse)').matches;
+  }, []);
 
   return (
     <section id="projects" className="bg-[#0A0A0A] pb-32 pt-24 text-white overflow-hidden">
@@ -53,7 +62,12 @@ const Projects = () => {
                 onMouseLeave={() => setHoveredSlug(null)}
               >
                 <div className="relative aspect-[4/3] overflow-hidden">
-                  <ProjectImage project={project} isHovered={hoveredSlug === project.slug} />
+                  <ProjectImage
+                    project={project}
+                    isHovered={hoveredSlug === project.slug}
+                    shouldEagerLoad={index < 4}
+                    enableHoverImage={!isTouchDevice}
+                  />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-transparent opacity-60 group-hover:opacity-80 transition-opacity" />
                 </div>
 
