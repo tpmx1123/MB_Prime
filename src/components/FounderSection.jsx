@@ -44,7 +44,7 @@ const FounderSection = () => {
               </div>
 
               <div>
-                <h3 className="text-xs md:text-xl font-bold text-primary">Mr. Maganti Ravi Babu</h3>
+                <h3 className="text-xs md:text-xl font-bold text-primary">Mr. Maganti Babu</h3>
                 <p className="text-[8px] md:text-xs text-slate-500 font-medium tracking-wider">Founder and CEO, MB Prime Projects</p>
               </div>
             </Motion.div>

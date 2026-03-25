@@ -38,7 +38,7 @@ const Founder = () => {
                 Visionary Leadership
               </p>
               <h2 className="text-3xl md:text-5xl lg:text-6xl font-sans font-bold text-white tracking-tight">
-                Maganti Ravi Babu
+                Maganti Babu
               </h2>
               <p className="text-white/60 font-sans font-medium text-sm md:text-lg italic uppercase tracking-wider">
                 CEO & Founder
