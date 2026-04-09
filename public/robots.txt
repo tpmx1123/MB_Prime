@@ -1,4 +1,10 @@
 User-agent: *
 Allow: /
 
+# Do not index admin or auth screens (intentional — not an error if GSC lists these as "blocked")
+Disallow: /admin
+Disallow: /admin-login
+Disallow: /admin-forgot-password
+Disallow: /admin-reset-password
+
 Sitemap: https://mbprimeprojects.com/sitemap.xml

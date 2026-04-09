@@ -100,7 +100,9 @@ const SEO = () => {
     return SEO_CONFIG[normalizedPath] || SEO_CONFIG['/'];
   }, [pathname]);
 
-  const canonicalPath = pathname === '/about-us/' ? '/about-us' : pathname;
+  // One URL per page: no trailing slash (except home is "/") — matches sitemap & avoids duplicate canonicals
+  const canonicalPath =
+    pathname !== '/' && pathname.endsWith('/') ? pathname.replace(/\/+$/, '') : pathname;
   const canonicalUrl = `${SITE_URL}${canonicalPath}`;
 
   useEffect(() => {
