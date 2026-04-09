@@ -1,7 +1,8 @@
 import React, { useEffect, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 
-const SITE_URL = 'https://www.mbprime.com';
+const SITE_URL = (import.meta.env.VITE_SITE_URL || 'https://mbprimeprojects.com').replace(/\/$/, '');
 const DEFAULT_OG_IMAGE = 'https://res.cloudinary.com/durbtkhbz/image/upload/v1773637027/WhatsApp_Image_2026-03-14_at_5.58.21_PM_2_s3pnqg.jpg';
 
 const SEO_CONFIG = {
@@ -91,15 +92,6 @@ const SEO_CONFIG = {
   },
 };
 
-const setOrCreateMeta = (selector, attrs) => {
-  let node = document.head.querySelector(selector);
-  if (!node) {
-    node = document.createElement('meta');
-    document.head.appendChild(node);
-  }
-  Object.entries(attrs).forEach(([key, value]) => node.setAttribute(key, value));
-};
-
 const SEO = () => {
   const { pathname } = useLocation();
 
@@ -108,39 +100,14 @@ const SEO = () => {
     return SEO_CONFIG[normalizedPath] || SEO_CONFIG['/'];
   }, [pathname]);
 
+  const canonicalPath = pathname === '/about-us/' ? '/about-us' : pathname;
+  const canonicalUrl = `${SITE_URL}${canonicalPath}`;
+
   useEffect(() => {
-    const canonicalPath = pathname === '/about-us/' ? '/about-us' : pathname;
-    const canonicalUrl = `${SITE_URL}${canonicalPath}`;
-
-    document.title = seo.title;
-
-    setOrCreateMeta('meta[name="description"]', { name: 'description', content: seo.description });
-    setOrCreateMeta('meta[name="keywords"]', { name: 'keywords', content: seo.keywords });
-    setOrCreateMeta('meta[name="robots"]', { name: 'robots', content: 'index,follow,max-image-preview:large' });
-
-    setOrCreateMeta('meta[property="og:type"]', { property: 'og:type', content: 'website' });
-    setOrCreateMeta('meta[property="og:title"]', { property: 'og:title', content: seo.title });
-    setOrCreateMeta('meta[property="og:description"]', { property: 'og:description', content: seo.description });
-    setOrCreateMeta('meta[property="og:url"]', { property: 'og:url', content: canonicalUrl });
-    setOrCreateMeta('meta[property="og:image"]', { property: 'og:image', content: DEFAULT_OG_IMAGE });
-
-    setOrCreateMeta('meta[name="twitter:card"]', { name: 'twitter:card', content: 'summary_large_image' });
-    setOrCreateMeta('meta[name="twitter:title"]', { name: 'twitter:title', content: seo.title });
-    setOrCreateMeta('meta[name="twitter:description"]', { name: 'twitter:description', content: seo.description });
-    setOrCreateMeta('meta[name="twitter:image"]', { name: 'twitter:image', content: DEFAULT_OG_IMAGE });
-
-    let canonical = document.head.querySelector('link[rel="canonical"]');
-    if (!canonical) {
-      canonical = document.createElement('link');
-      canonical.setAttribute('rel', 'canonical');
-      document.head.appendChild(canonical);
-    }
-    canonical.setAttribute('href', canonicalUrl);
-
     if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
       window.gtag('config', 'G-KS790ZMQGS', { page_path: canonicalPath });
     }
-  }, [pathname, seo]);
+  }, [canonicalPath]);
 
   const schemaData = useMemo(
     () => [
@@ -171,17 +138,54 @@ const SEO = () => {
         },
         telephone: '+91-9088456999',
       },
+      {
+        '@context': 'https://schema.org',
+        '@type': 'WebPage',
+        name: seo.title,
+        description: seo.description,
+        url: canonicalUrl,
+        inLanguage: 'en-IN',
+        isPartOf: {
+          '@type': 'WebSite',
+          url: SITE_URL,
+          name: 'MB Prime',
+        },
+      },
     ],
-    []
+    [canonicalUrl, seo.description, seo.title]
   );
 
   return (
     <>
-      {schemaData.map((schema, idx) => (
-        <script key={idx} type="application/ld+json">
-          {JSON.stringify(schema)}
-        </script>
-      ))}
+      <Helmet>
+        <title>{seo.title}</title>
+        <meta name="description" content={seo.description} />
+        <meta name="keywords" content={seo.keywords} />
+        <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
+
+        <link rel="canonical" href={canonicalUrl} />
+        <link rel="alternate" hrefLang="en-IN" href={canonicalUrl} />
+        <link rel="alternate" hrefLang="x-default" href={canonicalUrl} />
+
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="MB Prime" />
+        <meta property="og:title" content={seo.title} />
+        <meta property="og:description" content={seo.description} />
+        <meta property="og:url" content={canonicalUrl} />
+        <meta property="og:image" content={DEFAULT_OG_IMAGE} />
+        <meta property="og:locale" content="en_IN" />
+
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={seo.title} />
+        <meta name="twitter:description" content={seo.description} />
+        <meta name="twitter:image" content={DEFAULT_OG_IMAGE} />
+
+        {schemaData.map((schema, idx) => (
+          <script key={idx} type="application/ld+json">
+            {JSON.stringify(schema)}
+          </script>
+        ))}
+      </Helmet>
     </>
   );
 };
