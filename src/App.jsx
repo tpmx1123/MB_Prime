@@ -21,6 +21,7 @@ const Blogs = lazy(() => import('./components/Blogs'));
 const BlogPost = lazy(() => import('./components/BlogPost'));
 const ContactUs = lazy(() => import('./pages/ContactUs'));
 const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'));
+const TermsAndConditions = lazy(() => import('./pages/TermsAndConditions'));
 const AdminLogin = lazy(() => import('./components/admin/AdminLogin'));
 const AdminForgotPassword = lazy(() => import('./components/admin/AdminForgotPassword'));
 const AdminResetPassword = lazy(() => import('./components/admin/AdminResetPassword'));
@@ -187,6 +188,7 @@ function App() {
               <Route path="/founder" element={<Founder />} />
               <Route path="/contact-us" element={<ContactUs />} />
               <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+              <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
               <Route path="/blogs" element={<Blogs />} />
               <Route path="/blogs/:slug" element={<BlogPost />} />
               {/* Fallback: redirect any wrong URL to home */}

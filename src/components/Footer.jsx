@@ -41,6 +41,7 @@ const Footer = () => {
                             <li><a href="/blogs" className="text-[11px] md:text-sm text-white/60 hover:text-white transition-colors">Blogs</a></li>
                             <li><Link to="/contact-us" className="text-[11px] md:text-sm text-white/60 hover:text-white transition-colors">Contact Us</Link></li>
                             <li><Link to="/privacy-policy" className="text-[11px] md:text-sm text-white/60 hover:text-white transition-colors">Privacy Policy</Link></li>
+                            <li><Link to="/terms-and-conditions" className="text-[11px] md:text-sm text-white/60 hover:text-white transition-colors">Terms & Conditions</Link></li>
                         </ul>
                     </div>
 
@@ -65,12 +66,12 @@ const Footer = () => {
                             <li className="flex items-start gap-3 md:gap-4 text-[11px] md:text-sm text-white/60">
                                 <MapPin size={16} className="shrink-0 text-secondary/60 mt-0.5" />
                                 <a
-                                    href="https://www.google.com/maps/search/?api=1&query=Vijayawada%2C+Andhra+Pradesh"
+                                    href="https://www.google.com/maps?ll=18.359786,83.919487&z=17&t=h&hl=en&gl=IN&mapclient=embed&cid=10202326742356573612"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="hover:text-secondary transition-colors"
                                 >
-                                    Vijayawada, Andhra Pradesh.
+                                    GEMS HOSPITAL ROAD, Srikakulam, Silagamsingivalasa, Andhra Pradesh 532484
                                 </a>
                             </li>
                             <li className="flex items-center gap-3 md:gap-4 text-[11px] md:text-sm text-white/60">

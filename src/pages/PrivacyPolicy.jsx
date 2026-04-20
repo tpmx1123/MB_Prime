@@ -15,7 +15,7 @@ const sections = [
     bullets: [
       'Personal details you provide: name, email, phone number, postal address, and enquiry messages via contact forms, newsletter sign-ups, or property interest registrations.',
       'Automatically collected data: IP address, browser type, device, pages visited, time on site, and referring URLs via cookies and analytics tools.',
-      'Third-party data: information from referral partners, property listing platforms, or advertising networks.',
+  
     ],
   },
   {
@@ -80,7 +80,6 @@ const sections = [
     bullets: [
       'Access - request a copy of data we hold about you',
       'Rectification - correct inaccurate or incomplete data',
-      'Erasure - request deletion of your data in certain circumstances',
       'Restrict Processing - limit how we use your data',
       'Data Portability - receive your data in a machine-readable format',
       'Object - object to processing for direct marketing',
@@ -117,7 +116,7 @@ const sections = [
 
 const PrivacyPolicy = () => {
   return (
-    <section className="bg-slate-50 py-12 md:py-16">
+    <section className="bg-black py-12 md:py-26">
       <div className="container mx-auto px-4 max-w-5xl">
         <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-10">
           <h1 className="text-3xl md:text-4xl font-serif text-primary mb-3">Privacy Policy</h1>
