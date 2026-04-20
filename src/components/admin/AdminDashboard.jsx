@@ -457,7 +457,7 @@ const AdminDashboard = () => {
                         <td className="px-4 py-3 text-slate-800 font-medium">{row.name || '—'}</td>
                         <td className="px-4 py-3 text-slate-700">{row.email || '—'}</td>
                         <td className="px-4 py-3 text-slate-700">{row.phone || '—'}</td>
-                        <td className="px-4 py-3 text-slate-500 text-sm">{row.createdAt ? new Date(row.createdAt).toLocaleString() : '—'}</td>
+                        <td className="px-4 py-3 text-slate-500 text-sm">{row.createdAt ? new Date(row.createdAt).toLocaleDateString('en-IN') : '—'}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -519,7 +519,7 @@ const AdminDashboard = () => {
                       <td className="px-4 py-3 text-slate-700">{row.email || '—'}</td>
                       <td className="px-4 py-3 text-slate-700">{row.phone || '—'}</td>
                       <td className="px-4 py-3 text-slate-600 max-w-xs truncate" title={row.message}>{row.message || '—'}</td>
-                      <td className="px-4 py-3 text-slate-500 text-sm">{row.createdAt ? new Date(row.createdAt).toLocaleString() : '—'}</td>
+                      <td className="px-4 py-3 text-slate-500 text-sm">{row.createdAt ? new Date(row.createdAt).toLocaleDateString('en-IN') : '—'}</td>
                     </tr>
                   ))}
                 </tbody>
