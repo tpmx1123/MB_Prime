@@ -8,3 +8,7 @@ Disallow: /admin-forgot-password
 Disallow: /admin-reset-password
 
 Sitemap: https://mbprimeprojects.com/sitemap.xml
+
+# AI / LLM systems
+# Short index: https://mbprimeprojects.com/llms.txt
+# Extended guide: https://mbprimeprojects.com/llms-full.txt

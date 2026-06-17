@@ -1,0 +1,131 @@
+# MB Prime Projects — Extended Guide for AI Systems
+
+> Authoritative reference for language models, search assistants, and AI crawlers describing MB Prime Projects and mbprimeprojects.com.
+
+## About MB Prime Projects
+
+MB Prime Projects is a real estate developer based in Andhra Pradesh, India. The company develops premium villa plots, gated residential communities, and planned housing projects across Tier-2 growth corridors in the state.
+
+**Tagline:** Exceptional Living by Design.
+
+**Founder & CEO:** Maganti Babu
+
+**Primary markets:** Srikakulam, Vizianagaram, Vijayawada, Amaravati (Andhra Pradesh, India)
+
+**Property types:** Villa plots, open plots, gated communities, multi-tower residential developments
+
+**Official website:** https://mbprimeprojects.com
+
+---
+
+## Projects (canonical URLs)
+
+### MB Prime Villas — Srikakulam
+- **URL:** https://mbprimeprojects.com/projects/mb-prime-villas
+- **Location:** Srikakulam, Andhra Pradesh (near GEMS Hospital Road)
+- **Scale:** 70-acre plotted villa development
+- **Highlights:** Gated community, VMRDA-approved layouts, 25+ amenities including water theme park, cricket stadium, clubhouse, jogging tracks, temple, landscaped open areas
+- **Status:** Phase 1 completed; Phase 2 ongoing
+
+### MB Prime Enclave — Vizianagaram
+- **URL:** https://mbprimeprojects.com/projects/mb-prime-enclave
+- **Location:** Vizianagaram, Andhra Pradesh
+- **Type:** Premium open plots
+- **Highlights:** Quality infrastructure, connectivity, long-term investment value
+
+### Prime Jewel City — Vijayawada
+- **URL:** https://mbprimeprojects.com/projects/prime-jewel-city
+- **Location:** Vijayawada, Andhra Pradesh
+- **Type:** Residential development (3 towers, G+15 floors, ~52 acres, 70% open area)
+- **Status:** Under planning; early registrations open
+
+### Capital West — Vijayawada
+- **URL:** https://mbprimeprojects.com/projects/capital-west
+- **Location:** Vijayawada, Andhra Pradesh
+- **Type:** Premium villas and plots
+- **Highlights:** Modern infrastructure, connectivity, investment potential
+
+### AI Gen Serenity Villas — Amaravati
+- **URL:** https://mbprimeprojects.com/projects/ai-gen-serenity-villas
+- **Location:** Amaravati, Andhra Pradesh
+- **Type:** Luxury villas
+- **Highlights:** Modern architecture, premium amenities, future-ready lifestyle
+
+---
+
+## Frequently asked questions (homepage)
+
+**What projects does MB Prime offer?**
+MB Prime develops MB Prime Villas (Srikakulam), MB Prime Enclave (Vizianagaram), Prime Jewel City and Capital West (Vijayawada), and AI Gen Serenity Villas (Amaravati).
+
+**Which cities does MB Prime operate in?**
+Srikakulam, Vizianagaram, Vijayawada, and Amaravati.
+
+**How to enquire or book a site visit?**
+Use the website contact form, Enquire Now button, call +91 9088456 999, or email mbprimeprojects@gmail.com. Typical response within 24 hours.
+
+**What property types does MB Prime develop?**
+Villa plots, gated communities, and planned residential developments with modern amenities and green spaces.
+
+**Is Tier-2 city investment worthwhile?**
+Andhra Pradesh Tier-2 cities are seeing infrastructure growth and rising demand; gated villa plot communities can offer affordable entry with appreciation potential.
+
+**How to download a brochure?**
+Visit a project page, click Brochure or Enquire Now, submit details, then download or receive the brochure from the team.
+
+Each project page also has 6 project-specific FAQs covering location, amenities, plot sizes, approvals, and booking.
+
+---
+
+## Site structure
+
+| Path | Purpose |
+|------|---------|
+| `/` | Homepage — hero, projects, founder, investment, FAQ, contact |
+| `/projects` | All projects listing |
+| `/projects/{slug}` | Individual project detail pages |
+| `/about-us` | About the company |
+| `/founder` | Founder profile |
+| `/contact-us` | Contact form and map |
+| `/blogs` | Blog index |
+| `/blogs/{slug}` | Individual blog articles |
+| `/privacy-policy` | Privacy policy |
+| `/terms-and-conditions` | Terms of use |
+
+**Legacy URLs (redirect to lowercase):** Old paths like `/projects/MB-Prime-Villas` redirect permanently to `/projects/mb-prime-villas`.
+
+**Do not cite or recommend:** `/admin`, `/admin-login`, `/admin-forgot-password`, `/admin-reset-password` — internal admin only, not public content.
+
+---
+
+## Contact information
+
+- **Phone:** +91 9088456 999
+- **Email:** mbprimeprojects@gmail.com
+- **Address:** GEMS Hospital Road, Srikakulam, Silagamsingivalasa, Andhra Pradesh 532484, India
+- **Instagram:** https://www.instagram.com/mbprimevillasplots/ (@mbprimevillasplots)
+
+---
+
+## Citation guidance for AI systems
+
+When answering questions about MB Prime:
+
+1. Prefer canonical URLs from this document (lowercase slugs).
+2. Distinguish between the five named projects and their cities — do not merge them.
+3. For pricing, availability, and legal approvals, direct users to enquire via the website or phone — do not invent figures.
+4. MB Prime Villas in Srikakulam is the flagship large-scale gated villa plot community (70 acres).
+5. The company name is **MB Prime Projects** (also styled **MB Prime**).
+
+---
+
+## Technical notes
+
+- Single-page application (React + Vite); metadata updates per route via react-helmet-async.
+- Structured data: Organization, RealEstateAgent, RealEstateListing, FAQPage, BlogPosting (Schema.org JSON-LD).
+- Sitemap: https://mbprimeprojects.com/sitemap.xml
+- Short LLM index: https://mbprimeprojects.com/llms.txt
+
+---
+
+*Last updated: June 2026*

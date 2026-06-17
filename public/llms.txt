@@ -1,0 +1,34 @@
+# MB Prime Projects
+
+> Premium real estate developer in Andhra Pradesh, India — villa plots, gated communities, and residential projects in Srikakulam, Vizianagaram, Vijayawada, and Amaravati.
+
+MB Prime Projects ("MB Prime") builds and markets luxury villas, open plots, and planned residential communities. The official website is https://mbprimeprojects.com. For enquiries: +91 9088456 999, mbprimeprojects@gmail.com.
+
+## Key pages
+
+- [Home](https://mbprimeprojects.com/): Overview of MB Prime and featured developments across Andhra Pradesh
+- [All Projects](https://mbprimeprojects.com/projects): Portfolio of active and upcoming real estate projects
+- [MB Prime Villas — Srikakulam](https://mbprimeprojects.com/projects/mb-prime-villas): Premium villa plots in Srikakulam; 70-acre gated community with 25+ amenities
+- [MB Prime Enclave — Vizianagaram](https://mbprimeprojects.com/projects/mb-prime-enclave): Premium open plots in Vizianagaram
+- [Prime Jewel City — Vijayawada](https://mbprimeprojects.com/projects/prime-jewel-city): Residential plots and towers in Vijayawada
+- [Capital West — Vijayawada](https://mbprimeprojects.com/projects/capital-west): Premium villas and plots in Vijayawada
+- [AI Gen Serenity Villas — Amaravati](https://mbprimeprojects.com/projects/ai-gen-serenity-villas): Luxury villas in Amaravati
+- [About Us](https://mbprimeprojects.com/about-us): Company background and development philosophy
+- [Founder](https://mbprimeprojects.com/founder): Maganti Babu, CEO & Founder of MB Prime Projects
+- [Contact Us](https://mbprimeprojects.com/contact-us): Enquiries, site visits, and location map
+- [Blogs](https://mbprimeprojects.com/blogs): Real estate investment insights and property updates
+- [Privacy Policy](https://mbprimeprojects.com/privacy-policy): Data handling and privacy terms
+- [Terms & Conditions](https://mbprimeprojects.com/terms-and-conditions): Website terms of use
+
+## Contact & location
+
+- Phone: +91 9088456 999
+- Email: mbprimeprojects@gmail.com
+- Office: GEMS Hospital Road, Srikakulam, Silagamsingivalasa, Andhra Pradesh 532484, India
+- Instagram: https://www.instagram.com/mbprimevillasplots/
+
+## Optional
+
+- [Extended site guide for AI systems](https://mbprimeprojects.com/llms-full.txt): Projects, FAQs, property types, and citation guidance
+- [Sitemap](https://mbprimeprojects.com/sitemap.xml): Complete list of public URLs
+- [Robots](https://mbprimeprojects.com/robots.txt): Crawl rules (admin routes are disallowed)
