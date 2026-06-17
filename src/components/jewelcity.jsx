@@ -133,8 +133,11 @@ const JewelCity = () => {
               {project.tagline || 'LIVE IN LUXURY'}
             </p>
             <h1 className="text-3xl md:text-5xl lg:text-6xl font-sans font-bold text-white leading-tight mb-4 landscape:text-3xl landscape:mb-2 md:landscape:text-5xl lg:landscape:text-6xl">
-              {project.name}
+              {project.seoH1 || project.name}
             </h1>
+            {project.seoH1 && (
+              <p className="text-base md:text-lg text-white/80 font-sans font-medium mb-2">{project.name}</p>
+            )}
             <p className="text-lg md:text-xl text-white/90 font-sans font-light mb-2 landscape:text-base landscape:mb-1">
               {project.subtitle || 'Experience the pinnacle of modern living.'}
             </p>

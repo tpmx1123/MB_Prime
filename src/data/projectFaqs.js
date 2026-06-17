@@ -2,14 +2,19 @@
 export const PROJECT_FAQS = {
   'mb-prime-villas': [
     {
-      question: 'Where is MB Prime Villas located?',
+      question: 'Where can I find villas in Srikakulam?',
       answer:
-        'MB Prime Villas is located in Srikakulam, Andhra Pradesh, near GEMS Hospital Road with excellent connectivity to NH-16, the railway station, and Bhogapuram International Airport.',
+        'MB Prime Villas is the flagship gated villa plot community in Srikakulam by MB Prime Projects — a 70-acre VMRDA-approved development near GEMS Hospital Road with luxury amenities and budget-friendly plot options.',
     },
     {
-      question: 'What is the size and status of MB Prime Villas?',
+      question: 'Are there luxury villas in Srikakulam at MB Prime Villas?',
       answer:
-        'MB Prime Villas spans 70 acres as a plotted villa development. Phase 1 is completed and Phase 2 is ongoing, with plots ready for registration.',
+        'Yes. MB Prime Villas offers luxury villa plots in Srikakulam with 25+ premium amenities including a water theme park, cricket stadium, clubhouse, oxygen park, sports courts, and landscaped open spaces in a fully gated community.',
+    },
+    {
+      question: 'Are there budget-friendly villa plots in Srikakulam?',
+      answer:
+        'MB Prime Villas provides budget-friendly villa plot options in Srikakulam within the same 70-acre gated community — offering affordable entry with luxury infrastructure, VMRDA-approved layouts, and strong long-term appreciation potential.',
     },
     {
       question: 'What amenities are available at MB Prime Villas?',
@@ -22,11 +27,6 @@ export const PROJECT_FAQS = {
         'MB Prime Villas offers multiple villa plot configurations with VMRDA-approved layouts in a fully gated community with underground drainage, wide internal roads, and landscaped open areas.',
     },
     {
-      question: 'Why invest in villa plots at MB Prime Villas, Srikakulam?',
-      answer:
-        'Srikakulam is a fast-growing corridor with improving highway connectivity and rising residential demand. MB Prime Villas offers a large-scale gated community with premium lifestyle amenities and strong long-term appreciation potential.',
-    },
-    {
       question: 'How can I book a site visit or download the MB Prime Villas brochure?',
       answer:
         'Click Enquire Now on this page or contact us at +91 9088456 999 or mbprimeprojects@gmail.com. Our team will arrange a site visit and share the brochure, pricing, and plot availability details.',
@@ -34,9 +34,9 @@ export const PROJECT_FAQS = {
   ],
   'mb-prime-enclave': [
     {
-      question: 'Where is MB Prime Enclave located?',
+      question: 'Where can I find open plots in Vizianagaram?',
       answer:
-        'MB Prime Enclave is located in Vizianagaram, Andhra Pradesh, with close proximity to schools, RTC bus stand, DMart, and Bhogapuram International Airport.',
+        'MB Prime Enclave offers open plots and residential plots in Vizianagaram — a gated 6.67-acre community with modern amenities, wide roads, and budget-friendly investment options near schools and Bhogapuram International Airport.',
     },
     {
       question: 'What type of development is MB Prime Enclave?',
@@ -66,9 +66,9 @@ export const PROJECT_FAQS = {
   ],
   'prime-jewel-city': [
     {
-      question: 'Where is Prime Jewel City located?',
+      question: 'Where can I find residential plots in Vijayawada?',
       answer:
-        'Prime Jewel City is strategically located in Vijayawada, Andhra Pradesh, with excellent connectivity to Narayana and Chaitanya schools, RTC bus stand, DMart, and the Metro Convention Centre.',
+        'Prime Jewel City by MB Prime Projects offers premium residential plots in Vijayawada on 52 acres — featuring 3 towers of G+15 floors, 70% open area, and excellent connectivity to top schools and city hubs.',
     },
     {
       question: 'What is Prime Jewel City?',
@@ -98,9 +98,9 @@ export const PROJECT_FAQS = {
   ],
   'capital-west': [
     {
-      question: 'Where is Capital West located?',
+      question: 'Where can I find luxury villas and plots in Vijayawada?',
       answer:
-        'Capital West is planned in Vijayawada, Andhra Pradesh, with strategic access to schools, RTC bus stand, DMart, Metro Convention Centre, and Bhogapuram International Airport.',
+        'Capital West by MB Prime Projects offers luxury villas and premium plots in Vijayawada across a 100-acre planned mixed-use community with modern infrastructure and strong long-term investment potential.',
     },
     {
       question: 'What is Capital West by MB Prime?',
@@ -130,9 +130,9 @@ export const PROJECT_FAQS = {
   ],
   'ai-gen-serenity-villas': [
     {
-      question: 'Where is AI Gen Serenity Villas located?',
+      question: 'Where can I find luxury villas in Amaravati?',
       answer:
-        'AI Gen Serenity Villas is planned in Amaravati, Andhra Pradesh — the state\'s capital region — with connectivity to schools, RTC bus stand, DMart, and Bhogapuram International Airport.',
+        'AI Gen Serenity Villas by MB Prime Projects offers luxury villas in Amaravati — a 35-acre smart gated community with premium amenities, sustainable design, and future-ready living in the capital region.',
     },
     {
       question: 'What is AI Gen Serenity Villas?',

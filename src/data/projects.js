@@ -18,9 +18,10 @@ export const projects = [
   {
     slug: 'prime-jewel-city',
     name: 'Prime Jewel City ',
-    tagline: 'LIVE IN THE HEART OF VIJAYAWADA',
+    seoH1: 'Residential Plots in Vijayawada',
+    tagline: 'RESIDENTIAL PLOTS IN VIJAYAWADA',
     heroImageTag: null,
-    subtitle: 'A premium residential community designed for modern living.',
+    subtitle: 'Premium residential plots and towers in Vijayawada for modern urban living.',
     configurations: '3 Towers | G+15 Floors | 70% Open Area',
     acres: '52 acres',
     handover: 'December 2026',
@@ -34,8 +35,8 @@ export const projects = [
     masterPlan: null,
     locationMap: null,
     favicon: 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1771063124/sklmlogo_c2trtg_wk10v3_cztpx0.ico', // MB Prime Villas favicon
-    locationText: 'Strategically located in Vijayawada, offering excellent connectivity to key educational institutions, healthcare centers, and entertainment hubs.',
-    overview: 'Projects under planning in Vijayawada. Early registrations open.',
+    locationText: 'Prime Jewel City offers premium residential plots in Vijayawada with excellent connectivity to schools, healthcare, and city hubs.',
+    overview: 'Prime Jewel City is a premium residential plots development in Vijayawada spanning 52 acres. Early registrations open.',
     highlights: [
       'Structural: R.C.C framed structure',
       'Flooring: 800x800 Vitrified Tiles',
@@ -57,9 +58,10 @@ export const projects = [
   {
     slug: 'mb-prime-enclave',
     name: 'MB Prime Enclave ',
-    tagline: 'THE PRIDE OF VIZIANAGARAM',
+    seoH1: 'Open Plots in Vizianagaram',
+    tagline: 'OPEN PLOTS IN VIZIANAGARAM',
     heroImageTag: null,
-    subtitle: 'Live amidst nature and openness.',
+    subtitle: 'Gated residential plots in Vizianagaram with modern amenities and budget-friendly options.',
     configurations: '5 Blocks | G+5 Floors | Modern Amenities',
     acres: '6.6699 acres',
     handover: 'March 2026',
@@ -73,7 +75,8 @@ export const projects = [
     locationMap: 'https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3792.6244768817246!2d83.399245!3d18.088931!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMTjCsDA1JzIwLjIiTiA4M8KwMjMnNTcuMyJF!5e0!3m2!1sen!2sin!4v1771135120420!5m2!1sen!2sin',
     favicon: 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1771063124/sklmlogo_c2trtg_wk10v3_cztpx0.ico', // MB Prime Villas favicon
     masterPlan: 'https://res.cloudinary.com/durbtkhbz/image/upload/v1773502654/Gemini_Generated_Image_bvknucbvknucbvkn-Picsart-AiImageEnhancer-removebg-preview_wooajr.png',
-    overview: 'MB Prime Enclave represents a modern residential approach for Vizianagaram—balancing urban convenience with community-focused planning.',
+    overview: 'MB Prime Enclave offers open plots and residential plots in Vizianagaram — a gated community balancing urban convenience with green, community-focused living.',
+    locationText: 'A leading choice for plots in Vizianagaram, MB Prime Enclave is near schools, RTC bus stand, DMart, and Bhogapuram International Airport.',
     highlights: [
       'Structural: R.C.C framed structure',
       'Flooring: 800x800 Vitrified Tiles',
@@ -171,9 +174,10 @@ export const projects = [
   {
     slug: 'mb-prime-villas',
     name: 'MB Prime Villas',
-    tagline: 'LUXURY REDEFINED IN SRIKAKULAM',
+    seoH1: 'Luxury & Budget Villas in Srikakulam',
+    tagline: 'LUXURY & BUDGET VILLAS IN SRIKAKULAM',
     heroImageTag: null,
-    subtitle: 'Exclusive villa plots for a distinguished lifestyle.',
+    subtitle: 'Premium villa plots in Srikakulam — luxury gated community living with budget-friendly plot options.',
     configurations: '20+ High Level Amenities with Water Theme Park',
     acres: '70 acres',
     handover: 'Ready for Registration',
@@ -188,6 +192,10 @@ export const projects = [
     favicon: 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1771063124/sklmlogo_c2trtg_wk10v3_cztpx0.ico',
     masterPlan: 'https://res.cloudinary.com/dcrdkvt2q/image/upload/v1770968591/villas_plots_jpg.jpg_hovhc9.jpg',
     locationMap: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2716.7785112791116!2d83.91691247334634!3d18.359791274069345!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a3c6b1319544a1d%3A0x8d95f21e30a1bdac!2sMB%20PRIME%20VILLAS%20PLOTS!5e1!3m2!1sen!2sin!4v1771046346979!5m2!1sen!2sin',
+    overview:
+      'MB Prime Villas is the premier destination for luxury and budget villa plots in Srikakulam — a 70-acre VMRDA-approved gated community with 25+ amenities near GEMS Hospital Road.',
+    locationText:
+      'The top choice for villas in Srikakulam, MB Prime Villas offers luxury villa plots and budget-friendly options with connectivity to NH-16, railway, and Bhogapuram International Airport.',
     layoutHighlights: [
       [
         ' Outdoor Function Area',
@@ -412,9 +420,10 @@ export const projects = [
   {
     slug: 'capital-west',
     name: 'Capital West',
-    tagline: 'INVEST IN THE FUTURE',
+    seoH1: 'Luxury Villas & Plots in Vijayawada',
+    tagline: 'LUXURY VILLAS & PLOTS IN VIJAYAWADA',
     heroImageTag: null,
-    subtitle: 'Strategic location with high growth potential.',
+    subtitle: 'Premium villas and plots in Vijayawada with high growth potential.',
     configurations: 'Mixed Use Development',
     acres: '100 acres',
     handover: '2027',
@@ -428,8 +437,8 @@ export const projects = [
     masterPlan: null,
     locationMap: null,
     favicon: 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1771063124/sklmlogo_c2trtg_wk10v3_cztpx0.ico', // MB Prime Villas favicon
-    locationText: 'Capital West is positioned to be a landmark development in Andhra Pradesh, promising high returns and modern lifestyle amenities.',
-    overview: 'Capital West is a planned residential development. Early registrations open.',
+    locationText: 'Capital West offers luxury villas and premium plots in Vijayawada — a landmark mixed-use development with modern lifestyle amenities.',
+    overview: 'Capital West is a planned luxury villas and plots community in Vijayawada spanning 100 acres. Early registrations open.',
     highlights: [
       'Structural: R.C.C framed structure',
       'Flooring: 800x800 Vitrified Tiles',
@@ -451,9 +460,10 @@ export const projects = [
   {
     slug: 'ai-gen-serenity-villas',
     name: 'AI Gen Serenity villas',
-    tagline: 'NEXT GENERATION LIVING',
+    seoH1: 'Luxury Villas in Amaravati',
+    tagline: 'LUXURY VILLAS IN AMARAVATI',
     heroImageTag: null,
-    subtitle: 'Smart homes for a smarter future.',
+    subtitle: 'Premium luxury villas in Amaravati with smart-home technology and sustainable design.',
     configurations: 'Smart Villas | Tech Integration',
     acres: '35 acres',
     handover: '2027',
@@ -467,8 +477,8 @@ export const projects = [
     masterPlan: null,
     locationMap: null,
     favicon: 'https://res.cloudinary.com/dgmrbxuvb/image/upload/v1771063124/sklmlogo_c2trtg_wk10v3_cztpx0.ico', // MB Prime Villas favicon
-    locationText: 'AI Gen Villas brings futuristic living concepts to Andhra Pradesh, featuring smart home technologies and sustainable design.',
-    overview: 'AI Gen Villas is a planned residential development. Early registrations open.',
+    locationText: 'AI Gen Serenity Villas delivers luxury villas in Amaravati — the capital corridor with schools, transit, and airport connectivity.',
+    overview: 'AI Gen Serenity Villas is a luxury villas community in Amaravati featuring smart homes and premium amenities across 35 acres. Early registrations open.',
     highlights: [
       'Structural: R.C.C framed structure',
       'Flooring: 800x800 Vitrified Tiles',

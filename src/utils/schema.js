@@ -10,7 +10,7 @@ function formatLocality(location) {
 /**
  * Project-specific RealEstateListing JSON-LD – one per project URL.
  * @param {import('../data/projects').projects[number]} project
- * @param {{ description?: string }} meta
+ * @param {{ description?: string, alternateNames?: string[] }} meta
  */
 export function buildProjectListingSchema(project, meta = {}) {
   if (!project) return null;
@@ -24,6 +24,7 @@ export function buildProjectListingSchema(project, meta = {}) {
     '@type': 'RealEstateListing',
     '@id': `${url}#listing`,
     name,
+    ...(meta.alternateNames?.length && { alternateName: meta.alternateNames }),
     description:
       meta.description ||
       project.overview ||
