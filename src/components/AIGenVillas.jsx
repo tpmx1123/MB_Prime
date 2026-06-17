@@ -10,6 +10,7 @@ import { projects, getProjectBySlug } from '../data/projects';
 import ProjectHeader from './ProjectHeader';
 import ProjectFAQ from './ProjectFAQ';
 import { useLazyVideo } from '../hooks/useLazyVideo';
+import { projectCardAlt, projectMasterPlanAlt, heroVideoLabel } from '../utils/imageAlt';
 const iconMap = {
   Footprints, Trophy, Target, Zap, Smile, Trees, Music, Home, Waves, Users, Sunrise, Droplets, Leaf, Compass, Check,
   Hospital: Stethoscope, School: GraduationCap, Train, Bus, Plane, MapPin
@@ -83,6 +84,7 @@ const AIGenVillas = () => {
             loop
             muted
             playsInline
+            aria-label={heroVideoLabel(project)}
             preload={shouldLoadHeroVideo ? 'metadata' : 'none'}
             poster="https://res.cloudinary.com/dgmrbxuvb/video/upload/so_0,q_auto,f_auto,w_1200/v1771062732/mb_prime_villas_kgthud.jpg"
             className="w-full h-full object-cover"
@@ -188,7 +190,7 @@ const AIGenVillas = () => {
                 className="group relative block aspect-[4/3] rounded-2xl overflow-hidden shadow-lg border border-slate-100">
                 <img
                   src={other.image}
-                  alt={other.name}
+                  alt={projectCardAlt(other)}
                   className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   loading="lazy"/>
                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent transition-opacity duration-300 group-hover:via-black/40" />
@@ -226,7 +228,7 @@ const AIGenVillas = () => {
               className="relative w-full h-full flex items-center justify-center overflow-auto p-4">
               <img
                 src={project.masterPlan}
-                alt={`${project.name} Master Plan Zoomed`}
+                alt={projectMasterPlanAlt(project, true)}
                 className="max-w-none transition-transform duration-300 ease-out origin-center"
                 loading="lazy"
                 style={{

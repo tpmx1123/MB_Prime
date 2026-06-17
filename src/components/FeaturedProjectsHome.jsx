@@ -4,6 +4,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Navigation } from 'swiper/modules';
 import { projects } from '../data/projects';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { projectCardAlt } from '../utils/imageAlt';
 
 // Import Swiper styles
 import 'swiper/css';
@@ -20,7 +21,7 @@ const ProjectCard = ({ project }) => {
         <div className="relative flex-1 min-h-[200px] overflow-hidden rounded-t-[2rem]">
           <img
             src={project.image}
-            alt={project.name}
+            alt={projectCardAlt(project)}
             className="absolute inset-0 w-full h-full object-cover transition-[opacity_0.4s,transform_1s] group-hover:scale-110 group-hover:opacity-0"
             loading="lazy"
           />

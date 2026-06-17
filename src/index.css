@@ -219,6 +219,20 @@ html.lenis {
   }
 }
 
+.instagram-feed-box {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(148, 163, 184, 0.5) transparent;
+}
+
+.instagram-feed-box::-webkit-scrollbar {
+  width: 6px;
+}
+
+.instagram-feed-box::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.45);
+  border-radius: 999px;
+}
+
 .sr-only {
   position: absolute;
   width: 1px;

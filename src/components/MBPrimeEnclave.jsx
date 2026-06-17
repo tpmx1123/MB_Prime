@@ -10,6 +10,14 @@ import { projects, getProjectBySlug } from '../data/projects';
 import ProjectHeader from './ProjectHeader';
 import ProjectFAQ from './ProjectFAQ';
 import { useLazyVideo } from '../hooks/useLazyVideo';
+import {
+  projectHeroAlt,
+  projectMasterPlanAlt,
+  projectAmenityAlt,
+  projectGalleryAlt,
+  projectCardAlt,
+  projectBadgeAlt,
+} from '../utils/imageAlt';
 const iconMap = {
   Footprints, Trophy, Target, Zap, Smile, Trees, Music, Home, Waves, Users, Sunrise, Droplets, Leaf, Compass, Check,
   Hospital: Stethoscope, School: GraduationCap, Train, Bus, Plane, MapPin
@@ -138,7 +146,7 @@ const MBPrimeEnclave = () => {
   ) : (
     <img
       src="https://res.cloudinary.com/durbtkhbz/image/upload/v1773503065/MBP_SITE_PLAN.jpg_l2etut.jpg"
-      alt="MB Prime Enclave Hero"
+      alt={projectHeroAlt(project)}
       className="w-full h-full object-cover"
       loading="lazy"
     />
@@ -215,8 +223,8 @@ const MBPrimeEnclave = () => {
             >
               <div className="flex flex-col items-center justify-center p-1 ml-2">
                 <div className="flex items-center justify-center">
-                  <img src="https://res.cloudinary.com/durbtkhbz/image/upload/v1773635228/WhatsApp_Image_2026-03-16_at_9.35.31_AM_xfgyvz.jpg" alt="VMRDA" className="w-8 h-8 md:w-9 md:h-9 object-contain" loading="lazy" />
-                  <img src="https://res.cloudinary.com/durbtkhbz/image/upload/v1773635344/WhatsApp_Image_2026-03-16_at_9.35.31_AM__1_-removebg-preview_dxsghp.png" alt="RERA" className="w-10 h-10 md:w-15 md:h-15 object-contain" loading="lazy" />
+                  <img src="https://res.cloudinary.com/durbtkhbz/image/upload/v1773635228/WhatsApp_Image_2026-03-16_at_9.35.31_AM_xfgyvz.jpg" alt={projectBadgeAlt('VMRDA')} className="w-8 h-8 md:w-9 md:h-9 object-contain" loading="lazy" />
+                  <img src="https://res.cloudinary.com/durbtkhbz/image/upload/v1773635344/WhatsApp_Image_2026-03-16_at_9.35.31_AM__1_-removebg-preview_dxsghp.png" alt={projectBadgeAlt('RERA')} className="w-10 h-10 md:w-15 md:h-15 object-contain" loading="lazy" />
                 </div>
                 <p className="text-[7px] md:text-[9px] font-sans font-bold text-secondary uppercase tracking-wider">
                   APPROVED
@@ -316,7 +324,7 @@ const MBPrimeEnclave = () => {
             >
               <img
                 src={villaImages[selectedImgIndex]}
-                alt={currentVilla.type}
+                alt={projectGalleryAlt(project, currentVilla.type)}
                 className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-105"
                 loading="lazy"
               />
@@ -343,7 +351,7 @@ const MBPrimeEnclave = () => {
                   className={`flex flex-col items-center gap-1 w-16 md:w-20 rounded-xl overflow-hidden border-2 transition-all shadow-sm 
                     ${selectedImgIndex === idx ? 'border-secondary scale-105 ring-2 ring-secondary/20' : 'border-transparent opacity-70 hover:opacity-100'}`}
                 >
-                  <img src={img} className="w-full h-14 md:h-16 object-cover" alt={villaImageTags[idx] || 'thumbnail'} loading="lazy" />
+                  <img src={img} className="w-full h-14 md:h-16 object-cover" alt={projectGalleryAlt(project, villaImageTags[idx])} loading="lazy" />
                   {villaImageTags[idx] && (
                     <span className="text-[8px] md:text-[9px] font-sans font-medium text-primary px-1 text-center leading-tight line-clamp-2">
                       {villaImageTags[idx]}
@@ -423,7 +431,7 @@ const MBPrimeEnclave = () => {
         >
           <img 
             src={villaImages[selectedImgIndex]} 
-            alt={villaImageTags[selectedImgIndex] || 'Villa Detail'} 
+            alt={projectGalleryAlt(project, villaImageTags[selectedImgIndex])} 
             className="max-h-[85vh] w-auto rounded-lg shadow-2xl"
             loading="lazy"
           />
@@ -528,7 +536,7 @@ const MBPrimeEnclave = () => {
                     <div className="relative">
                       <img
                         src={project.masterPlan}
-                        alt={`${project.name} Master Plan`}
+                        alt={projectMasterPlanAlt(project)}
                         className="w-full h-auto max-w-[430px] object-contain transition-transform duration-700 hover:scale-[1.02] drop-shadow-2xl rounded-lg"
                         loading="lazy"
                       />
@@ -760,7 +768,7 @@ const MBPrimeEnclave = () => {
                           {/* Background Image */}
                           <motion.img
                             src={item.image}
-                            alt={item.title}
+                            alt={projectAmenityAlt(project, item.title)}
                             className="absolute inset-0 w-full h-full object-cover"
                             variants={{
                               hover: { scale: 1.08 }
@@ -936,7 +944,7 @@ const MBPrimeEnclave = () => {
               >
                 <img
                   src={other.image}
-                  alt={other.name}
+                  alt={projectCardAlt(other)}
                   className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   loading="lazy"
                 />
@@ -980,7 +988,7 @@ const MBPrimeEnclave = () => {
             >
               <img
                 src={project.masterPlan}
-                alt={`${project.name} Master Plan Zoomed`}
+                alt={projectMasterPlanAlt(project, true)}
                 className="max-w-none transition-transform duration-300 ease-out origin-center"
                 loading="lazy"
                 style={{

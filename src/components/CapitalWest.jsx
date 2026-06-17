@@ -10,6 +10,7 @@ import { projects, getProjectBySlug } from '../data/projects';
 import ProjectHeader from './ProjectHeader';
 import ProjectFAQ from './ProjectFAQ';
 import { useLazyVideo } from '../hooks/useLazyVideo';
+import { projectCardAlt, projectMasterPlanAlt, heroVideoLabel } from '../utils/imageAlt';
 const iconMap = {
   Footprints, Trophy, Target, Zap, Smile, Trees, Music, Home, Waves, Users, Sunrise, Droplets, Leaf, Compass, Check,
   Hospital: Stethoscope, School: GraduationCap, Train, Bus, Plane, MapPin
@@ -98,6 +99,7 @@ const CapitalWest = () => {
             loop
             muted
             playsInline
+            aria-label={heroVideoLabel(project)}
             preload={shouldLoadHeroVideo ? 'metadata' : 'none'}
             poster="https://res.cloudinary.com/dgmrbxuvb/video/upload/so_0,q_auto,f_auto,w_1200/v1771062732/mb_prime_villas_kgthud.jpg"
             className="w-full h-full object-cover"
@@ -211,7 +213,7 @@ const CapitalWest = () => {
               >
                 <img
                   src={other.image}
-                  alt={other.name}
+                  alt={projectCardAlt(other)}
                   className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   loading="lazy"
                 />
@@ -255,7 +257,7 @@ const CapitalWest = () => {
             >
               <img
                 src={project.masterPlan}
-                alt={`${project.name} Master Plan Zoomed`}
+                alt={projectMasterPlanAlt(project, true)}
                 className="max-w-none transition-transform duration-300 ease-out origin-center"
                 loading="lazy"
                 style={{

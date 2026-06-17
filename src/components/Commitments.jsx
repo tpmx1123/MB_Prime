@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion as Motion } from 'framer-motion';
 import { Award, MapPin, FileCheck, UserCheck } from 'lucide-react';
+import { commitmentsImageAlt } from '../utils/imageAlt';
 
 const commitments = [
   { icon: Award, title: 'Unmatched Excellence', desc: 'Standards that go beyond industry norms.' },
@@ -37,7 +38,7 @@ const Commitments = () => {
           <div className="h-[350px] sm:h-[450px] md:h-full w-full">
             <img 
               src="https://res.cloudinary.com/durbtkhbz/image/upload/v1770810715/wechoose_oofro5_n3ctx0.png" 
-              alt="MB Prime Luxury Development" 
+              alt={commitmentsImageAlt()} 
               className="w-full h-full object-cover md:rounded-r-3xl "
               loading="lazy"
             />    

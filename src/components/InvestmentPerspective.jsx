@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion as Motion } from 'framer-motion';
 import { CheckCircle2 } from 'lucide-react';
+import { investmentImageAlt } from '../utils/imageAlt';
 
 const InvestmentSection = () => {
   const points = [
@@ -26,7 +27,7 @@ const InvestmentSection = () => {
           >
             <img 
               src="https://res.cloudinary.com/durbtkhbz/image/upload/v1770888238/Gemini_Generated_Image_6x85006x85006x85_r8fepz.png" 
-              alt="Andhra Pradesh Infrastructure Growth" 
+              alt={investmentImageAlt()} 
               className="absolute inset-0 w-full h-full object-cover"
               loading="lazy"
             />

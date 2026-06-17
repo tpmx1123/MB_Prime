@@ -1,8 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Facebook, Instagram, Linkedin, Twitter, Mail, Phone, MapPin } from 'lucide-react';
+import { Mail, Phone, MapPin } from 'lucide-react';
 import logo from '../assets/mb.png';
 import { MAIN_NAV_LINKS, PROJECT_NAV_LINKS, FOOTER_LEGAL_LINKS } from '../config/siteNav';
+import { brandLogoAlt } from '../utils/imageAlt';
+import InstagramFeed from './InstagramFeed';
 
 const Footer = () => {
     const developments = PROJECT_NAV_LINKS;
@@ -13,17 +15,12 @@ const Footer = () => {
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 md:gap-12 pb-12">
                     <div className="col-span-1 sm:col-span-2 lg:col-span-1">
                         <Link to="/" className="cursor-pointer flex items-center mb-6">
-                            <img src={logo} alt="MB Prime Logo" className="md:h-16 h-10 w-auto object-contain" loading="lazy" />
+                            <img src={logo} alt={brandLogoAlt()} className="md:h-16 h-10 w-auto object-contain" loading="lazy" />
                         </Link>
                         <p className="text-white/50 max-w-[300px] mb-8 leading-relaxed text-xs md:text-sm italic">
                             "Exceptional Living by Design." Redefining luxury through thoughtful planning and premium developments.
                         </p>
-                        <div className="flex gap-4 md:gap-5">
-                            <a href="https://www.facebook.com/profile.php?id=61573569854625" target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center text-white/40 hover:text-secondary hover:border-secondary transition-all"><Facebook size={14} /></a>
-                            <a href="https://www.instagram.com/mbprimeprojects/" target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center text-white/40 hover:text-secondary hover:border-secondary transition-all"><Instagram size={14} /></a>
-                            <a href="#" className="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center text-white/40 hover:text-secondary hover:border-secondary transition-all"><Twitter size={14} /></a>
-                            <a href="#" className="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center text-white/40 hover:text-secondary hover:border-secondary transition-all"><Linkedin size={14} /></a>
-                        </div>
+                        <InstagramFeed />
                     </div>
 
                     {/* 2. QUICK LINKS */}

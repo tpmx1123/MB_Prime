@@ -5,6 +5,7 @@ import logo from '../assets/mb.png';
 import StaggeredMenu from './StaggeredMenu';
 import CrawlableNav from './CrawlableNav';
 import { PROJECT_NAV_LINKS } from '../config/siteNav';
+import { brandLogoAlt } from '../utils/imageAlt';
 
 const LOGO_MOBILE = 'https://res.cloudinary.com/durbtkhbz/image/upload/v1773492165/mb_smwjsa.png';
 
@@ -36,8 +37,8 @@ const Header = () => {
         {/* Left: logo – mobile: black logo; desktop: default logo */}
         <div className="flex items-center gap-4 md:gap-6">
           <Link to="/" className="cursor-pointer flex items-center">
-            <img src={LOGO_MOBILE} alt="MB Prime Logo" className="h-12 w-auto object-contain md:hidden" loading="lazy" />
-            <img src={'https://res.cloudinary.com/durbtkhbz/image/upload/v1773492165/mb_smwjsa.png'} alt="MB Prime Logo" className="hidden md:block md:h-18 h-12 w-auto object-contain" loading="lazy" />
+            <img src={LOGO_MOBILE} alt={brandLogoAlt()} className="h-12 w-auto object-contain md:hidden" loading="lazy" />
+            <img src={'https://res.cloudinary.com/durbtkhbz/image/upload/v1773492165/mb_smwjsa.png'} alt={brandLogoAlt()} className="hidden md:block md:h-18 h-12 w-auto object-contain" loading="lazy" />
           </Link>
         </div>
 

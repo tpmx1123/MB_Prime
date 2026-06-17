@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion as Motion, useScroll, useTransform } from 'framer-motion';
+import { philosophyImageAlt } from '../utils/imageAlt';
 
 const IntroPhilosophy = () => {
   const containerRef = React.useRef(null);
@@ -43,7 +44,7 @@ const IntroPhilosophy = () => {
               <Motion.img
                 style={{ scale, y: yParallax }}
                 src="https://res.cloudinary.com/durbtkhbz/image/upload/v1770887999/download_1_rzrkhx.jpg"
-                alt="MB Prime Architectural Vision"
+                alt={philosophyImageAlt()}
                 className="w-full h-[120%] min-h-full object-cover"
               />
               <div className="absolute inset-0 bg-primary/5 mix-blend-multiply pointer-events-none" />

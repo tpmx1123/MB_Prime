@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronUp, ChevronLeft, ChevronRight, Search } from 'lucide-react';
 import { BLOG_POSTS as FALLBACK_POSTS } from '../data/blogs';
 import { getBlogs } from '../services/api';
+import { blogImageAlt, projectCardAlt } from '../utils/imageAlt';
 
 // Placeholder when blog has no image/carouselImage or when image fails to load
 const CAROUSEL_PLACEHOLDER = 'data:image/svg+xml,' + encodeURIComponent(
@@ -101,7 +102,7 @@ const Blogs = () => {
                 src={
                   (displayCarousel[carouselIndex]?.carouselImage || displayCarousel[carouselIndex]?.image) || CAROUSEL_PLACEHOLDER
                 }
-                alt=""
+                alt={blogImageAlt(displayCarousel[carouselIndex]?.title)}
                 className="absolute inset-0 w-full h-full object-cover"
                 loading="lazy"
                 onError={(e) => {
@@ -230,7 +231,7 @@ const Blogs = () => {
                     <div className="aspect-[4/3] relative overflow-hidden bg-slate-200">
                       <img
                         src={(post.image || post.carouselImage) || CAROUSEL_PLACEHOLDER}
-                        alt={post.title || ''}
+                        alt={blogImageAlt(post.title)}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                         loading="lazy"
                         onError={(e) => {

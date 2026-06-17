@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { founderAlt } from '../utils/imageAlt';
 
 const FOUNDER_IMAGE =
   'https://res.cloudinary.com/durbtkhbz/image/upload/v1773491654/AI_Generated_Image_2026-02-14_iw1ffu.png';
@@ -24,7 +25,7 @@ const Founder = () => {
             <div className="relative border border-white/10 rounded-2xl overflow-hidden bg-[#111] shadow-2xl">
               <img
                 src={FOUNDER_IMAGE}
-                alt="Maganti Ravi Babu, CEO & Founder"
+                alt={founderAlt()}
                 className="w-full aspect-[4/5] object-cover grayscale-[15%] group-hover:grayscale-0 transition-all duration-1000 scale-100 group-hover:scale-105"
                 loading="lazy"
               />

@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, X } from 'lucide-react';
 import Breadcrumbs from './Breadcrumbs';
+import { projectLogoAlt } from '../utils/imageAlt';
 
 const ProjectHeader = ({ project }) => {
     const [isOpen, setIsOpen] = React.useState(false);
@@ -39,7 +40,7 @@ const ProjectHeader = ({ project }) => {
                     {project.logo ? (
                         <img
                             src={project.logo}
-                            alt={`${project.name} Logo`}
+                            alt={projectLogoAlt(project)}
                             className="h-12 md:h-18 w-auto object-contain max-h-10 md:max-h-none"
                             loading="lazy"
                         />
@@ -139,7 +140,7 @@ const ProjectHeader = ({ project }) => {
                                     {project.logo ? (
                                         <img
                                             src={project.logo}
-                                            alt={`${project.name} Logo`}
+                                            alt={projectLogoAlt(project)}
                                             className="h-12 w-auto object-contain"
                                             loading="lazy"
                                         />

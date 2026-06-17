@@ -3,13 +3,14 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { MapPin, ArrowUpRight } from 'lucide-react';
 import { projects } from '../data/projects';
+import { projectCardAlt } from '../utils/imageAlt';
 
 const ProjectImage = ({ project, isHovered, shouldEagerLoad, enableHoverImage }) => {
   return (
     <div className="absolute inset-0">
       <img
         src={project.image}
-        alt={project.name}
+        alt={projectCardAlt(project)}
         fetchPriority={shouldEagerLoad ? 'high' : 'auto'}
         loading={shouldEagerLoad ? 'eager' : 'lazy'}
         decoding="async"
@@ -19,7 +20,7 @@ const ProjectImage = ({ project, isHovered, shouldEagerLoad, enableHoverImage })
         <img
           src={project.imageHover}
           alt=""
-          loading="lazy"
+          aria-hidden="true"
           decoding="async"
           className="absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-out opacity-100 scale-105"
         />

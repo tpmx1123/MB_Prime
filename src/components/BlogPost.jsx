@@ -7,6 +7,7 @@ import { BLOG_POSTS as FALLBACK_POSTS } from '../data/blogs';
 import { getBlogBySlug, getBlogs } from '../services/api';
 import BlogSidebar from './BlogSidebar';
 import NotFound from '../pages/NotFound';
+import { blogImageAlt } from '../utils/imageAlt';
 
 const SITE_URL = (import.meta.env.VITE_SITE_URL || 'https://mbprimeprojects.com').replace(/\/$/, '');
 const getReadTime = (body) => {
@@ -153,7 +154,7 @@ const BlogPost = () => {
           {heroImage ? (
             <img
               src={heroImage}
-              alt={post.title ? `${post.title} – MB Prime Projects blog` : 'Blog article image'}
+              alt={blogImageAlt(post.title)}
               className="absolute inset-0 w-full h-full object-cover"
               loading="lazy"
               onError={(e) => { e.target.style.display = 'none'; }}

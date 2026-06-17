@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import BlurText from './BlurText';
 import { useLazyVideo } from '../hooks/useLazyVideo';
+import { homeHeroAlt } from '../utils/imageAlt';
 
 const MotionDiv = motion.div;
 
@@ -127,7 +128,7 @@ const Hero = () => {
   {/* Full-Screen Background Image */}
   <img
     src={HERO_MOBILE_IMAGE}
-    alt="MB Prime Villas"
+    alt={homeHeroAlt()}
     className="absolute inset-0 w-full h-[80vh] object-cover object-center"
     loading="eager"
   />

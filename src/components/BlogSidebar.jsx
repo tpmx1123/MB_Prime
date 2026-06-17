@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { ChevronUp } from 'lucide-react';
 import { projects } from '../data/projects';
 import { BLOG_POSTS as FALLBACK_POSTS } from '../data/blogs';
+import { blogImageAlt, projectCardAlt } from '../utils/imageAlt';
 
 const BlogSidebar = ({ currentSlug = null, relatedPosts = [], posts = [] }) => {
   const articleList = posts.length > 0 ? posts : FALLBACK_POSTS;
@@ -24,7 +25,7 @@ const BlogSidebar = ({ currentSlug = null, relatedPosts = [], posts = [] }) => {
                 <div className="w-14 h-14 shrink-0 rounded overflow-hidden bg-slate-100">
                   <img
                     src={project.image}
-                    alt={project.name}
+                    alt={projectCardAlt(project)}
                     className="w-full h-full object-cover group-hover:opacity-90 transition-opacity"
                     loading="lazy"
                   />
@@ -60,7 +61,7 @@ const BlogSidebar = ({ currentSlug = null, relatedPosts = [], posts = [] }) => {
                 <div className="w-14 h-14 shrink-0 rounded overflow-hidden bg-slate-100">
                   <img
                     src={post.image}
-                    alt=""
+                    alt={blogImageAlt(post.title)}
                     className="w-full h-full object-cover group-hover:opacity-90 transition-opacity"
                     loading="lazy"
                   />
@@ -91,7 +92,7 @@ const BlogSidebar = ({ currentSlug = null, relatedPosts = [], posts = [] }) => {
                   <div className="w-14 h-14 shrink-0 rounded overflow-hidden bg-slate-100">
                     <img
                       src={post.image}
-                      alt=""
+                      alt={blogImageAlt(post.title)}
                       className="w-full h-full object-cover group-hover:opacity-90 transition-opacity"
                       loading="lazy"
                     />

@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import EnquiryForm from './EnquiryForm';
+import { locationMapAlt } from '../utils/imageAlt';
 
 const Location = () => {
     return (
@@ -38,7 +39,7 @@ const Location = () => {
                     >
                         <img 
                             src="https://res.cloudinary.com/durbtkhbz/image/upload/v1773638113/MB_Map_uuc1lg.png" 
-                            alt="MB Prime Locations Map" 
+                            alt={locationMapAlt()} 
                             className="w-full max-w-[600px] h-auto object-contain "
                             loading="lazy"
                         />
