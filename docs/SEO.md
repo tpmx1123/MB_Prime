@@ -1,253 +1,588 @@
-# MB Prime Projects — SEO Implementation Guide
+# MB Prime Projects — SEO Reference Guide
 
-This document describes the search-engine optimization (SEO) work implemented on the MB Prime website (`https://mbprimeprojects.com`). It covers technical SEO, on-page metadata, structured data, URL architecture, content strategy, performance considerations, and ongoing maintenance.
-
----
-
-## 1. Overview & Goals
-
-The site is a **React single-page application (SPA)** built with Vite and React Router. SPAs require extra care so search engines and social platforms receive correct titles, descriptions, canonical URLs, and structured data on every route—not only on the initial HTML load.
-
-**Primary SEO goals:**
-
-- Rank for location-specific real estate queries (villas, plots, gated communities in Andhra Pradesh)
-- Give each of the five project pages unique, keyword-rich metadata
-- Help Google understand the business via Schema.org structured data
-- Preserve link equity when migrating from old mixed-case project URLs
-- Improve image discoverability with descriptive alt text
-- Support rich results (FAQ snippets, breadcrumbs, organization knowledge panel signals)
+> **Purpose of this document:** A detailed, reusable blueprint for how SEO is implemented on the MB Prime website (`https://mbprimeprojects.com`). Use it as a reference when building or auditing SEO on this site or when applying the same structure to other real-estate / multi-project websites.
 
 ---
 
-## 2. Architecture
+## Table of contents
 
-### 2.1 Central SEO component
-
-**File:** `src/components/SEO.jsx`
-
-A single global `<SEO />` component is mounted in `App.jsx` and runs on every route change. It is responsible for:
-
-| Responsibility | Implementation |
-|----------------|----------------|
-| Page title | Unique per route via `SEO_CONFIG` and `PROJECT_SEO` |
-| Meta description & keywords | Per-page config objects |
-| Canonical URL | `link rel="canonical"` built from `VITE_SITE_URL` + normalized path |
-| hreflang | `en-IN` and `x-default` alternates |
-| Open Graph tags | `og:title`, `og:description`, `og:url`, `og:image`, `og:locale` |
-| Twitter Card tags | `summary_large_image` with title, description, image |
-| Robots directive | `index,follow` with large image/snippet/video preview hints |
-| JSON-LD schema | Organization, WebSite, RealEstateAgent, WebPage + page-specific schemas |
-| Favicon | Default site favicon or per-project favicon on project routes |
-| GA4 page views | `gtag('config', 'G-KS790ZMQGS', { page_path })` on navigation |
-
-**Helmet library:** `react-helmet-async` (with `HelmetProvider` in `src/main.jsx`) replaces the older `react-helmet` package so document `<title>` and meta tags update reliably during client-side navigation in React 19.
-
-**SPA title fix:** `useLayoutEffect` also sets `document.title` and the favicon `<link>` directly in the DOM so the browser tab updates immediately, even before Helmet reconciliation.
-
-### 2.2 Blog post SEO (separate from central SEO)
-
-**File:** `src/components/BlogPost.jsx`
-
-Individual blog articles use their own `<Helmet>` block because titles and descriptions are dynamic (loaded from the CMS/API). Each post includes:
-
-- Dynamic `<title>`, meta description, canonical URL
-- Open Graph `article` type tags
-- Twitter Card tags
-- `BlogPosting` JSON-LD schema
-- `BreadcrumbList` JSON-LD (Home → Blogs → Article)
-
-### 2.3 404 page
-
-**File:** `src/pages/NotFound.jsx`
-
-- Title: `Page Not Found | MB Prime Projects`
-- `meta name="robots" content="noindex, follow"` so error pages are not indexed
+1. [Executive summary](#1-executive-summary)
+2. [Multi-page architecture (important)](#2-multi-page-architecture-important)
+3. [Complete page inventory](#3-complete-page-inventory)
+4. [SEO stack overview](#4-seo-stack-overview)
+5. [Central SEO system](#5-central-seo-system)
+6. [Per-project SEO pattern](#6-per-project-seo-pattern)
+7. [On-page metadata rules](#7-on-page-metadata-rules)
+8. [URL structure & redirects](#8-url-structure--redirects)
+9. [Structured data (JSON-LD)](#9-structured-data-json-ld)
+10. [FAQ & rich results](#10-faq--rich-results)
+11. [Image SEO](#11-image-seo)
+12. [Crawlability & internal linking](#12-crawlability--internal-linking)
+13. [Sitemap, robots & LLM files](#13-sitemap-robots--llm-files)
+14. [Blog & dynamic content SEO](#14-blog--dynamic-content-seo)
+15. [Analytics & verification](#15-analytics--verification)
+16. [Hosting requirements](#16-hosting-requirements)
+17. [Replication blueprint (new project / new site)](#17-replication-blueprint-new-project--new-site)
+18. [File reference](#18-file-reference)
+19. [Maintenance checklist](#19-maintenance-checklist)
 
 ---
 
-## 3. On-Page Metadata
+## 1. Executive summary
 
-### 3.1 Site-wide defaults
+MB Prime is a **multi-page marketing website** for a real-estate developer with **five distinct project landing pages**, plus company pages, blogs, and legal pages.
 
-**File:** `index.html` (fallback for first paint / crawlers before JS)
+SEO is implemented in **code** (not hard-coded only in `index.html`) so every route gets:
 
-- Default `<title>` and meta description for the homepage
-- `google-site-verification` meta tag for Google Search Console
+- Unique `<title>`, meta description, keywords
+- Canonical URL and hreflang
+- Open Graph + Twitter Card tags
+- Schema.org JSON-LD structured data
+- Correct favicon (per project where applicable)
+- GA4 page-view tracking on navigation
+
+The site uses **React + Vite + React Router** (a Single Page Application technically), but from an SEO and user perspective it behaves as a **multi-URL website** — each project, blog post, and section has its own addressable URL listed in the sitemap.
+
+**Primary ranking targets:**
+
+- Location + property-type keywords (e.g. “villas in Srikakulam”, “plots in Vizianagaram”)
+- Brand + project names (MB Prime Villas, Prime Jewel City, etc.)
+- Real-estate investment intent in Andhra Pradesh Tier-2 cities
+
+---
+
+## 2. Multi-page architecture (important)
+
+### 2.1 SPA vs multi-page — what we actually have
+
+| Term | What it means for MB Prime |
+|------|---------------------------|
+| **SPA (Single Page Application)** | One `index.html` loads; JavaScript swaps page content when the URL changes. Faster navigation, no full reload. |
+| **Multi-page website (SEO sense)** | Many unique URLs, each with its own title, description, content, and schema. **This is what we have.** |
+| **Traditional MPA** | Separate `.html` files per route (e.g. `villas.html`). We do **not** use this — but SEO outcome is equivalent when metadata is correct. |
+
+**Common misconception:** “SPA = one page for everything.”  
+**Reality:** MB Prime has **15+ public URLs**. Five projects each have a dedicated route, component, SEO config, FAQ set, and sitemap entry.
+
+### 2.2 How routing maps to pages
+
+**File:** `src/App.jsx`
+
+```
+/                           → Home.jsx (marketing homepage — scroll sections)
+/projects                   → Projects.jsx (all projects grid)
+/projects/mb-prime-villas   → MBPrimeVillas.jsx
+/projects/mb-prime-enclave  → MBPrimeEnclave.jsx
+/projects/prime-jewel-city  → jewelcity.jsx
+/projects/capital-west      → CapitalWest.jsx
+/projects/ai-gen-serenity-villas → AIGenVillas.jsx
+/about-us                   → AboutMBPrime.jsx
+/founder                    → Founder.jsx
+/contact-us                 → ContactUs.jsx
+/blogs                      → Blogs.jsx
+/blogs/:slug                → BlogPost.jsx (dynamic)
+/privacy-policy             → PrivacyPolicy.jsx
+/terms-and-conditions       → TermsAndConditions.jsx
+```
+
+Each route is **lazy-loaded** (separate JS chunk) so project pages load independently.
+
+### 2.3 Homepage vs project pages
+
+| Page type | URL | Content model |
+|-----------|-----|---------------|
+| **Homepage** | `/` | One long scrolling page: Hero, Philosophy, Featured Projects, Commitments, Founder, Investment, FAQ, Location. Acts as the brand hub. |
+| **Project page** | `/projects/{slug}` | Standalone landing page per development: hero video/image, amenities, gallery, master plan, location, FAQ, related projects. |
+| **Listing** | `/projects` | Index of all five projects with cards linking to each URL. |
+
+**SEO implication:** Google indexes `/` and `/projects/mb-prime-villas` as **separate pages**. They do not compete as duplicates if each has unique title, description, and `RealEstateListing` schema.
+
+### 2.4 Why SPA is acceptable for SEO here
+
+Googlebot executes JavaScript and indexes client-rendered content when:
+
+1. ✅ Each route updates `<title>` and meta via `react-helmet-async` + `useLayoutEffect`
+2. ✅ Canonical URLs point to the correct path
+3. ✅ `sitemap.xml` lists all URLs
+4. ✅ Internal links use real `<a href="/projects/...">` paths (`CrawlableNav`, footer, project cards)
+5. ✅ JSON-LD is injected per page
+
+**Optional future upgrade:** Static pre-rendering or SSR (Next.js) if Search Console shows slow indexing — not required for launch if coverage is healthy.
+
+---
+
+## 3. Complete page inventory
+
+| URL | Component | Indexed | Unique SEO | Schema extras |
+|-----|-----------|---------|------------|---------------|
+| `/` | `Home.jsx` | Yes | `SEO_CONFIG['/']` | Org, WebSite, Agent, WebPage |
+| `/projects` | `Projects.jsx` | Yes | `SEO_CONFIG['/projects']` | BreadcrumbList, ItemList |
+| `/projects/mb-prime-villas` | `MBPrimeVillas.jsx` | Yes | `PROJECT_SEO` | RealEstateListing, FAQPage |
+| `/projects/mb-prime-enclave` | `MBPrimeEnclave.jsx` | Yes | `PROJECT_SEO` | RealEstateListing, FAQPage |
+| `/projects/prime-jewel-city` | `jewelcity.jsx` | Yes | `PROJECT_SEO` | RealEstateListing, FAQPage |
+| `/projects/capital-west` | `CapitalWest.jsx` | Yes | `PROJECT_SEO` | RealEstateListing, FAQPage |
+| `/projects/ai-gen-serenity-villas` | `AIGenVillas.jsx` | Yes | `PROJECT_SEO` | RealEstateListing, FAQPage |
+| `/about-us` | `AboutMBPrime.jsx` | Yes | `SEO_CONFIG` | BreadcrumbList |
+| `/founder` | `Founder.jsx` | Yes | `SEO_CONFIG` | BreadcrumbList, Person |
+| `/contact-us` | `ContactUs.jsx` | Yes | `SEO_CONFIG` | BreadcrumbList, ContactPage |
+| `/blogs` | `Blogs.jsx` | Yes | `SEO_CONFIG` | BreadcrumbList, CollectionPage |
+| `/blogs/{slug}` | `BlogPost.jsx` | Yes | Dynamic per post | BlogPosting, BreadcrumbList |
+| `/privacy-policy` | `PrivacyPolicy.jsx` | Yes | `SEO_CONFIG` | BreadcrumbList |
+| `/terms-and-conditions` | `TermsAndConditions.jsx` | Yes | `SEO_CONFIG` | BreadcrumbList |
+| `/admin*` | Admin components | **No** | — | Blocked in robots.txt |
+| `404` | `NotFound.jsx` | **No** | `noindex, follow` | — |
+
+---
+
+## 4. SEO stack overview
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                        User / Crawler                           │
+└────────────────────────────┬────────────────────────────────────┘
+                             │ HTTPS request
+                             ▼
+┌─────────────────────────────────────────────────────────────────┐
+│  Hosting (Nginx / .htaccess)                                    │
+│  • Static: sitemap.xml, robots.txt, llms.txt, favicons          │
+│  • SPA fallback: all other paths → index.html                   │
+│  • 301 redirects: legacy project URLs (_redirects)              │
+└────────────────────────────┬────────────────────────────────────┘
+                             ▼
+┌─────────────────────────────────────────────────────────────────┐
+│  index.html (first paint defaults + GSC verification + pixels)  │
+└────────────────────────────┬────────────────────────────────────┘
+                             ▼
+┌─────────────────────────────────────────────────────────────────┐
+│  React App (App.jsx)                                            │
+│  ├── <SEO />          → title, meta, OG, canonical, JSON-LD     │
+│  ├── <Routes />       → page components per URL                 │
+│  └── <Footer />       → internal links, Instagram               │
+└────────────────────────────┬────────────────────────────────────┘
+                             ▼
+┌─────────────────────────────────────────────────────────────────┐
+│  Data layer                                                     │
+│  • projects.js        → slugs, images, locations                │
+│  • projectFaqs.js     → per-project FAQ copy                      │
+│  • homeFaqs.js        → homepage FAQ copy                       │
+│  • imageAlt.js        → alt text helpers                        │
+│  • schema.js          → JSON-LD builders                        │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+**Environment variables:**
+
+| Variable | Role |
+|----------|------|
+| `VITE_SITE_URL` | Base for canonical URLs, schema `@id`, sitemap domain (default: `https://mbprimeprojects.com`) |
+| `VITE_API_URL` | Blogs API, forms (not core SEO, but blog posts depend on it) |
+
+---
+
+## 5. Central SEO system
+
+### 5.1 Main component
+
+**File:** `src/components/SEO.jsx`  
+**Mounted in:** `src/App.jsx` (runs on every route change)
+
+**Responsibilities:**
+
+| Output | Details |
+|--------|---------|
+| `<title>` | From `SEO_CONFIG` or `PROJECT_SEO` |
+| `<meta name="description">` | 150–160 char target per page |
+| `<meta name="keywords">` | Comma-separated; secondary signal |
+| `<meta name="robots">` | `index,follow,max-image-preview:large,...` |
+| `<link rel="canonical">` | `SITE_URL` + normalized path |
+| `<link rel="alternate" hreflang>` | `en-IN` + `x-default` |
+| Open Graph | `og:type`, `og:title`, `og:description`, `og:url`, `og:image`, `og:locale`, `og:site_name` |
+| Twitter Card | `summary_large_image` + title, description, image |
+| Favicon | Default or per-project from `PROJECT_FAVICONS` |
+| JSON-LD | Array of schema objects per page type |
+| GA4 | `gtag('config', 'G-KS790ZMQGS', { page_path })` |
+
+### 5.2 Helmet + useLayoutEffect (SPA fix)
+
+**Problem:** In React 19 SPAs, `document.title` sometimes failed to update on client-side navigation with older `react-helmet`.
+
+**Solution:**
+
+1. `react-helmet-async` with `HelmetProvider` in `src/main.jsx`
+2. `useLayoutEffect` in `SEO.jsx` sets `document.title` and favicon `<link>` synchronously before paint
+3. Component-level schemas (FAQ, breadcrumbs) use `useJsonLd` hook **instead of** a second Helmet instance — avoids title conflicts
+
+### 5.3 Path resolution (`resolveSeoPath`)
+
+Before generating canonical URL or looking up SEO config:
+
+1. Strip trailing slashes (except `/`)
+2. Map legacy PascalCase project paths → lowercase slugs
+3. Normalize `/about` → `/about-us`
+4. Lowercase unknown project slug variants if they match `PROJECT_SEO`
+
+This ensures **one canonical URL** per page even if users hit old links.
+
+### 5.4 Config structure
+
+```javascript
+// Pattern in SEO.jsx
+const PROJECT_SEO = {
+  'mb-prime-villas': {
+    title: '...',
+    description: '...',
+    keywords: '...',
+  },
+};
+
+const SEO_CONFIG = {
+  '/': { title, description, keywords },
+  '/projects/mb-prime-villas': PROJECT_SEO['mb-prime-villas'],
+  // ...
+};
+```
+
+Blog routes (`/blogs/:slug`) return `null` from `resolvePageSeo` — handled by `BlogPost.jsx` instead.
+
+---
+
+## 6. Per-project SEO pattern
+
+Each of the five projects follows the **same SEO template**. Replicate this for every new development.
+
+### 6.1 URL slug rules
+
+- Lowercase only
+- Words separated by hyphens
+- Format: `/projects/{brand-or-project-name}`
+- Examples: `mb-prime-villas`, `prime-jewel-city`
+
+### 6.2 Title formula
+
+```
+{Primary keyword} in {City} | {Project Name}
+```
+
+**Examples:**
+
+- `Premium Villas & Plots in Srikakulam | MB Prime Villas & Plots Project`
+- `Luxury Villas in Amaravati | AI Gen Serenity Villas`
+
+**Rules:**
+
+- City name in title for local SEO
+- Brand/project name after the pipe
+- Keep under ~60 characters where possible
+
+### 6.3 Description formula
+
+```
+{Value proposition} in {City} with {2–3 differentiators: amenities, connectivity, investment}.
+```
+
+**Example:**
+
+> Discover premium villas in Srikakulam with modern amenities, strategic location advantages and strong investment potential.
+
+### 6.4 Keywords formula
+
+```
+{property type} {city}, {synonym} {city}, {project name}, {category keyword}
+```
+
+### 6.5 OG image
+
+Project pages use `project.image` from `src/data/projects.js` as `og:image` and `twitter:image` — the hero/card image for that development.
+
+### 6.6 Per-project favicon
+
+**Directory:** `public/favicons/{slug}.ico`  
+**Mapping:** `PROJECT_FAVICONS` in `SEO.jsx`
+
+Gives each project tab a distinct icon — useful for UX and brand recognition (minor SEO signal).
+
+### 6.7 Per-project page components
+
+Each project route renders:
+
+| Section | SEO value |
+|---------|-----------|
+| Hero (video/image + H1) | Primary keyword in H1 and hero alt/video label |
+| Overview / amenities | Long-tail keywords, entity mentions |
+| Gallery / master plan | Image alt text via `imageAlt.js` |
+| Location / map | Local SEO, `locationMapAlt` on maps |
+| FAQ accordion | FAQPage schema + long-tail Q&A |
+| Related projects | Internal links to other `/projects/*` URLs |
+
+### 6.8 RealEstateListing schema
+
+**Builder:** `buildProjectListingSchema()` in `src/utils/schema.js`
+
+Each project page outputs one listing with:
+
+- `@id`: `{canonicalUrl}#listing`
+- `name`, `description`, `url`, `image`
+- `address` (locality, Andhra Pradesh, IN)
+- `floorSize` in acres (when `project.acres` exists)
+- `category` (project type)
+- `offers` → seller as `RealEstateAgent`
+
+Linked from `WebPage.mainEntity` on the same page.
+
+---
+
+## 7. On-page metadata rules
+
+### 7.1 index.html (bootstrap defaults)
+
+**File:** `index.html`
+
+Serves as fallback before React hydrates:
+
+- Default homepage `<title>` and description
+- `google-site-verification` for Search Console
 - `lang="en"` on `<html>`
-- Viewport meta for mobile-first indexing
+- Viewport for mobile-first indexing
+- Analytics pixels (GA4, Ads, Meta, Clarity)
 
-Runtime values from `SEO.jsx` override these once the app loads.
+Runtime values from `SEO.jsx` override these on navigation.
 
-### 3.2 Page-by-page SEO config
+### 7.2 Robots directives
 
-**File:** `src/components/SEO.jsx` → `SEO_CONFIG` and `PROJECT_SEO`
+| Page type | Directive |
+|-----------|-----------|
+| Marketing pages | `index, follow` + rich preview hints |
+| 404 | `noindex, follow` |
+| Admin | Disallowed in `robots.txt` (no meta needed) |
 
-Every major route has a dedicated **title**, **description**, and **keywords** string tuned for search intent:
+### 7.3 Heading hierarchy
 
-| Route | SEO focus |
-|-------|-----------|
-| `/` | Luxury villas & plots in Andhra Pradesh (brand + category) |
-| `/projects` | Portfolio of all villa/plot projects |
-| `/projects/mb-prime-villas` | Premium villas in **Srikakulam** |
-| `/projects/mb-prime-enclave` | Open plots in **Vizianagaram** |
-| `/projects/prime-jewel-city` | Residential plots in **Vijayawada** |
-| `/projects/capital-west` | Villas & plots in **Vijayawada** |
-| `/projects/ai-gen-serenity-villas` | Luxury villas in **Amaravati** |
-| `/about-us` | Real estate developer credibility |
-| `/founder` | Maganti Babu / leadership E-E-A-T |
-| `/contact-us` | Enquiry and site visit intent |
-| `/blogs` | Real estate investment content hub |
-| `/privacy-policy`, `/terms-and-conditions` | Legal/compliance pages |
+- **One `<h1>` per page** — project name or page topic in hero
+- **`<h2>`** for major sections (Amenities, Location, FAQ)
+- **`<h3>`** for subsections
+- Do not skip levels for styling convenience
 
-**Example project title pattern:**
+### 7.4 Social sharing
 
-> `Premium Villas & Plots in Srikakulam | MB Prime Villas & Plots Project`
+When a link is shared on WhatsApp/Facebook/LinkedIn:
 
-Titles follow the pattern: **Primary keyword + location | Brand/project name**.
+- `og:title` = page title
+- `og:description` = meta description
+- `og:image` = project image or default brand image
+- `og:url` = canonical URL
 
-### 3.3 Open Graph & social sharing
-
-- **Default OG image:** Cloudinary-hosted brand/project image (`DEFAULT_OG_IMAGE` in `SEO.jsx`)
-- **Project pages:** Use each project's `image` from `src/data/projects.js` as `og:image` and `twitter:image`
-- **OG locale:** `en_IN`
-- **Site name:** `MB Prime`
-
-This ensures link previews on WhatsApp, Facebook, LinkedIn, and Twitter show the correct headline, description, and image.
+Test after deploy: [Facebook Sharing Debugger](https://developers.facebook.com/tools/debug/), Twitter Card Validator.
 
 ---
 
-## 4. URL Structure & Redirects
+## 8. URL structure & redirects
 
-### 4.1 Lowercase canonical slugs
-
-All project URLs use **lowercase, hyphenated slugs** (SEO best practice—consistent, readable, no case sensitivity issues):
+### 8.1 Canonical project URLs
 
 ```
-/projects/mb-prime-villas
-/projects/mb-prime-enclave
-/projects/prime-jewel-city
-/projects/capital-west
-/projects/ai-gen-serenity-villas
+https://mbprimeprojects.com/projects/mb-prime-villas
+https://mbprimeprojects.com/projects/mb-prime-enclave
+https://mbprimeprojects.com/projects/prime-jewel-city
+https://mbprimeprojects.com/projects/capital-west
+https://mbprimeprojects.com/projects/ai-gen-serenity-villas
 ```
 
-**Data source:** `src/data/projects.js`
+### 8.2 Legacy 301 redirects
 
-### 4.2 Legacy URL redirects (301)
-
-Old PascalCase URLs are permanently redirected to lowercase equivalents:
-
-| Old URL | New canonical URL |
-|---------|-------------------|
+| Old (PascalCase) | New (canonical) |
+|------------------|-----------------|
 | `/projects/MB-Prime-Villas` | `/projects/mb-prime-villas` |
 | `/projects/MB-Prime-Enclave` | `/projects/mb-prime-enclave` |
 | `/projects/Prime-Jewel-City` | `/projects/prime-jewel-city` |
 | `/projects/Capital-West` | `/projects/capital-west` |
 | `/projects/AI-Gen-Serenity-Villas` | `/projects/ai-gen-serenity-villas` |
 
-**Implemented in:**
+**Implemented in three places (belt and suspenders):**
 
-- `src/App.jsx` — React `<Navigate replace />` routes
-- `public/_redirects` — Netlify/hosting-level 301 rules
-- `src/components/SEO.jsx` — `resolveSeoPath()` maps legacy paths to canonical paths for meta tags (so even if someone lands on an old URL briefly, canonical points to the new one)
+1. `public/_redirects` — hosting-level 301 (Netlify-compatible)
+2. `src/App.jsx` — `<Navigate to={...} replace />` for client-side
+3. `SEO.jsx` — `resolveSeoPath()` + `LEGACY_PROJECT_REDIRECTS` export for canonical tags
 
-### 4.3 Slug aliases
+### 8.3 Slug aliases in data layer
 
-**File:** `src/data/projects.js` → `SLUG_ALIASES` and `getProjectBySlug()`
+**File:** `src/data/projects.js` → `SLUG_ALIASES`, `getProjectBySlug()`
 
-Allows old slug formats to resolve project data without breaking pages during transition.
-
-### 4.4 About page normalization
-
-`/about` canonicalizes to `/about-us` in `resolveSeoPath()`.
+Resolves old slug strings to project records so components don't break during migration.
 
 ---
 
-## 5. Structured Data (Schema.org / JSON-LD)
+## 9. Structured data (JSON-LD)
 
-Structured data helps Google display rich results and understand entity relationships.
+All structured data uses **Schema.org** vocabulary in `<script type="application/ld+json">` blocks.
 
-### 5.1 Global schemas (every indexed page)
+### 9.1 Global schemas (most pages)
 
-Injected via `SEO.jsx` on all configured routes:
+| Type | Purpose |
+|------|---------|
+| `Organization` | Legal entity: name, logo, email, phone, address, `sameAs` social URLs |
+| `WebSite` | Site-level entity |
+| `RealEstateAgent` | Local business / agent classification |
+| `WebPage` | Current page: name, description, URL, `inLanguage: en-IN` |
 
-| Schema type | Purpose |
-|-------------|---------|
-| `Organization` | Company name, logo, email, phone, address, social profiles |
-| `WebSite` | Site entity |
-| `RealEstateAgent` | Local business / real estate agent signals |
-| `WebPage` | Current page name, description, URL, language (`en-IN`), link to main entity |
+### 9.2 Page-specific schemas
 
-On project pages, `WebPage.mainEntity` references the project `RealEstateListing` `@id`.
-
-### 5.2 Page-specific schemas
-
-| Page | Additional schema |
-|------|-------------------|
-| `/projects` | `BreadcrumbList`, `ItemList` (all 5 projects) |
+| Route | Additional types |
+|-------|-------------------|
+| `/projects` | `BreadcrumbList`, `ItemList` (all 5 projects with URLs) |
 | `/about-us` | `BreadcrumbList` |
-| `/founder` | `BreadcrumbList`, `Person` (Maganti Babu) |
+| `/founder` | `BreadcrumbList`, `Person` (Maganti Babu, CEO) |
 | `/contact-us` | `BreadcrumbList`, `ContactPage` |
 | `/blogs` | `BreadcrumbList`, `CollectionPage` |
-| `/privacy-policy`, `/terms-and-conditions` | `BreadcrumbList` |
-| Each project page | `RealEstateListing` (unique per project) |
+| `/blogs/{slug}` | `BlogPosting`, `BreadcrumbList` (in BlogPost.jsx) |
+| `/projects/{slug}` | `RealEstateListing` |
+| Legal pages | `BreadcrumbList` |
 
-**Schema builders:** `src/utils/schema.js`
+### 9.3 FAQPage schema
 
-### 5.3 RealEstateListing (per project)
+See [Section 10](#10-faq--rich-results).
 
-Each of the five project pages outputs a `RealEstateListing` JSON-LD block including:
+### 9.4 Injection methods
 
-- Project name, description, URL, image
-- `PostalAddress` (locality, Andhra Pradesh, IN)
-- `floorSize` in acres (when available)
-- `category` (project type)
-- `Offer` with `RealEstateAgent` seller details
+| Method | Used for |
+|--------|----------|
+| `SEO.jsx` → Helmet → `<script>` in map | Global + page-specific schemas in central component |
+| `useJsonLd(id, data)` hook | FAQ schemas, UI breadcrumbs — avoids Helmet conflicts |
+| `BlogPost.jsx` Helmet | BlogPosting + breadcrumbs |
 
-This ties on-page SEO copy to a machine-readable property listing.
+**File:** `src/hooks/useJsonLd.js` — creates/removes script tags by unique `id`.
 
-### 5.4 FAQPage schema
+### 9.5 Validation
 
-**Homepage:** `src/components/HomeFAQ.jsx` + `src/data/homeFaqs.js`  
-**Each project page:** `src/components/ProjectFAQ.jsx` + `src/data/projectFaqs.js`
-
-- 6 FAQs per project, 6 on homepage
-- Visible accordion content **matches** JSON-LD exactly (required by Google for FAQ rich results)
-- Injected via `FAQSchema.jsx` using `useJsonLd` hook (avoids duplicate/competing Helmet instances)
-
-### 5.5 BlogPosting schema
-
-Each blog article outputs `BlogPosting` with headline, description, image, dates, author, and publisher.
-
-### 5.6 Breadcrumbs
-
-- **SEO-level:** `buildBreadcrumbList()` in `schema.js` for main pages
-- **UI-level:** `src/components/Breadcrumbs.jsx` on project headers with matching JSON-LD via `useJsonLd`
-
-### 5.7 JSON-LD injection hook
-
-**File:** `src/hooks/useJsonLd.js`
-
-Injects `<script type="application/ld+json">` into `<head>` with cleanup on unmount. Used for FAQ and breadcrumb schemas that live inside page components rather than the central SEO component—this prevents Helmet conflicts that previously broke SPA title updates.
+Test URLs in [Google Rich Results Test](https://search.google.com/test/rich-results) after changes.
 
 ---
 
-## 6. Sitemap & Robots
+## 10. FAQ & rich results
 
-### 6.1 XML sitemap
+### 10.1 Why FAQs matter
 
-**File:** `public/sitemap.xml`
+FAQ sections target **long-tail queries** (“Where is MB Prime Villas located?”, “How to book site visit?”) and can produce **FAQ rich snippets** in Google when schema matches visible content.
 
-Lists all important public URLs with `changefreq` and `priority`:
+### 10.2 Homepage FAQs
 
-- Homepage (priority 1.0)
-- Projects index and all 5 project pages (0.8–0.9)
-- About, Founder, Contact, Blogs (0.7)
-- Individual blog posts (0.6)
-- Privacy Policy, Terms (lower priority)
+- **UI:** `src/components/HomeFAQ.jsx`
+- **Copy:** `src/data/homeFaqs.js` (6 questions)
+- **Schema:** `FAQSchema.jsx` → `buildFAQPage()` in `schema.js`
 
-Submitted to Google via Search Console. Referenced in `robots.txt`.
+### 10.3 Project FAQs
 
-### 6.2 Robots.txt
+- **UI:** `src/components/ProjectFAQ.jsx` on each project page
+- **Copy:** `src/data/projectFaqs.js` — keyed by slug, 6 FAQs per project
+- **Schema:** Unique `schemaId={`faq-${project.slug}`}` per project to avoid duplicate script IDs
+
+### 10.4 Critical rule
+
+> **Visible accordion text must match JSON-LD exactly.**
+
+Google penalizes or ignores FAQ schema when the answers on the page differ from structured data. Edit `homeFaqs.js` / `projectFaqs.js` only — the UI reads from these files.
+
+### 10.5 FAQ content themes (per project)
+
+1. Location & connectivity  
+2. Project scale / status  
+3. Amenities  
+4. Plot sizes / configurations  
+5. Investment rationale  
+6. How to enquire / brochure / site visit  
+
+---
+
+## 11. Image SEO
+
+### 11.1 Centralized helpers
+
+**File:** `src/utils/imageAlt.js`
+
+| Function | Usage |
+|----------|-------|
+| `projectHeroAlt(project)` | Project hero stills |
+| `projectMasterPlanAlt(project, zoomed?)` | Master plan images |
+| `projectGalleryAlt(project, label)` | Gallery thumbnails |
+| `projectAmenityAlt(project, title)` | Amenity photos |
+| `projectCardAlt(project)` | Project cards on home/listing |
+| `projectLogoAlt(project)` | Project header logos |
+| `projectBadgeAlt(label)` | VMRDA, RERA badges |
+| `brandLogoAlt()` | MB Prime logo |
+| `homeHeroAlt()` | Homepage hero |
+| `blogImageAlt(title)` | Blog images |
+| `founderAlt()` | Founder portrait |
+| `locationMapAlt()` | Location map |
+| `commitmentsImageAlt()`, `investmentImageAlt()`, `philosophyImageAlt()` | Homepage sections |
+| `heroVideoLabel(project)` | `aria-label` on hero videos |
+
+### 11.2 Alt text pattern
+
+```
+{Subject} in {City} – MB Prime Projects
+```
+
+Include **project name**, **city**, and **brand** for image search and accessibility.
+
+### 11.3 Decorative images
+
+Hover-state duplicate images on project cards use `alt=""` and `aria-hidden="true"` — correct pattern (no redundant alt).
+
+### 11.4 Performance
+
+- `loading="lazy"` on below-fold images
+- `decoding="async"` where supported
+- Hero images may use `fetchPriority="high"` on listing page first card
+
+---
+
+## 12. Crawlability & internal linking
+
+### 12.1 Crawlable navigation (hidden)
+
+**File:** `src/components/CrawlableNav.jsx`  
+**Included in:** `Header.jsx`
+
+Screen-reader-only (`sr-only`) `<nav>` with `<Link>` to every public URL from `CRAWLABLE_LINKS` in `siteNav.js`. Ensures crawlers discover all pages without opening the mobile menu.
+
+### 12.2 Visible internal links
+
+| Location | Links to |
+|----------|----------|
+| Header | Main nav pages |
+| Footer | Main nav + all 5 projects + legal |
+| Homepage `FeaturedProjectsHome` | All project URLs |
+| `/projects` grid | All project URLs |
+| Each project page | “Related Projects” → other 4 projects |
+| Blog sidebar | Projects + recent posts |
+| HomeFAQ | Link to contact / projects where relevant |
+
+### 12.3 Internal linking strategy
+
+- **Homepage** → distributes authority to `/projects` and featured projects  
+- **Project pages** → cross-link to sibling projects (topical cluster)  
+- **Blogs** → link to relevant projects and contact  
+- **Footer** → sitewide project links on every page  
+
+---
+
+## 13. Sitemap, robots & LLM files
+
+### 13.1 XML sitemap
+
+**File:** `public/sitemap.xml`  
+**URL:** `https://mbprimeprojects.com/sitemap.xml`
+
+Lists every public URL with:
+
+- `<loc>` — full HTTPS URL  
+- `<changefreq>` — hint (daily/weekly/monthly)  
+- `<priority>` — relative importance (homepage 1.0, projects 0.8–0.9)  
+
+**Submit in:** Google Search Console → Sitemaps.
+
+**When adding pages:** Add a new `<url>` block manually (or automate at build time).
+
+### 13.2 robots.txt
 
 **File:** `public/robots.txt`
 
@@ -261,209 +596,284 @@ Disallow: /admin-forgot-password
 Disallow: /admin-reset-password
 
 Sitemap: https://mbprimeprojects.com/sitemap.xml
+
+# AI / LLM systems
+# Short index: https://mbprimeprojects.com/llms.txt
+# Extended guide: https://mbprimeprojects.com/llms-full.txt
 ```
 
-Admin routes are blocked from indexing; all public marketing pages are allowed.
+**Hosting:** Must be served as a static file — not rewritten to `index.html`. Configured in `deploy/hostinger-vps-nginx.example.conf`.
+
+### 13.3 LLM files (AI discoverability)
+
+Following the [llms.txt convention](https://llmstxt.org), we publish machine-readable site guides for AI assistants, ChatGPT browsing, Perplexity, and future AI crawlers.
+
+#### `public/llms.txt` (short index)
+
+**URL:** `https://mbprimeprojects.com/llms.txt`
+
+**Purpose:** Quick reference — company summary, canonical page list, contact, pointer to full guide.
+
+**Format:**
+
+```markdown
+# Site Name
+
+> One-line description
+
+Brief paragraph about the business.
+
+## Key pages
+
+- [Page name](https://full-url/): What this page is for
+
+## Contact & location
+
+- Phone, email, address, social
+
+## Optional
+
+- [Extended guide](https://domain/llms-full.txt)
+- [Sitemap](https://domain/sitemap.xml)
+```
+
+**When to update:** New public page, new project, contact change, Instagram URL change.
+
+#### `public/llms-full.txt` (extended guide)
+
+**URL:** `https://mbprimeprojects.com/llms-full.txt`
+
+**Purpose:** Authoritative deep reference for AI systems — detailed project breakdowns, FAQ summaries, site structure table, citation rules.
+
+**Includes:**
+
+1. Company background (founder, markets, property types)  
+2. Each project: URL, location, scale, highlights, status  
+3. Homepage FAQ text (condensed)  
+4. Site structure table (`/` vs `/projects/{slug}`)  
+5. **Citation guidance** — rules for AI when answering about MB Prime:
+   - Use canonical lowercase URLs  
+   - Don't merge distinct projects  
+   - Don't invent pricing — direct to enquiry  
+   - Flagship project callout (MB Prime Villas, 70 acres)  
+6. Admin routes marked as **do not cite**  
+7. Technical notes (SPA, schema types, sitemap link)  
+
+**Why two files?**
+
+| File | Audience | Size |
+|------|----------|------|
+| `llms.txt` | Quick AI lookup, link discovery | ~35 lines |
+| `llms-full.txt` | Detailed answers, replication context | ~130 lines |
+
+#### Replicating LLM files on another site
+
+1. Copy structure from `public/llms.txt` and `public/llms-full.txt`  
+2. Replace brand name, domain, projects, contact  
+3. Add comment lines in `robots.txt` pointing to both files  
+4. Ensure nginx/Apache serves `.txt` files statically  
+5. Add `llms.txt` / `llms-full.txt` to sitemap optional section or link from `llms.txt` Optional block  
+6. Keep in sync when projects/pages change (same checklist as sitemap)  
 
 ---
 
-## 7. Image SEO
+## 14. Blog & dynamic content SEO
 
-### 7.1 Centralized alt text helpers
+### 14.1 Blog listing (`/blogs`)
 
-**File:** `src/utils/imageAlt.js`
+Handled by central `SEO.jsx` — static title/description in `SEO_CONFIG`.
 
-All meaningful images use descriptive, keyword-aware alt text via helper functions:
+### 14.2 Blog posts (`/blogs/:slug`)
 
-| Helper | Used for |
-|--------|----------|
-| `projectHeroAlt()` | Project hero images |
-| `projectMasterPlanAlt()` | Master plan layouts |
-| `projectGalleryAlt()` | Villa/plot gallery images |
-| `projectAmenityAlt()` | Amenity photos |
-| `projectCardAlt()` | Project cards on home & listing pages |
-| `projectLogoAlt()` | Per-project logos in header |
-| `projectBadgeAlt()` | VMRDA / RERA badges |
-| `brandLogoAlt()` | MB Prime logo |
-| `homeHeroAlt()` | Homepage hero |
-| `blogImageAlt()` | Blog thumbnails and hero images |
-| `founderAlt()` | Founder portrait |
-| `locationMapAlt()` | Location map |
-| `commitmentsImageAlt()`, `investmentImageAlt()`, `philosophyImageAlt()` | Homepage section images |
-| `heroVideoLabel()` | Accessible label on project hero videos |
+**File:** `src/components/BlogPost.jsx`
 
-**Pattern:** `{Subject} in {City} – MB Prime Projects`
+Because titles come from the API/CMS, each post manages its own Helmet:
 
-Decorative hover images (duplicate visuals on project cards) correctly use `alt=""` and `aria-hidden`.
+| Tag | Source |
+|-----|--------|
+| Title | `{post.title} \| MB Prime Blogs` |
+| Description | `post.excerpt` or first 160 chars of body |
+| Canonical | `{SITE_URL}/blogs/{slug}` |
+| OG type | `article` |
+| OG image | `post.carouselImage` or `post.image` |
+| Schema | `BlogPosting` + `BreadcrumbList` |
 
-### 7.2 Lazy loading
+`useLayoutEffect` sets `document.title` for SPA consistency.
 
-Images use `loading="lazy"` and `decoding="async"` where appropriate to support Core Web Vitals without hurting crawlability (Google executes JavaScript and reads `alt` attributes).
+### 14.3 Sitemap entries for blogs
+
+Each published post should have a `<url>` in `sitemap.xml`. Currently manual — add when publishing new posts.
 
 ---
 
-## 8. Crawlability & Internal Linking
+## 15. Analytics & verification
 
-### 8.1 Crawlable navigation
-
-**File:** `src/components/CrawlableNav.jsx`
-
-A screen-reader-only (`sr-only`) `<nav>` in the header contains `<Link>` elements to **every** public page (main nav, all projects, legal pages). Search bots that do not interact with JavaScript menus can still discover the full site structure from the HTML.
-
-**Link source:** `src/config/siteNav.js` → `CRAWLABLE_LINKS`
-
-### 8.2 Footer & header links
-
-Footer and header repeat links to all projects and key pages, reinforcing internal link equity to high-value landing pages.
-
-### 8.3 Project cross-linking
-
-Each project page includes a "Related Projects" section linking to the other four developments.
-
----
-
-## 9. Per-Project Favicons
-
-**Directory:** `public/favicons/`
-
-Each project route serves a unique favicon in the browser tab:
-
-- `mb-prime-villas.ico`
-- `mb-prime-enclave.ico`
-- `prime-jewel-city.ico`
-- `capital-west.ico`
-- `ai-gen-serenity-villas.ico`
-
-Configured in `SEO.jsx` → `PROJECT_FAVICONS` and applied via `useLayoutEffect` + Helmet.
-
----
-
-## 10. Analytics & Tracking (SEO-adjacent)
-
-These tools support measurement and remarketing; they do not directly affect rankings but are part of the marketing stack:
-
-| Tool | ID / Location | Purpose |
-|------|---------------|---------|
-| Google Analytics 4 | `G-KS790ZMQGS` | Traffic, page paths, conversions |
+| Tool | ID | SEO-related use |
+|------|-----|-----------------|
+| Google Search Console | `google-site-verification` in index.html | Index coverage, queries, rich results |
+| Google Analytics 4 | `G-KS790ZMQGS` | Landing pages, organic traffic by path |
 | Google Ads | `AW-16982010540` | Conversion tracking |
-| Meta Pixel | `1508555837586936` | Facebook/Instagram ads |
-| Microsoft Clarity | `wpsvtqasaf` | Session recordings, heatmaps |
-| ContentSquare | `index.html` | UX analytics |
+| Meta Pixel | `1508555837586936` | Remarketing |
+| Microsoft Clarity | `wpsvtqasaf` | UX / engagement (indirect SEO) |
 
-GA4 receives SPA page-view updates on each route change from `SEO.jsx`.
-
----
-
-## 11. Content SEO Features
-
-### 11.1 Homepage FAQ section
-
-Location- and intent-targeted questions about MB Prime's projects, cities, enquiries, brochures, and Tier-2 investment—designed for FAQ rich snippets.
-
-### 11.2 Project FAQ sections
-
-Each project page has 6 unique FAQs covering location, plot sizes, amenities, approvals, investment rationale, and how to book a visit. Copy is localized to that project's city and features.
-
-### 11.3 Blog hub
-
-`/blogs` targets informational queries (EMI calculators, appreciation, infrastructure). Individual posts have full metadata and `BlogPosting` schema.
-
-### 11.4 Semantic HTML
-
-- One `<h1>` per page (hero sections)
-- Section headings (`<h2>`, `<h3>`) for amenities, location, FAQ, etc.
-- `aria-label` on icon-only buttons and hero videos
+GA4 page paths use **canonical paths** from `SEO.jsx` (`page_path: canonicalPath`), so reports match SEO URLs not legacy variants.
 
 ---
 
-## 12. Environment Configuration
+## 16. Hosting requirements
 
-| Variable | Purpose |
-|----------|---------|
-| `VITE_SITE_URL` | Canonical base URL (default: `https://mbprimeprojects.com`) |
-| `VITE_API_URL` | Backend API for blogs, forms, Instagram feed |
+### 16.1 SPA fallback
 
-Set these in your deployment environment (Hostinger VPS, Netlify, etc.) so canonical URLs and API calls resolve correctly in production.
+All non-file routes must return `index.html` so `/projects/mb-prime-villas` works on direct load or refresh.
 
----
+**Apache:** `public/.htaccess`  
+**Nginx:** `deploy/hostinger-vps-nginx.example.conf`
 
-## 13. Hosting & Technical Notes
+### 16.2 Static files (never rewrite to SPA)
 
-### 13.1 SPA routing
+These must return real file content:
 
-Nginx (or Netlify `_redirects`) must serve `index.html` for all non-file routes so deep links like `/projects/mb-prime-villas` work. See `deploy/hostinger-vps-nginx.example.conf`.
+- `/sitemap.xml`
+- `/robots.txt`
+- `/llms.txt`
+- `/llms-full.txt`
+- `/favicons/*`
+- `/assets/*` (hashed JS/CSS)
 
-### 13.2 Static assets
+### 16.3 HTTPS
 
-`sitemap.xml` and `robots.txt` are served as real files (not rewritten to `index.html`).
-
-### 13.3 Pre-render consideration
-
-The site is client-rendered. Googlebot generally handles React SPAs well when:
-
-- Metadata updates via Helmet on navigation ✓
-- Content is in the DOM (not hidden behind auth) ✓
-- Sitemap and internal links are present ✓
-
-For faster indexing of critical pages, optional future enhancement: static pre-rendering (e.g. `vite-plugin-ssr`, Prerender.io, or SSR).
+Canonical URLs assume `https://`. Enforce SSL redirect at server level.
 
 ---
 
-## 14. File Reference
+## 17. Replication blueprint (new project / new site)
 
-| File | SEO role |
-|------|----------|
-| `src/components/SEO.jsx` | Central metadata, OG, Twitter, canonical, global JSON-LD |
-| `src/utils/schema.js` | JSON-LD builders |
-| `src/hooks/useJsonLd.js` | Component-level JSON-LD injection |
-| `src/components/FAQSchema.jsx` | FAQPage schema |
-| `src/components/HomeFAQ.jsx` | Homepage FAQ UI + schema |
-| `src/components/ProjectFAQ.jsx` | Project FAQ UI + schema |
+Use this checklist when adding a **sixth project** to MB Prime or cloning this SEO structure to **another developer website**.
+
+### Phase 1 — Data & routing
+
+- [ ] Add project to `src/data/projects.js` with `slug`, `name`, `location`, `image`, `overview`, etc.
+- [ ] Create project page component `src/components/{ProjectName}.jsx`
+- [ ] Add route in `App.jsx`: `/projects/{slug}`
+- [ ] Add to `PROJECT_NAV_LINKS` and `CRAWLABLE_LINKS` in `siteNav.js`
+- [ ] Add footer link in `Footer.jsx`
+
+### Phase 2 — SEO metadata
+
+- [ ] Add entry to `PROJECT_SEO` in `SEO.jsx` (title, description, keywords)
+- [ ] Add to `SEO_CONFIG` at `/projects/{slug}`
+- [ ] Add favicon `public/favicons/{slug}.ico` + `PROJECT_FAVICONS` entry
+- [ ] Verify `resolveSeoPath` handles the slug (lowercase)
+
+### Phase 3 — Structured data & content
+
+- [ ] Add 6 FAQs to `projectFaqs.js` (match UI text exactly)
+- [ ] Include `<ProjectFAQ project={project} />` on page
+- [ ] `RealEstateListing` auto-generates via `SEO.jsx` when `getProjectBySlug` resolves
+- [ ] Use `imageAlt.js` helpers on all images
+
+### Phase 4 — Discovery files
+
+- [ ] Add `<url>` to `public/sitemap.xml`
+- [ ] Add project block to `public/llms-full.txt`
+- [ ] Add line to `public/llms.txt` Key pages section
+- [ ] Update homepage FAQ if it lists all projects by name
+
+### Phase 5 — QA before launch
+
+- [ ] Visit `/projects/{slug}` — correct title in browser tab
+- [ ] View source / DevTools — canonical, OG tags, JSON-LD present
+- [ ] [Rich Results Test](https://search.google.com/test/rich-results) — RealEstateListing + FAQPage valid
+- [ ] Share link on WhatsApp — correct preview image and title
+- [ ] Search Console URL inspection — “URL is on Google” or request indexing
+- [ ] Confirm direct URL refresh works (SPA hosting config)
+
+### Title / description templates (copy-paste)
+
+```
+Title:    {Property type} in {City} | {Project Name}
+Description: {Discover/Explore} {property type} in {City} with {benefit 1}, {benefit 2} and {benefit 3}.
+Keywords: {property type} {city}, {synonym} {city}, {project name}, {developer name}
+```
+
+---
+
+## 18. File reference
+
+| File | Role |
+|------|------|
+| `src/components/SEO.jsx` | Central metadata, OG, Twitter, canonical, global JSON-LD, GA4 |
+| `src/utils/schema.js` | JSON-LD builders (listing, FAQ, breadcrumb, person, etc.) |
+| `src/hooks/useJsonLd.js` | Component-level JSON-LD without Helmet conflicts |
+| `src/components/FAQSchema.jsx` | FAQPage schema wrapper |
+| `src/components/HomeFAQ.jsx` | Homepage FAQ UI |
+| `src/components/ProjectFAQ.jsx` | Project FAQ UI |
 | `src/data/homeFaqs.js` | Homepage FAQ copy |
-| `src/data/projectFaqs.js` | Per-project FAQ copy |
-| `src/data/projects.js` | Slugs, images, project data for listings |
+| `src/data/projectFaqs.js` | Per-project FAQ copy (6 each) |
+| `src/data/projects.js` | Slugs, images, locations, `getProjectBySlug` |
 | `src/utils/imageAlt.js` | Image alt text helpers |
-| `src/components/BlogPost.jsx` | Blog metadata + BlogPosting schema |
-| `src/components/CrawlableNav.jsx` | Hidden crawlable links |
-| `src/config/siteNav.js` | Shared nav URLs |
-| `public/sitemap.xml` | URL discovery for crawlers |
-| `public/robots.txt` | Crawl rules |
-| `public/llms.txt` | Short LLM/AI index ([llms.txt](https://llmstxt.org)) |
-| `public/llms-full.txt` | Extended AI guide (projects, FAQs, citations) |
+| `src/components/BlogPost.jsx` | Dynamic blog SEO |
+| `src/components/CrawlableNav.jsx` | Hidden crawler navigation |
+| `src/config/siteNav.js` | Shared URLs for header, footer, crawl nav |
+| `src/App.jsx` | Routes, legacy redirects, `<SEO />` mount |
+| `src/main.jsx` | `HelmetProvider` |
+| `src/pages/NotFound.jsx` | 404 with `noindex` |
+| `index.html` | Bootstrap meta, GSC verification, analytics |
+| `public/sitemap.xml` | URL discovery |
+| `public/robots.txt` | Crawl rules + LLM file pointers |
+| `public/llms.txt` | Short AI/LLM index |
+| `public/llms-full.txt` | Extended AI guide + citation rules |
 | `public/_redirects` | Legacy 301 redirects |
-| `index.html` | Default meta, verification, analytics |
 | `public/favicons/*` | Per-project favicons |
+| `public/.htaccess` | Apache SPA fallback |
+| `deploy/hostinger-vps-nginx.example.conf` | Nginx static + SPA rules |
+| `docs/SEO.md` | This reference document |
 
 ---
 
-## 15. Maintenance Checklist
+## 19. Maintenance checklist
 
-When adding or changing content, follow these steps:
+### Weekly / after content changes
 
-1. **New public page** — Add entry to `SEO_CONFIG` in `SEO.jsx`, `sitemap.xml`, and `siteNav.js` / `CRAWLABLE_LINKS`.
-2. **New project** — Add slug to `projects.js`, `PROJECT_SEO`, `PROJECT_FAVICONS`, `projectFaqs.js`, route in `App.jsx`, sitemap entry, and footer project list.
-3. **New blog post** — Publish via admin; add URL to `sitemap.xml` (or automate sitemap generation).
-4. **URL change** — Add 301 redirect in `_redirects` and `LEGACY_PROJECT_REDIRECTS`; update sitemap and internal links.
-5. **FAQ update** — Keep visible accordion text and JSON-LD in sync.
-6. **Images** — Use `imageAlt.js` helpers; never leave meaningful images without alt text.
-7. **Search Console** — Monitor coverage, FAQ rich results, Core Web Vitals, and mobile usability.
-8. **OG images** — Verify previews after deploy (WhatsApp, Facebook Debugger, Twitter Card Validator).
+- [ ] New blog post → sitemap entry + verify BlogPosting schema
+- [ ] FAQ edit → update data file only; confirm UI matches
+- [ ] New image → use `imageAlt.js` helper
 
----
+### After adding a project
 
-## 16. Summary
+- [ ] Complete [Replication blueprint](#17-replication-blueprint-new-project--new-site) Phase 1–5
 
-The MB Prime website SEO strategy combines:
+### Monthly
 
-- **Technical SEO:** Canonical URLs, sitemap, robots, 301 redirects, lowercase URLs, SPA-safe metadata
-- **On-page SEO:** Unique titles, descriptions, and keywords per page and project
-- **Structured data:** Organization, RealEstateAgent, RealEstateListing, FAQPage, BlogPosting, BreadcrumbList
-- **Content SEO:** Location-specific project pages, FAQs, blogs, founder/about E-E-A-T pages
-- **Image SEO:** Centralized descriptive alt text across all components
-- **Crawlability:** Hidden nav links, footer/header internal linking, related projects
+- [ ] Search Console: coverage errors, FAQ rich results, Core Web Vitals
+- [ ] Check organic landing pages in GA4 match `/projects/*` URLs
+- [ ] Re-test OG previews if hero images changed
 
-All metadata is managed in code (`SEO.jsx`, `schema.js`, FAQ data files) so updates are version-controlled and deploy with the application.
+### When domain or brand changes
+
+- [ ] Update `VITE_SITE_URL`
+- [ ] Update `sitemap.xml`, `robots.txt`, `llms.txt`, `llms-full.txt`
+- [ ] Update `SEO.jsx` Organization `sameAs` and contact fields
+- [ ] Set up 301 redirects from old domain
 
 ---
 
-*Last updated: June 2026 — MB Prime Projects website codebase*
+## Summary
+
+| Layer | What we do |
+|-------|------------|
+| **Architecture** | Multi-URL React SPA — 5 project pages + company + blogs, each indexable |
+| **Technical SEO** | Canonicals, sitemap, robots, 301s, lowercase slugs, SPA-safe titles |
+| **On-page SEO** | Unique title/description/keywords per URL; H1 hierarchy; local keywords |
+| **Structured data** | Organization, Agent, RealEstateListing, FAQPage, BlogPosting, Breadcrumbs |
+| **Content SEO** | Per-project FAQs, homepage FAQ, blogs, founder/about E-E-A-T |
+| **Image SEO** | Centralized alt helpers with city + project + brand |
+| **Crawlability** | Hidden nav, footer/header links, related projects, sitemap |
+| **AI discoverability** | `llms.txt` + `llms-full.txt` with citation guidance |
+| **Replicability** | Config-driven `SEO.jsx` + data files — copy blueprint for new projects/sites |
+
+All SEO metadata lives in version-controlled code so changes deploy with the app and can be reused as a **reference template** for future MB Prime developments or other real-estate websites.
+
+---
+
+*Last updated: June 2026 — MB Prime Projects (`mbprimeprojects.com`)*
