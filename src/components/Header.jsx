@@ -3,6 +3,8 @@ import { Link, useLocation } from 'react-router-dom';
 import { Phone } from 'lucide-react';
 import logo from '../assets/mb.png';
 import StaggeredMenu from './StaggeredMenu';
+import CrawlableNav from './CrawlableNav';
+import { PROJECT_NAV_LINKS } from '../config/siteNav';
 
 const LOGO_MOBILE = 'https://res.cloudinary.com/durbtkhbz/image/upload/v1773492165/mb_smwjsa.png';
 
@@ -18,14 +20,10 @@ const Header = () => {
       link: '/projects',
       children: [
         { label: 'Projects', link: '/projects' },
-        { label: 'MB Prime Villas | Srikakulam', link: '/projects/MB-Prime-Villas' },
-        { label: 'MB Prime Enclave | Vizianagaram', link: '/projects/MB-Prime-Enclave' },
-        { label: 'Prime Jewel City | Vijayawada', link: '/projects/Prime-Jewel-City' },
-        { label: 'Capital West | Vijayawada', link: '/projects/capital-west' },
-        { label: 'AI Gen Serenity Villas | Amaravati', link: '/projects/ai-gen-serenity-villas' },
+        ...PROJECT_NAV_LINKS,
       ],
     },
-    { label: 'About MB Prime', link: '/about-us/' },
+    { label: 'About MB Prime', link: '/about-us' },
     { label: 'Founder', link: '/founder' },
     { label: 'Blogs', link: '/blogs' },
     { label: 'Contact', link: '/contact-us' },
@@ -33,6 +31,7 @@ const Header = () => {
 
   return (
     <header className="absolute top-0 left-0 w-full z-[1000] py-6 bg-transparent">
+      <CrawlableNav />
       <div className="container flex justify-between items-center">
         {/* Left: logo – mobile: black logo; desktop: default logo */}
         <div className="flex items-center gap-4 md:gap-6">

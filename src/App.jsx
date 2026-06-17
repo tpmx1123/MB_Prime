@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route, useLocation, Navigate } from 'r
 // Layout & UI (always loaded for shell)
 import Header from './components/Header';
 import Footer from './components/Footer';
-import SEO from './components/SEO';
+import SEO, { LEGACY_PROJECT_REDIRECTS } from './components/SEO';
 import EnquiryPopup from './components/EnquiryPopup';
 
 // Lazy-loaded pages – only the active route chunk is loaded
@@ -22,6 +22,7 @@ const BlogPost = lazy(() => import('./components/BlogPost'));
 const ContactUs = lazy(() => import('./pages/ContactUs'));
 const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'));
 const TermsAndConditions = lazy(() => import('./pages/TermsAndConditions'));
+const NotFound = lazy(() => import('./pages/NotFound'));
 const AdminLogin = lazy(() => import('./components/admin/AdminLogin'));
 const AdminForgotPassword = lazy(() => import('./components/admin/AdminForgotPassword'));
 const AdminResetPassword = lazy(() => import('./components/admin/AdminResetPassword'));
@@ -177,11 +178,14 @@ function App() {
               <Route path="/admin/blogs/edit/:id" element={<AdminBlogEdit />} />
               <Route path="/" element={<Home />} />
               <Route path="/projects" element={<Projects />} />
-              <Route path="/projects/MB-Prime-Villas" element={<MBPrimeVillas />} />
-              <Route path="/projects/Prime-Jewel-City" element={<JewelCity />} />
-              <Route path="/projects/MB-Prime-Enclave" element={<MBPrimeEnclave />} />
-              <Route path="/projects/Capital-West" element={<CapitalWest />} />
+              <Route path="/projects/mb-prime-villas" element={<MBPrimeVillas />} />
+              <Route path="/projects/prime-jewel-city" element={<JewelCity />} />
+              <Route path="/projects/mb-prime-enclave" element={<MBPrimeEnclave />} />
+              <Route path="/projects/capital-west" element={<CapitalWest />} />
               <Route path="/projects/ai-gen-serenity-villas" element={<AIGenVillas />} />
+              {Object.entries(LEGACY_PROJECT_REDIRECTS).map(([from, to]) => (
+                <Route key={from} path={from} element={<Navigate to={to} replace />} />
+              ))}
               <Route path="/about" element={<AboutMBPrime asPage />} />
               <Route path="/about-us" element={<AboutMBPrime asPage />} />
               <Route path="/about-us/" element={<AboutMBPrime asPage />} />
@@ -191,8 +195,7 @@ function App() {
               <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
               <Route path="/blogs" element={<Blogs />} />
               <Route path="/blogs/:slug" element={<BlogPost />} />
-              {/* Fallback: redirect any wrong URL to home */}
-              <Route path="*" element={<Navigate to="/" replace />} />
+              <Route path="*" element={<NotFound />} />
             </Routes>
           </main>
           <FooterWrapper />

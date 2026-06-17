@@ -2,15 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Facebook, Instagram, Linkedin, Twitter, Mail, Phone, MapPin } from 'lucide-react';
 import logo from '../assets/mb.png';
+import { MAIN_NAV_LINKS, PROJECT_NAV_LINKS, FOOTER_LEGAL_LINKS } from '../config/siteNav';
 
 const Footer = () => {
-    const developments = [
-        { label: 'MB Prime Villas | Srikakulam', link: '/projects/MB-Prime-Villas' },
-        { label: 'MB Prime Enclave | Vizianagaram', link: '/projects/MB-Prime-Enclave' },
-        { label: 'Prime Jewel City | Vijayawada', link: '/projects/Prime-Jewel-City' },
-        { label: 'Capital West | Vijayawada', link: '/projects/capital-west' },
-        { label: 'AI Gen Serenity Villas | Amaravati', link: '/projects/AI-Gen-Serenity-Villas' },
-    ];
+    const developments = PROJECT_NAV_LINKS;
 
     return (
         <footer className="md:pt-16 pt-12 bg-[#0A0A0A] border-t border-white/10 text-white">
@@ -35,13 +30,20 @@ const Footer = () => {
                     <div className="col-span-1">
                         <h4 className="text-secondary font-sans font-bold uppercase tracking-[0.2em] md:tracking-[0.3em] text-[9px] md:text-[10px] mb-6 md:mb-8">Navigation</h4>
                         <ul className="space-y-3 md:space-y-4">
-                            <li><Link to="/" className="text-[11px] md:text-sm text-white/60 hover:text-white transition-colors">Home</Link></li>
-                            <li><Link to="/about-us/" className="text-[11px] md:text-sm text-white/60 hover:text-white transition-colors">About Us</Link></li>
-                            <li><Link to="/founder" className="text-[11px] md:text-sm text-white/60 hover:text-white transition-colors">The Founder</Link></li>
-                            <li><a href="/blogs" className="text-[11px] md:text-sm text-white/60 hover:text-white transition-colors">Blogs</a></li>
-                            <li><Link to="/contact-us" className="text-[11px] md:text-sm text-white/60 hover:text-white transition-colors">Contact Us</Link></li>
-                            <li><Link to="/privacy-policy" className="text-[11px] md:text-sm text-white/60 hover:text-white transition-colors">Privacy Policy</Link></li>
-                            <li><Link to="/terms-and-conditions" className="text-[11px] md:text-sm text-white/60 hover:text-white transition-colors">Terms & Conditions</Link></li>
+                            {MAIN_NAV_LINKS.map((item) => (
+                                <li key={item.link}>
+                                    <Link to={item.link} className="text-[11px] md:text-sm text-white/60 hover:text-white transition-colors">
+                                        {item.label === 'Founder' ? 'The Founder' : item.label}
+                                    </Link>
+                                </li>
+                            ))}
+                            {FOOTER_LEGAL_LINKS.map((item) => (
+                                <li key={item.link}>
+                                    <Link to={item.link} className="text-[11px] md:text-sm text-white/60 hover:text-white transition-colors">
+                                        {item.label}
+                                    </Link>
+                                </li>
+                            ))}
                         </ul>
                     </div>
 

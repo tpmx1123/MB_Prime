@@ -8,7 +8,7 @@ import {
 } from 'lucide-react';
 import { projects, getProjectBySlug } from '../data/projects';
 import ProjectHeader from './ProjectHeader';
-import { updateFavicon, updatePageTitle } from '../utils/favicon';
+import ProjectFAQ from './ProjectFAQ';
 import { useLazyVideo } from '../hooks/useLazyVideo';
 const iconMap = {
   Footprints, Trophy, Target, Zap, Smile, Trees, Music, Home, Waves, Users, Sunrise, Droplets, Leaf, Compass, Check,
@@ -16,24 +16,14 @@ const iconMap = {
 };
 
 const JewelCity = () => {
-  const project = getProjectBySlug('Prime-Jewel-City');
+  const project = getProjectBySlug('prime-jewel-city');
   const { ref: heroVideoRef, shouldLoad: shouldLoadHeroVideo } = useLazyVideo({ rootMargin: '100px' });
 
   const [startIndex, setStartIndex] = useState(0);
   useEffect(() => {
-    updateFavicon(project?.favicon);
-    updatePageTitle(project?.name);
-
-    // Reset to default when component unmounts
-    return () => {
-      updateFavicon(); // Reset to default
-      updatePageTitle(); // Reset to default
-    };
-  }, [project]);
-  useEffect(() => {
     setStartIndex(0);
-  }, ['Prime-Jewel-City']);
-  const allOtherProjects = projects.filter(p => p.slug !== 'Prime-Jewel-City');
+  }, ['prime-jewel-city']);
+  const allOtherProjects = projects.filter(p => p.slug !== 'prime-jewel-city');
   const visibleProjects = allOtherProjects.slice(startIndex, startIndex + 4);
 
   const nextProjects = () => {
@@ -182,11 +172,13 @@ const JewelCity = () => {
 
 
 
+      <ProjectFAQ project={project} />
+
       {/* Other Projects Section */}
       <section id="other-projects" className="py-20 bg-white border-t border-slate-100 scroll-mt-24">
         <div className="container">
           <div className="flex items-center justify-between mb-10">
-            <h2 className="text-3xl font-sans text-slate-400">Other <span className="font-bold text-primary">Projects</span></h2>
+            <h2 className="text-3xl font-sans text-slate-400">Related <span className="font-bold text-primary">Projects</span></h2>
 
             {allOtherProjects.length > 4 && (
               <div className="flex gap-2">

@@ -2,6 +2,7 @@ import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, X } from 'lucide-react';
+import Breadcrumbs from './Breadcrumbs';
 
 const ProjectHeader = ({ project }) => {
     const [isOpen, setIsOpen] = React.useState(false);
@@ -23,6 +24,7 @@ const ProjectHeader = ({ project }) => {
         { id: 'layout', label: 'Layout' },
         { id: 'location', label: 'Location' },
         { id: 'amenities', label: 'Amenities' },
+        { id: 'faq', label: 'FAQ' },
         { id: 'other-projects', label: 'Other Projects' }
     ];
 
@@ -79,6 +81,12 @@ const ProjectHeader = ({ project }) => {
                         className="text-white/90 font-sans font-medium text-sm uppercase tracking-wider hover:text-secondary transition-colors"
                     >
                         Amenities
+                    </button>
+                    <button
+                        onClick={() => scrollToSection('faq')}
+                        className="text-white/90 font-sans font-medium text-sm uppercase tracking-wider hover:text-secondary transition-colors"
+                    >
+                        FAQ
                     </button>
                     <button
                         onClick={() => scrollToSection('other-projects')}
@@ -198,6 +206,15 @@ const ProjectHeader = ({ project }) => {
                         </>
                     )}
                 </AnimatePresence>
+            </div>
+            <div className="container mt-2 pb-1">
+                <Breadcrumbs
+                    items={[
+                        { label: 'Home', link: '/' },
+                        { label: 'Projects', link: '/projects' },
+                        { label: project.name },
+                    ]}
+                />
             </div>
         </header>
     );

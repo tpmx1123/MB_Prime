@@ -16,7 +16,7 @@ import enclaveBrochure from '../assets/EnclaveBrochure.pdf';
 // Order: 1. Vijayawada, 2. MB Prime Enclave, 3. MB Prime Villas, 4. Capital West, 5. AI Gen Villas
 export const projects = [
   {
-    slug: 'Prime-Jewel-City',
+    slug: 'prime-jewel-city',
     name: 'Prime Jewel City ',
     tagline: 'LIVE IN THE HEART OF VIJAYAWADA',
     heroImageTag: null,
@@ -55,7 +55,7 @@ export const projects = [
     ],
   },
   {
-    slug: 'MB-Prime-Enclave',
+    slug: 'mb-prime-enclave',
     name: 'MB Prime Enclave ',
     tagline: 'THE PRIDE OF VIZIANAGARAM',
     heroImageTag: null,
@@ -169,7 +169,7 @@ export const projects = [
     ],
   },
   {
-    slug: 'MB-Prime-Villas',
+    slug: 'mb-prime-villas',
     name: 'MB Prime Villas',
     tagline: 'LUXURY REDEFINED IN SRIKAKULAM',
     heroImageTag: null,
@@ -489,4 +489,20 @@ export const projects = [
   },
 ];
 
-export const getProjectBySlug = (slug) => projects.find((p) => p.slug === slug);
+const SLUG_ALIASES = {
+  'MB-Prime-Villas': 'mb-prime-villas',
+  'MB-Prime-Enclave': 'mb-prime-enclave',
+  'Prime-Jewel-City': 'prime-jewel-city',
+  'Capital-West': 'capital-west',
+  'AI-Gen-Serenity-Villas': 'ai-gen-serenity-villas',
+};
+
+export const getProjectBySlug = (slug) => {
+  const normalized = SLUG_ALIASES[slug] || slug;
+  return projects.find((p) => p.slug === normalized);
+};
+
+export const projectFaviconPath = (slug) => {
+  const normalized = SLUG_ALIASES[slug] || slug;
+  return `/favicons/${normalized}.ico`;
+};

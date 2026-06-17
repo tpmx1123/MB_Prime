@@ -8,7 +8,7 @@ import {
 } from 'lucide-react';
 import { projects, getProjectBySlug } from '../data/projects';
 import ProjectHeader from './ProjectHeader';
-import { updateFavicon, updatePageTitle } from '../utils/favicon';
+import ProjectFAQ from './ProjectFAQ';
 import { useLazyVideo } from '../hooks/useLazyVideo';
 
 const iconMap = {
@@ -17,7 +17,7 @@ const iconMap = {
 };
 
 const MBPrimeVillas = () => {
-  const project = getProjectBySlug('MB-Prime-Villas');
+  const project = getProjectBySlug('mb-prime-villas');
   const { ref: heroVideoRef, shouldLoad: shouldLoadHeroVideo } = useLazyVideo({ rootMargin: '100px' });
   const [showBadge, setShowBadge] = useState(true);
 
@@ -51,27 +51,16 @@ const MBPrimeVillas = () => {
     ? [currentVilla.tag, currentVilla.tag1, currentVilla.tag2, currentVilla.tag3].filter(Boolean)
     : [];
 
-  const allOtherProjects = projects.filter(p => p.slug !== 'MB-Prime-Villas');
+  const allOtherProjects = projects.filter(p => p.slug !== 'mb-prime-villas');
   const visibleProjects = allOtherProjects.slice(startIndex, startIndex + 4);
 
   // Refs
   const tabsRef = useRef([]);
   const tabsContainerRef = useRef(null);
 
-  // Effects
-  useEffect(() => {
-    updateFavicon(project?.favicon);
-    updatePageTitle(project?.name);
-
-    return () => {
-      updateFavicon();
-      updatePageTitle();
-    };
-  }, [project]);
-
   useEffect(() => {
     setStartIndex(0);
-  }, ['MB-Prime-Villas']);
+  }, ['mb-prime-villas']);
 
   // Reset thumbnail selection when switching villa tabs
   useEffect(() => {
@@ -868,11 +857,13 @@ const MBPrimeVillas = () => {
         </div>
       </section>
 
+      <ProjectFAQ project={project} />
+
       {/* Other Projects Section */}
       <section id="other-projects" className="py-20 bg-white border-t border-slate-100 scroll-mt-24">
         <div className="container px-4">
           <div className="flex items-center justify-between mb-10 gap-4">
-            <h2 className="text-2xl md:text-3xl font-sans text-slate-400">Other <span className="font-bold text-primary">Projects</span></h2>
+            <h2 className="text-2xl md:text-3xl font-sans text-slate-400">Related <span className="font-bold text-primary">Projects</span></h2>
             {allOtherProjects.length > 4 && (
               <div className="flex gap-2 shrink-0">
                 <button

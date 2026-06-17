@@ -8,7 +8,7 @@ import {
 } from 'lucide-react';
 import { projects, getProjectBySlug } from '../data/projects';
 import ProjectHeader from './ProjectHeader';
-import { updateFavicon, updatePageTitle } from '../utils/favicon';
+import ProjectFAQ from './ProjectFAQ';
 import { useLazyVideo } from '../hooks/useLazyVideo';
 const iconMap = {
   Footprints, Trophy, Target, Zap, Smile, Trees, Music, Home, Waves, Users, Sunrise, Droplets, Leaf, Compass, Check,
@@ -16,7 +16,7 @@ const iconMap = {
 };
 
 const MBPrimeEnclave = () => {
-  const project = getProjectBySlug('MB-Prime-Enclave');
+  const project = getProjectBySlug('mb-prime-enclave');
   const { ref: heroVideoRef, shouldLoad: shouldLoadHeroVideo } = useLazyVideo({ rootMargin: '100px' });
   const [showBadge, setShowBadge] = useState(true);
   
@@ -49,7 +49,7 @@ const MBPrimeEnclave = () => {
     ? [currentVilla.tag, currentVilla.tag1, currentVilla.tag2, currentVilla.tag3].filter(Boolean)
     : [];
 
-  const allOtherProjects = projects.filter(p => p.slug !== 'MB-Prime-Enclave');
+  const allOtherProjects = projects.filter(p => p.slug !== 'mb-prime-enclave');
   const visibleProjects = allOtherProjects.slice(startIndex, startIndex + 4);
 
   // 3. REFS
@@ -58,18 +58,8 @@ const MBPrimeEnclave = () => {
 
   // 4. EFFECTS
   useEffect(() => {
-    updateFavicon(project?.favicon);
-    updatePageTitle(project?.name);
-
-    return () => {
-      updateFavicon(); 
-      updatePageTitle(); 
-    };
-  }, [project]);
-
-  useEffect(() => {
     setStartIndex(0);
-  }, ['MB-Prime-Enclave']);
+  }, ['mb-prime-enclave']);
 
   // Reset thumbnail selection when switching villa tabs
   useEffect(() => {
@@ -908,11 +898,13 @@ const MBPrimeEnclave = () => {
         </div >
       </section >
 
+      <ProjectFAQ project={project} />
+
       {/* Other Projects Section */}
       <section id="other-projects" className="py-20 bg-white border-t border-slate-100 scroll-mt-24">
         <div className="container">
           <div className="flex items-center justify-between mb-10">
-            <h2 className="text-3xl font-sans text-slate-400">Other <span className="font-bold text-primary">Projects</span></h2>
+            <h2 className="text-3xl font-sans text-slate-400">Related <span className="font-bold text-primary">Projects</span></h2>
 
             {allOtherProjects.length > 4 && (
               <div className="flex gap-2">

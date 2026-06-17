@@ -5,6 +5,7 @@ import FeaturedProjectsHome from '../components/FeaturedProjectsHome';
 import Commitments from '../components/Commitments';
 import FounderSection from '../components/FounderSection';
 import InvestmentPerspective from '../components/InvestmentPerspective';
+import HomeFAQ from '../components/HomeFAQ';
 import Location from '../components/Location';
 
 const Home = () => (
@@ -15,6 +16,7 @@ const Home = () => (
     <Commitments />
     <FounderSection />
     <InvestmentPerspective />
+    <HomeFAQ />
     <Location />
   </>
 );

@@ -1,10 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useParams, Navigate } from 'react-router-dom';
+import React, { useState, useEffect, useLayoutEffect } from 'react';
+import { Link, useParams } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import { motion as Motion } from 'framer-motion';
 import { Facebook, Twitter, MessageCircle, Linkedin, Link2 } from 'lucide-react';
 import { BLOG_POSTS as FALLBACK_POSTS } from '../data/blogs';
 import { getBlogBySlug, getBlogs } from '../services/api';
 import BlogSidebar from './BlogSidebar';
+import NotFound from '../pages/NotFound';
+
+const SITE_URL = (import.meta.env.VITE_SITE_URL || 'https://mbprimeprojects.com').replace(/\/$/, '');
 const getReadTime = (body) => {
   const words = body.trim().split(/\s+/).length;
   return Math.max(1, Math.ceil(words / 200));
@@ -58,6 +62,8 @@ const BlogPost = () => {
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     let cancelled = false;
+    setLoading(true);
+    setPost(null);
     Promise.all([getBlogBySlug(slug), getBlogs()])
       .then(([single, list]) => {
         if (cancelled) return;
@@ -73,6 +79,12 @@ const BlogPost = () => {
       .finally(() => { if (!cancelled) setLoading(false); });
     return () => { cancelled = true; };
   }, [slug]);
+  const blogPageTitle = post ? `${post.title} | MB Prime Blogs` : '';
+
+  useLayoutEffect(() => {
+    if (blogPageTitle) document.title = blogPageTitle;
+  }, [blogPageTitle]);
+
   if (loading) {
     return (
       <div className="min-h-screen bg-white text-slate-900 pt-24 flex items-center justify-center">
@@ -80,7 +92,7 @@ const BlogPost = () => {
       </div>
     );
   }
-  if (!post) return <Navigate to="/blogs" replace />;
+  if (!post) return <NotFound />;
   const readTime = getReadTime(typeof post.body === 'string' ? post.body : '');
   const relatedByCategory = allPosts.filter((p) => p.slug !== slug && (p.category || '') === (post.category || ''));
   let relatedPosts = relatedByCategory.slice(0, 4);
@@ -90,15 +102,58 @@ const BlogPost = () => {
   }
   const isHtmlBody = typeof post.body === 'string' && (post.body.trim().startsWith('<') || post.body.includes('</'));
   const heroImage = post.carouselImage || post.image || '';
+  const postUrl = `${SITE_URL}/blogs/${post.slug}`;
+  const description = post.excerpt || (typeof post.body === 'string' ? post.body.slice(0, 160) : '');
+  const blogSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: post.title,
+    description,
+    image: heroImage || undefined,
+    datePublished: post.date || post.createdAt,
+    author: { '@type': 'Organization', name: post.author || 'MB Prime Projects' },
+    publisher: {
+      '@type': 'Organization',
+      name: 'MB Prime Projects',
+      logo: { '@type': 'ImageObject', url: 'https://res.cloudinary.com/durbtkhbz/image/upload/v1773492165/mb_smwjsa.png' },
+    },
+    mainEntityOfPage: { '@type': 'WebPage', '@id': postUrl },
+  };
   return (
     <div className="min-h-screen bg-white text-slate-900">
+      <Helmet>
+        <title>{post.title} | MB Prime Blogs</title>
+        <meta name="description" content={description} />
+        <link rel="canonical" href={postUrl} />
+        <meta property="og:type" content="article" />
+        <meta property="og:title" content={post.title} />
+        <meta property="og:description" content={description} />
+        <meta property="og:url" content={postUrl} />
+        {heroImage && <meta property="og:image" content={heroImage} />}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={post.title} />
+        <meta name="twitter:description" content={description} />
+        {heroImage && <meta name="twitter:image" content={heroImage} />}
+        <script type="application/ld+json">{JSON.stringify(blogSchema)}</script>
+        <script type="application/ld+json">
+          {JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            itemListElement: [
+              { '@type': 'ListItem', position: 1, name: 'Home', item: SITE_URL },
+              { '@type': 'ListItem', position: 2, name: 'Blogs', item: `${SITE_URL}/blogs` },
+              { '@type': 'ListItem', position: 3, name: post.title, item: postUrl },
+            ],
+          })}
+        </script>
+      </Helmet>
       {/* Full-width hero below header (reference style) */}
       <section className="relative w-full min-h-[45vh] sm:min-h-[50vh] md:min-h-[55vh] pt-16 bg-slate-200">
         <div className="absolute inset-0">
           {heroImage ? (
             <img
               src={heroImage}
-              alt=""
+              alt={post.title ? `${post.title} – MB Prime Projects blog` : 'Blog article image'}
               className="absolute inset-0 w-full h-full object-cover"
               loading="lazy"
               onError={(e) => { e.target.style.display = 'none'; }}
@@ -113,8 +168,10 @@ const BlogPost = () => {
           {/* Left: Main content - breadcrumbs, title, meta, body */}
           <div className="flex-1 min-w-0 order-1">
             {/* Breadcrumbs: Category > Title (reference style) */}
-            <nav className="text-sm text-slate-500 mb-3">
-              <Link to="/blogs" className="hover:text-secondary transition-colors">{post.category || 'Blogs'}</Link>
+            <nav className="text-sm text-slate-500 mb-3" aria-label="Breadcrumb">
+              <Link to="/" className="hover:text-secondary transition-colors">Home</Link>
+              <span className="mx-2 text-slate-400">›</span>
+              <Link to="/blogs" className="hover:text-secondary transition-colors">Blogs</Link>
               <span className="mx-2 text-slate-400">›</span>
               <span className="text-slate-600 line-clamp-1">{post.title}</span>
             </nav>
