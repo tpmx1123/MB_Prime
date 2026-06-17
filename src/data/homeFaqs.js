@@ -3,7 +3,7 @@ export const HOME_FAQS = [
   {
     question: 'What projects does MB Prime offer in Andhra Pradesh?',
     answer:
-      'MB Prime develops premium real estate across Andhra Pradesh, including MB Prime Villas — luxury and budget villa plots in Srikakulam, MB Prime Enclave open plots in Vizianagaram, Prime Jewel City residential plots in Vijayawada, Capital West luxury villas and plots in Vijayawada, and AI Gen Serenity luxury villas in Amaravati.',
+      'MB Prime develops premium real estate across Andhra Pradesh, including MB Prime Villas in Srikakulam, MB Prime Enclave in Vizianagaram, Prime Jewel City and Capital West in Vijayawada, and AI Gen Serenity Villas in Amaravati. Each project is planned with quality infrastructure, thoughtful layouts, and long-term value in mind.',
   },
   {
     question: 'Which cities and locations does MB Prime develop in?',
@@ -24,11 +24,6 @@ export const HOME_FAQS = [
     question: 'Is investing in villa plots in Tier-2 cities a good long-term option?',
     answer:
       'Tier-2 cities in Andhra Pradesh are seeing strong infrastructure growth, improving connectivity, and rising residential demand. Gated villa plot communities in locations like Srikakulam and Vizianagaram offer affordable entry points with long-term appreciation potential when backed by a trusted developer.',
-  },
-  {
-    question: 'Where can I find luxury or budget villas in Srikakulam?',
-    answer:
-      'For villas in Srikakulam, visit MB Prime Villas at mbprimeprojects.com/projects/mb-prime-villas — a 70-acre gated community offering luxury villa plots and budget-friendly options with VMRDA-approved layouts and 25+ amenities near GEMS Hospital Road.',
   },
   {
     question: 'How do I download a project brochure?',

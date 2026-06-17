@@ -29,66 +29,39 @@ const PROJECT_FAVICONS = {
 
 const PROJECT_SEO = {
   'mb-prime-villas': {
-    title: 'Villas & Plots in Srikakulam | Luxury & Budget Villa Plots | MB Prime Villas',
+    title: 'Premium Villas & Plots in Srikakulam | MB Prime Villas & Plots Project',
     description:
-      'Looking for villas & plots in Srikakulam? MB Prime Villas offers luxury villa plots and budget-friendly gated community living on 70 acres near GEMS Hospital Road — VMRDA-approved, 25+ amenities. Book a site visit.',
+      'Discover premium villas in Srikakulam with modern amenities, strategic location advantages and strong investment potential.',
     keywords:
-      'villas & plots in Srikakulam, luxury villas & plots Srikakulam, budget villas & plots Srikakulam, villa plots & plots Srikakulam, gated community & plots Srikakulam, premium villas & plots Srikakulam, MB Prime Villas & plots, MB Prime Villas & plots Srikakulam',
-    alternateNames: [
-      'Villas in Srikakulam',
-      'Luxury Villas in Srikakulam',
-      'Budget Villas & Plots in Srikakulam',
-      'MB Prime Villas Srikakulam',
-    ],
+      'premium villas Srikakulam, villas in Srikakulam, gated community villas, MB Prime Villas',
   },
   'mb-prime-enclave': {
-    title: 'Open Plots in Vizianagaram | Gated Residential Plots | MB Prime Enclave',
+    title: 'Premium Open Plots in Vizianagaram | MB Prime Enclave',
     description:
-      'Explore open plots and residential plots in Vizianagaram at MB Prime Enclave — a gated community with modern amenities, strong connectivity, and budget-friendly investment options.',
+      'Explore premium open plots in Vizianagaram with excellent connectivity, quality infrastructure and long-term investment value.',
     keywords:
-      'plots in Vizianagaram, open plots Vizianagaram, residential plots Vizianagaram, gated community Vizianagaram, budget plots Vizianagaram, MB Prime Enclave, real estate Vizianagaram',
-    alternateNames: [
-      'Plots in Vizianagaram',
-      'Open Plots in Vizianagaram',
-      'MB Prime Enclave Vizianagaram',
-    ],
+      'open plots Vizianagaram, plots in Vizianagaram, MB Prime Enclave, real estate Vizianagaram',
   },
   'prime-jewel-city': {
-    title: 'Residential Plots in Vijayawada | Premium Plots & Towers | Prime Jewel City',
+    title: 'Residential Plots in Vijayawada | Prime Jewel City',
     description:
-      'Prime Jewel City offers premium residential plots and apartments in Vijayawada on 52 acres — 3 towers, G+15 floors, 70% open area, and excellent connectivity to schools and city hubs.',
+      'Premium residential plots in Vijayawada offering strategic location advantages, modern infrastructure and future growth opportunities.',
     keywords:
-      'residential plots Vijayawada, plots in Vijayawada, premium plots Vijayawada, apartments Vijayawada, Prime Jewel City, real estate Vijayawada, gated community Vijayawada',
-    alternateNames: [
-      'Residential Plots in Vijayawada',
-      'Plots in Vijayawada',
-      'Prime Jewel City Vijayawada',
-    ],
+      'residential plots Vijayawada, plots in Vijayawada, Prime Jewel City, real estate Vijayawada',
   },
   'capital-west': {
-    title: 'Luxury Villas & Plots in Vijayawada | Premium Living | Capital West',
+    title: 'Premium Villas & Plots in Vijayawada | Capital West',
     description:
-      'Discover luxury villas and premium plots in Vijayawada at Capital West — a 100-acre planned mixed-use community with modern infrastructure and strong long-term investment potential.',
+      'Discover premium villas and plots in Vijayawada with excellent connectivity, modern infrastructure and investment potential.',
     keywords:
-      'villas in Vijayawada, luxury villas Vijayawada, plots in Vijayawada, premium villas Vijayawada, Capital West Vijayawada, gated community Vijayawada, real estate Vijayawada',
-    alternateNames: [
-      'Villas in Vijayawada',
-      'Luxury Villas in Vijayawada',
-      'Plots in Vijayawada',
-      'Capital West Vijayawada',
-    ],
+      'villas Vijayawada, plots Vijayawada, Capital West, premium real estate Vijayawada',
   },
   'ai-gen-serenity-villas': {
-    title: 'Luxury Villas in Amaravati | Premium Smart Villas | AI Gen Serenity Villas',
+    title: 'Luxury Villas in Amaravati | AI Gen Serenity Villas',
     description:
-      'AI Gen Serenity Villas brings luxury villas in Amaravati — a 35-acre smart gated community with premium amenities, sustainable design, and future-ready living in the capital region.',
+      'Luxury villas in Amaravati featuring modern architecture, premium amenities and a future-ready lifestyle.',
     keywords:
-      'luxury villas Amaravati, villas in Amaravati, premium villas Amaravati, smart villas Amaravati, gated community Amaravati, AI Gen Serenity Villas, MB Prime Amaravati',
-    alternateNames: [
-      'Luxury Villas in Amaravati',
-      'Villas in Amaravati',
-      'AI Gen Serenity Villas Amaravati',
-    ],
+      'luxury villas Amaravati, villas in Amaravati, AI Gen Serenity Villas, premium villas Andhra Pradesh',
   },
 };
 
@@ -385,10 +358,7 @@ const SEO = () => {
         break;
       default:
         if (project) {
-          const listing = buildProjectListingSchema(project, {
-            description: seo.description,
-            alternateNames: seo.alternateNames,
-          });
+          const listing = buildProjectListingSchema(project, { description: seo.description });
           if (listing) pageSpecific.push(listing);
         }
         break;
