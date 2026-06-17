@@ -10,18 +10,11 @@ export default defineConfig({
   ],
 
   build: {
-    minify: 'terser',
-
+    minify: 'esbuild',
     sourcemap: false,
-
-    terserOptions: {
-      compress: {
-        drop_console: true,
-        drop_debugger: true,
-      },
-      format: {
-        comments: false,
-      },
+    esbuild: {
+      drop: ['console', 'debugger'],
+      legalComments: 'none',
     },
   },
 });
